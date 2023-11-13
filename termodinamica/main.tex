@@ -1,0 +1,129 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+% importa moduli
+\usepackage{dsfont}
+\usepackage{amssymb}
+%\usepackage{cases}
+\usepackage{ifthen}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={180mm,280mm},
+ left=15mm,
+ top=5mm,
+ }
+\usepackage{stackengine}
+\usepackage{amsmath} 
+\usepackage{mathtools}
+\newcommand\ubar[1]{\stackunder[1.2pt]{$#1$}{\rule{.8ex}{.075ex}}}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+%\graphicspath{ {./ims/} }
+
+\title{Termodinamica}
+\author{Luca Vettore}
+\date{November 2023}
+
+\begin{document}
+
+\include{clib}
+
+\maketitle
+
+\section{Introduzione}
+Lo scopo di questo documento è quello di fornire un percorso alternativo per lo studio della termodinamica. Le varie sezioni affrontano in modo approfondito un macro-argomento, combinando informazioni prese da libri e internet, rielaborate e presentate in un modo ritenuto più logico dall'autore. Questo documento è inteso come uno strumento aggiuntivo per lo studio della materia, ma richiede già una conoscenza pregressa degli argomenti trattati. L'ordine delle sezioni è abbastanza casuale ed è possibile vi siano ripetizioni o vengano usati concetti definiti in una sezione successiva.
+
+
+
+
+
+\section{La temperatura}
+Un sistema è detto chiuso quando è in grado di scambiare energia, ma non materia con l'ambiente esterno. Mettendo a contatto due sistemi chiusi, questi potranno solamente scambiare energia sotto forma di lavoro o calore.\\
+Consideriamo due sistemi chiusi che non possono scambiare lavoro (ad esempio contenitori diatermani con pareti rigide). Mettendo a contatto i due sistemi, si osservano comunque trasformazioni fisiche (cambiamenti nelle grandezze che li descrivono, ad es volume o pressione). Se non avvengono trasformazioni, allora i due sistemi sono detti in equilibrio termico.\\\\
+Introduciamo ora il principio 0 della termodinamica:
+\begin{center}
+    \textit{Dati tre sistemi A,B,C, se A è in equilibrio termico con B e B è in equilibrio termico con C, allora A è in equilibrio termico con C.}
+\end{center}
+Deve quindi esistere una proprietà comune tra i 3 sistemi che ne descrive l'equilibrio termico. Questa proprietà è la temperatura ed è una grandezza intensiva (non è additiva rispetto ai sistemi).\\\\
+Come possiamo quantificare la temperatura? Prendiamo due sistemi A e B, descritti da due coordinate termodinamiche $(X_i^j,Y_i^j)$. Per prima cosa prepariamo il sistema A negli stati $A_j$ e li mettiamo a contatto con B fino al raggiungimento dell'equilibrio termico. Possiamo quindi misurare le coordinate $(X_a^j,Y_a^j)$ e rappresentarle su un piano cartesiano. Ripetiamo il procedimento con gli stati $B_j$ mettendoli a contatto con A. Otterremo due curve, dette isoterme, dove ogni stato è in equilibrio termico con tutti gli altri ($\Leftarrow$ principio 0).\\
+Con un procedimento analogo possiamo tracciare alcune isoterme per uno dei due sistemi. Fissiamo $Y=y_0$, i punti corrispondenti sulle varie isoterme permettono di associare $X^j$ a varie temperature $t^j$. Scegliamo due di queste isoterme come riferimento, troviamo $X_1,X_2$ intersezioni delle isoterme con $Y=y_0$ e dividiamo questo intervallo in un certo numero di gradi. La temperatura sarà quindi una funzione $t=\tau(x)$, di solito scelta lineare per comodità.\\
+La temperatura così definita è quindi indice dello stato termico di un sistema.
+
+\subsection{Esempi di scale termometriche}
+\subsubsection{Termometri analogici e Celsius ($^oC$)}
+Nella pratica risulta comodo prendere come riferimento due sistemi in cui vi è equilibrio tra varie fasi (ad es solido e liquido). Durante una transizione di fase, un sistema tende a mantenere la stessa temperatura e il calore che gli viene fornito è utilizzato per rompere i legami chimici tra la molecole (calore latente).\\\\
+La scala Celsius prende come riferimento il punto di fusione dell'acqua e il suo punto di ebollizione. Una scelta pratica per la grandezza termometrica da utilizzare può essere fatta prendendo in considerazione la dilatazione termica. Un corpo con una dimensione molto maggiore delle altre, tenderà ad espandersi all'aumentare della temperatura secondo la legge:
+$$ l(t)\simeq l_0(1+\alpha\Delta t) $$
+Misurando l'oggetto in equilibrio termico con i due punti di riferimento, è possibile ottenere una scala di temperature in cui a una temperatura in gradi $^oC$ corrisponde ad una certa lunghezza. Questo è il principio di funzionamento dei termometri analogici.
+
+\subsubsection{Termometri a gas e Kelvin ($K$)}
+Possiamo definire una scala termometrica assoluta usando un gas e la legge di Gay-Lussac. Un gas mantenuto a volume costante segue la legge:
+$$ \frac{P_0}{T_0}=\frac{P_1}{P_0} \Rightarrow P(T) \propto T $$
+Possiamo usare lo stesso riferimento di prima e ottenere una scala termometrica assoluta (perchè legata al comportamento dei gas). Dividendo nuovamente l'intervallo in 100 gradi e aggiungendo la condizione $0^oC=273,16K$ otteniamo una facile corrispondenza tra Celsius e Kelvin.
+
+\subsubsection{Macchine termiche e scala termodinamica}
+Il primo teorema di Carnot prevede che le quantità di calore scambiate durante un ciclo di Carnot dipenda esclusivamente dalle temperature delle due isoterme. Possiamo definire un'ulteriore scala termometrica, nota come scala termodinamica, partendo da questo risultato.\\
+Consideriamo tre macchine termiche $M_i$. La prima opera tra le temperature $t_1,t_2$, quindi applicando il teorema di Carnot:
+$$ \left| \frac{Q_1}{Q_2} \right| = f(t1, t2) $$
+La seconda opera tra $t_1, t_3$, da cui:
+$$ \left| \frac{Q_1}{Q_3} \right| = f(t1, t3) $$
+e la terza tra $t_2,t_3$:
+$$ \left| \frac{Q_2}{Q_3} \right| = f(t2, t3) $$
+con dei semplici passaggi algebrici:
+$$ \left| \frac{Q_1}{Q_2} \right| = \left| \frac{Q_1}{Q_3} \right| \cdot \left| \frac{Q_3}{Q_2} \right| = \frac{f(t_1, t_3)}{f(t_2,t_3)} = \frac{\theta(t_1)}{\theta(t_2)} = \frac{T_1}{T_2} \text{\;(dal T di Carnot)} $$
+quindi:
+$$ T=T_0\left| \frac{Q}{Q_0} \right| $$
+con un'appropriata scelta di parametri, questa scala può essere fatta coincidere con quella assoluta.
+
+
+
+
+\newpage
+\section{I gas}
+
+\subsection{I gas perfetti}
+Il primo modello di gas che studiamo è quello di gas ideale o perfetto. Questo modello si basa su alcune ipotesi:
+\begin{itemize}
+    \item il gas è formato da molecole puntiformi non interagenti
+    \item gli urti tra le particelle sono elastici e tra due urti una particella si muove di moto rettilineo uniforme
+    \item la distribuzione delle particelle è isotropa
+    \item non vi sono attriti interni o con le pareti del contenitore. Equivalentemente, l'energia si conserva
+\end{itemize}
+Un gas reale è ben approssimato da questo modello a basse pressioni e alte temperature.\\
+Un gas perfetto è descritto dalla terna di coordinate termodinamiche $(P,V,T)$.
+
+\subsubsection{Osservazioni sperimentali ed equazione di stato}
+Partiamo da una serie di osservazioni e leggi sperimentali, da cui poi ricaveremo un risultato più generale.
+\begin{itemize}
+    \item \textit{Legge di Boyle-Mariotte}: durante una trasformazione a temperatura costante vale: $$ PV = const \quad\text{(t costante)} $$
+    \item \textit{Legge di Charles}: in una trasformazione a pressione costante vale:
+    $$ V=V_0(1+\alpha\Delta t) \quad\text{(P costante)} $$
+    \item \textit{Legge di Gay-Lussac}: durante una trasformazione a volume costante vale:
+    $$ P=P_0(1+\alpha\Delta t)\quad \text{V costante} $$    
+\end{itemize}
+Dove $\alpha$ è una costante universale (indipendente dal gas) e vale $\alpha = \frac{1}{273,16}$.\\\\
+Introducendo la scala termometrica assoluta e la conversione $T=t\frac{K}{^oC}+T_0$ con $T_0=273,16K$, possiamo riscrivere le ultime due leggi:
+\begin{itemize}
+    \item \textit{Legge di Charles}:
+    $$ V=V_0(1+\frac{T-T_0}{T_0})=V_0\frac{T}{T_0} \Rightarrow \frac{V}{T}=\frac{V_0}{T_0}\quad\text{P costante}$$
+
+    \item \textit{Legge di Gay-Lussac}:
+    $$ P=P_0(1+\frac{T-T_0}{T_0})=P_0\frac{T}{T_0}\Rightarrow\frac{P}{T}=\frac{P_0}{T_0}\quad\text{V costante} $$
+\end{itemize}
+Combinando le leggi di Boyle-Mariotte, Charles e Gay-Lussac, possiamo derivare l'equazione di stato dei gas perfetti. Iniziamo con una trasformazione isobara (a pressione costante) e successivamente applichiamo una trasformazione isoterma (a temperatura costante). Durante la trasformazione isobara, secondo la legge di Charles, il volume di un gas è direttamente proporzionale alla sua temperatura assoluta, ovvero $ V \propto T $. Successivamente, applicando la trasformazione isoterma, secondo la legge di Boyle-Mariotte, il prodotto di pressione e volume è costante, ovvero $ PV = \text{costante} $.\\\\
+Combinando queste relazioni, otteniamo che $ PV \propto T $. Ulteriori osservazioni sperimentali ci portano a esprimere tale risultato come:
+$$PV=nRT$$
+dove $n$ rappresenta il numero di moli e $R$ è la costante dei gas perfetti. Questa relazione è nota come legge di stato dei gas perfetti.\\\\
+La costante dei gas perfetti $ R $può essere espressa in diverse unità. In termini di energia, quando si utilizza il Joule come unità di energia, il valore di $ R $ è approssimativamente $ 8.314 \, \text{J/(mol·K)} $. Se invece si utilizza la Caloria il valore di $ R $ è circa $ 1.987 \, \text{cal/(mol·K)} $. Questi valori riflettono le diverse scale energetiche e sono utili a seconda del contesto dell'analisi termodinamica.\\\\
+
+\newpage
+\section{Sezione di prova}
+Equazione di prova:
+$$\alpha \frac{\varepsilon}{\epsilon}$$
+
+
+
+\Index
+
+\end{document}
