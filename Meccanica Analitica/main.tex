@@ -1,0 +1,301 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\input{../libs/packages.tex}
+
+\title{Meccanica Analitica}
+\author{Luca Vettore}
+\date{Primo semestre 2022-2023}
+
+\begin{document}
+
+\input{../libs/clib.tex}
+
+\maketitle
+
+
+\section{Spazi e superfici}
+
+\subsection{Spazi geometrici}
+Per lo studio dei vari approcci alla meccanica possono risultare utili le definizioni dei seguenti spazi geometrici.
+
+\subsubsection{Spazio ambiente}
+Lo spazio ambiente è lo spazio in cui è immerso il sistema studiato.\\
+Si tratta solitamente di $\R^3$ o di un suo sottoinsieme aperto.
+
+\subsubsection{Spazio delle configurazioni}
+Spazio che contiene le coordinate generalizzate che identificano univocamente la posizione di tutti gli elementi di un sistema. Si tratta solitamente di una varietà differenziabile all'interno dello spazio delle coordinate generalizzate.\\
+Ha dimensione pari al numero di gradi di libertà del sistema.
+
+\subsubsection{Spazio degli stati}
+Definito come fibrato cotangente dello spazio delle configurazioni, contiene le coordinate generalizzate e le velocità generalizzate che caratterizzano univocamente lo stato del sistema.\\
+Ha dimensione doppia rispetto al numero di gradi di libertà del sistema.\\
+Nello studio di alcuni sistemi meccanici può essere utile tracciare le curve di livello dell'energia all'interno di tale spazio (\textbf{ritratto di fase}).
+
+\subsubsection{Spazio delle fasi}
+Simile allo spazio degli stati, ma al posto delle velocità generalizzate contiene i momenti coniugati degli elementi del sistema.\\
+Ha dimensione doppia rispetto al numero di gradi di libertà del sistema.\\
+Utile per l'interpretazione geometrica delle equazioni di Hamilton utilizzando il flusso Hamiltoniano.
+
+
+\subsection{Teoria locale delle superfici}
+Un vincolo può essere espresso nella forma $f(x,y,z)=0$. Questa forma descrive interamente una superficie bidimensionale in $\R^3$.
+Non sempre da tale forma è possibile ricavare una funzione univoca che permetta di ricavare una coordinata in funzione delle altre due, può quindi risultare necessario l'utilizzo di più rappresentazioni locali (si pensi al caso della sfera). Tali rappresentazioni, note come \textbf{formule di immersione}, forniscono funzioni che permettono di passare dalle coordinate su una mappa della superficie immersa nello spazio ambiente allo spazio ambiente stesso.\\\\
+Data una superficie M e una sua mappa locale, è possibile definire per ogni punto P su M due \textbf{vettori coordinati} $v_i=\pd{x}{q_i}$. Tali vettori saranno contenuti nello spazio ambiente e saranno tangenti alla superficie nel punto P, generano quindi il piano tangente alla superficie in tale punto (spazio a cui appartiene la velocità istantanea).\\
+Data una funzione di immersione $x=x(q)$ e assegnato un movimento $q(t)$ sulla superficie, la velocità nello spazio ambiente risulterà:
+$$ v=\frac{dx}{dt}=\pd{x}{q}\dot q $$
+Per mappe dipendenti dal tempo vale invece:
+ $$ v=\pd{x}{q}\dot q + \pd{x}{t} $$
+ dove $\pd{x}{t}$ è la velocità di trascinamento (dipendenza esplicita di x da t. $\neq$ $\frac{dx}{dt}$).
+
+
+
+
+
+\newpage
+\section{Approccio Newtoniano}
+Partendo dalle leggi della dinamica di Newton è possibile arrivare a due forme equivalenti di equazioni del moto per una particella libera su cui agisce un sistema di forze:
+
+\begin{minipage}[c]{.45\columnwidth}
+\begin{center}
+$$ m\ddot x=F_{tot}(x,\dot x, t)$$
+\small equazione differenziale del secondo ordine
+\end{center}
+\end{minipage}
+\begin{minipage}[c]{.45\columnwidth}
+\begin{center}
+    \begin{equation*}
+    \begin{cases}
+    p=m\dot x\\
+    \dot x = \frac{p}{m}\\
+    \dot p = F_{tot}(x, \frac{p}{m}, t)
+    \end{cases}
+\end{equation*}
+\small sistema di equazioni differenziali del primo ordine
+\end{center}
+\end{minipage}
+\\\\
+Entrambe le forme si presentano come equazioni a valori vettoriali e possono essere riscritte come sistemi di 3 equazioni a valori reali.\\\\ 
+Definendo le grandezze $M=x\times F$ (\textbf{momento torcente}) e $L=x\times p$ (\textbf{momento angolare}), è possibile ottenere un'altra equazione del moto che, in aggiunta a quelle già note, risulta utile nello studio di sistemi che ruotano:
+$$ M=\dot L$$
+Questi procedimenti si possono poi generalizzare a un sistema di $N$ punti materiali, ottenendo $N$ equazioni a valori in $\R^3$ o $3N$ equazioni a valori in $\R$.
+
+\subsection{Energia e potenziale}
+Definita la grandezza $T=\frac{1}{2}m\dot x^2$ (\textbf{energia cinetica}), è possibile dimostrare il \textbf{teorema della forza viva}:
+
+\begin{minipage}[c]{.45\columnwidth}
+\begin{center}
+$$ \dot T= F_{tot}\cdot v $$
+\small $F\cdot v$ è detta potenza della forza
+\end{center}
+\end{minipage}
+\begin{minipage}[c]{.45\columnwidth}
+\begin{center}
+$$ T(t_1)-T(t_0)=\int_{t_0}^{t_1}F_{tot}\cdot v \,dt $$
+\small $\int_{t_0}^{t_1}F\cdot v \,dt$ è detto lavoro della forza
+\end{center}
+\end{minipage}
+\\\\
+Nel caso in cui la forma differenziale del lavoro fosse esatta (cioè $\exists\, (-V)$ t.c $F(x)\cdot dx=-dV$), si dice che la forza è conservativa o che ammette potenziale.
+La funzione V è detta \textbf{energia potenziale} della forza F.\\\\
+Per un sistema di forze conservative vale il \textbf{teorema di conservazione dell'energia}:
+\begin{equation*}
+    \begin{cases}
+        E=T+V\\
+        \dot E=0
+    \end{cases}
+\end{equation*}
+Valgono inoltre le seguenti implicazioni:
+\begin{itemize}
+    \item $\pd{V}{x_i}=0\Rightarrow p_{x_i}$ è costante
+    \item $\pd{V}{\phi}=0\Rightarrow L_{x_i}$ è costante (dove $\phi$ è l'angolo attorno all'asse $x_i$)
+    \item $\pd{V}{t}=0\Rightarrow E$ è costante
+\end{itemize}
+Per un sistema di punti valgono le seguenti relazioni:
+$$ T=\sum_i T_i \qquad \qquad V=\sum_i V_i^{ext} + \frac{1}{2}\sum_{i,j} V_{i,j}^{int} \qquad \qquad E=T+V=\sum_i T_i+\sum_i V_i^{ext}+\frac{1}{2}\sum_{i,j}V_{i,j}^{int}$$
+
+
+
+
+
+
+\newpage
+\section{Approccio Lagrangiano}
+Dato un punto libero di muoversi su una mappa locale $x=x(q)$, dove $q=(q_1,..,q_n)$ con $n\leq3$ e su cui agiscono solo vincoli perfetti, sono equivalenti le equazioni differenziali:
+
+\begin{minipage}[c]{.45\columnwidth}
+\begin{center}
+$$ m\ddot x = -\nabla V + F^{v} $$
+\small dove $F^{v}$ è il modulo della forza vincolare
+\end{center}
+\end{minipage}
+\begin{minipage}[c]{.45\columnwidth}
+\begin{center}
+$$ \frac{d}{dt}\pd{L}{\dot q}-\pd{L}{q}=0 $$
+\small dove $L(q,\dot q)=T-V$ è la \textbf{lagrangiana} del sistema
+\end{center}
+\end{minipage}
+\\\\
+E' possibile passare dalle equazioni di Lagrange in un sistema di coordinate ad un altro semplicemente eseguendo una sostituzione di variabili all'interno della lagrangiana.\\\\
+Risolvere l'equazione di Lagrange equivale a trovare la funzione $q(t)$ che minimizza una grandezza nota come \textbf{azione Hamiltoniana} ($S[q(\cdot)]=\int_{t_0}^{t_1}Ldt$).\\\\
+Nel caso in cui la forza dipenda anche dal tempo e dalla velocità, è possibile ricavare una forma più generale delle equazioni di Lagrange definendo la \textbf{forza generalizzata} $Q=F\cdot\pd{x}{q}$:
+$$ \frac{d}{dt}\pd{T}{\dot q}-\pd{T}{q}=Q $$
+In questo caso vale la relazione $ v=\pd{x}{q}\dot q+\pd{x}{t} $, da cui:
+$$ T= \frac{m}{2}\left(\dot q A \dot q^T + \pd{x}{q}\pd{x}{t}\cdot \dot q +\left|\left|\pd{x}{t}\right|\right|^2\right) $$
+dove $A_{ik}=\pd{x}{q_i}\pd{x}{q_k}$
+\small($\frac{m}{2}A$ è detta \textbf{matrice cinetica})\\\\
+I risultati sopra si possono generalizzare al caso di un sistema di punti sostituendo alle grandezze del singolo punto quelle del sistema.\\
+
+\subsection{Energia e potenziale}
+Lungo ogni soluzione $q=q(t)$ delle equazioni di Lagrange con $L(q,\dot q, t)$ nota in una determinata carta locale, vale il \textbf{teorema di Jacobi}:
+$$\dot E=-\pd{L}{t}$$
+dove $E=\pd{L}{\dot q}\dot q-L$ è \textbf{l'energia generalizzata}.\\
+Se la Lagrangiana non dipende dal tempo, allora $E$ è una costante del moto.\\\\
+Nei \textbf{sistemi naturali} (cioè con $L=T-V$) l'energia generalizzata assume la forma:
+$$ E=\frac{m}{2}(\dot q A \dot q^T)+V-\frac{m}{2}\left|\left|\pd{x}{t}\right|\right|^2$$
+per funzioni di immersione indipendenti dal tempo $\pd{x}{t}=0$, quindi l'energia generalizzata è uguale all'energia meccanica.\\\\
+Per un sistema naturale con Lagrangiana indipendente dal tempo i \textbf{punti di equilibrio} sono punti stazionari dell'energia potenziale, cioè i punti $q^*$ t.c $\pd{V}{q}(q^*)=\ubar{0}$.\\\\
+Sia $\pd{V}{q}(q^*)=\ubar{0}$, la stabilità di $q^*$ come punto di equilibrio può essere studiata con il test dell'Hessiana (un punto di equilibrio stabile corrisponde a un minimo del potenziale).\\
+Sia $H_v$ l'Hessiana del potenziale nel punto $q^*$, allora:
+\begin{itemize}
+    \item se $det H_v<0$ l'equilibrio è instabile (punto di sella)
+    \item se $det H_v>0$ e $tr(H_v)>0$ l'equilibrio è instabile (massimo)
+    \item se $det H_v>0$ e $tr(H_v)<0$ l'equilibrio è stabile (minimo)
+    \item se $det H_v=0$ il test non è applicabile
+\end{itemize}
+se $q^*$ è punto di equilibrio stabile, allora su un intorno $U(q^*)$ è possibile approssimare la Lagrangiana con la sua forma \textbf{linearizzata}:
+$$ L\simeq T-\frac{1}{2}((q-q^*)^TH_v(q^*)(q-q^*)) $$
+per spostamenti piccoli da $q^*$ la soluzione delle equazioni di Lagrange può essere approssimata come:
+$$ q(t)\simeq q^*+\sum_ja_jsin(\sqrt{\lambda_j}t+\phi_j)v_j $$
+dove $\lambda_j$ sono gli autovalori di $H_v$ sotto il prodotto scalare definito dalla matrice cinetica e $v_j$ gli autovettori associati. Valgono le relazioni:
+$$ det(H_v-\lambda_jA)=0 \qquad\qquad (H_v-\lambda_jA)v_j=0 $$
+
+
+\newpage
+\section{Approccio Hamiltoniano}
+Si definisce \textbf{momento coniugato} a una coordinata $q$ la grandezza $p=\pd{L}{\dot q}$.\\\\
+Data una Lagrangiana naturale non degenere (determinante dell'hessiana rispetto a $\dot q$ non nullo), è possibile ottenere la \textbf{funzione Hamiltoniana} attraverso alla trasformata di Legendre:
+$$ H(q,p,t) = p\cdot\dot q - L $$
+Sono quindi equivalenti:
+
+\begin{minipage}[c]{.45\columnwidth}
+\begin{center}
+\begin{equation*}
+    \begin{cases}
+        \dot q=\pd{H}{p}\\
+        \dot p=-\pd{H}{q}
+    \end{cases}
+\end{equation*}
+\end{center}
+\end{minipage}
+\begin{minipage}[c]{.45\columnwidth}
+\begin{center}
+$$ \frac{d}{dt}\pd{L}{\dot q}=\pd{L}{q} $$
+\end{center}
+\end{minipage}
+\\\\
+L'Hamiltoniana coincide con l'energia generalizzata (sostituita la dipendenza da $\dot q$ con quella da $p$). Nel caso di vincoli indipendenti dal tempo vale quindi:
+$$ H=T(p,q)+V=\frac{1}{2m}(p^TA^{-1}p)+V $$
+prestando attenzione a esprimere $T$ in funzione di $p$ e non $\dot q$.\\\\
+Denotato un punto dello spazio delle fasi con $x=(q, p)$ si nota immediatamente come le equazioni di Hamilton siano già espresse in forma normale:
+$$ \dot x=v(x) $$
+Si definisce la \textbf{matrice simplettica standard} come:\\
+\begin{center}
+$E=
+\begin{pmatrix}
+    0_n & I_n\\
+    -I_n & 0_n
+\end{pmatrix}
+$
+\end{center}
+dove $0_n$ è la matrice nulla di dimensione n e $I_n$ è la matrice identità di dimensione n (n è il numero di gradi di libertà del sistema). Vale allora la proprietà:
+$$ v(x)=E\cdot\nabla H(x) $$
+
+\subsection{Variabili dinamiche e costanti del moto}
+Si definisce \textbf{variabile dinamica} una funzione $f(q,p,t):\mathcal{F}\times\R\rightarrow\R$.\\
+Tale variabile è detta \textbf{costante del moto} se $\dot f(t)=0$ lungo ogni soluzione delle equazioni di Hamilton con una certa Hamiltoniana.\\\\
+Data una coppia di variabili dinamiche $f,g$ ne è definita una terza detta \textbf{parentesi di Poisson}:
+$$ \{f,g\}=(\nabla f) \cdot (E\cdot\nabla g) $$
+\small[+ proprietà parentesi]\\\\
+\small[+ parentesi fondamentali]\\\\
+Condizione necessaria e sufficiente affinché f sia costante del moto è che si abbia:
+$$ \pd{f}{t}+v\cdot\nabla f=0 $$
+equivalente a:
+$$ \pd{f}{t}+\{f,H\}=0 $$
+
+
+
+
+
+\newpage
+\section{Relatività speciale}
+Partendo dall'ipotesi che la velocità della luce debba essere costante in tutti i sistemi di riferimento, risulta necessario riformulare una gran parte della dinamica studiata fin'ora.\\\\
+Mentre nel caso classico è possibile passare da un sistema di coordinate inerziale ad un altro attraverso alle \textbf{trasformazioni di Galileo}, sotto le ipotesi relativistiche è necessario introdurre le \textbf{trasformazioni di Lorentz}:
+
+\begin{minipage}[c]{.45\columnwidth}
+\begin{center}
+\begin{equation*}
+    \begin{cases}
+        t'=t\\
+        x'=x-vt\\
+        y'=y\\
+        z'=z        
+    \end{cases}
+\end{equation*}
+\small trasformazioni galileiane
+\end{center}
+\end{minipage}
+\begin{minipage}[c]{.45\columnwidth}
+\begin{center}
+\begin{equation*}
+    \begin{cases}
+        t'=\gamma\cdot(t-\frac{v}{c^2}x)\\
+        x'=\gamma\cdot(x-vt)\\
+        y'=y\\
+        z'=z\\
+        \gamma(v)=\frac{1}{\sqrt{1-\frac{v^2}{c^2}}}
+    \end{cases}
+\end{equation*}
+\small trasformazioni di lorentz
+\end{center}
+\end{minipage}
+\\\\
+Confrontando i due set di trasformazioni possiamo notare come quelle di Lorentz coinvolgano anche la componente temporale, fino ad ora considerata come assoluta.\\
+Osservando la definizione di $\gamma$ (\textbf{fattore di Lorentz}) notiamo che questo è definito solo per $|v|<c$.\\
+Nel limite $|v|<<c$, le trasformazioni di Lorentz tendono a quelle di Galileo.\\\\
+Dati due sistemi inerziali K e K' che si muovono con velocità relativa $w$ e un punto $x$ che si muove con legge del moto $x=x(t)$ rispetto a K o $x'=x'(t')$ rispetto a K', vale la seguente relazione:
+$$ v=\frac{v'+w}{1+\frac{v'\cdot w}{c^2}} $$
+dove $v=\frac{dx}{dt}$ è la velocità del punto rispetto a K e $v'=\frac{dx'}{dt'}$ è la velocità rispetto a K'.\\\\
+Per un osservatore stazionario nel sistema di riferimento K che osserva un sistema di riferimento K' in moto con velocità $w$, tempi e lunghezze risulteranno rispettivamente dilatati e contratte secondo la legge:
+$$\Delta t = (\Delta t)'\cdot\gamma(w)$$
+$$ \Delta x = (\Delta x)'\cdot\frac{1}{\gamma(w)} $$
+Nella formulazione delle trasformazioni di Lorentz i termini temporali e spaziali compaiono insieme, questo suggerisce di considerare uno spazio 4-dimensionale (lo \textbf{spaziotempo}) nella riscrittura delle variabili dinamiche:
+$$ x^\mu=\begin{psmallmatrix} c\cdot  t\\ \ubar{x} \end{psmallmatrix} \qquad v^\mu = \gamma\begin{psmallmatrix} c\\ \ubar{v} \end{psmallmatrix} \qquad p^\mu=m\gamma \begin{psmallmatrix} 1\\ \ubar{v} \end{psmallmatrix}$$
+dove $\ubar{x},\ubar{v},\ubar{p}$ sono le usuali grandezze nel caso classico.\\
+Lo spaziotempo dotato del prodotto scalare definito da $\eta=\begin{psmallmatrix} 1 & \\ & -I_3 \end{psmallmatrix}$ è detto spazio di Minkowski.\\
+Nello spazio di Minkowsky vale:
+$$ a\cdot b=a\,\eta\,b \qquad\qquad ||p^\mu||^2=p^\mu\,\eta\,p^\mu=m^2c^2 $$
+\\\\
+Per una particella libera relativistica, Lagrangiana ed Hamiltoniana valgono:
+$$ L(x,v,t)=-mc^2\sqrt{1-\frac{v^2}{c^2}}  \qquad \qquad \qquad H(x,p,t)=c\sqrt{p^2+m^2c^2}$$
+Per l'energia e il momento valgono le seguenti relazioni:
+$$ p=m\gamma v \qquad E=m\gamma c^2 \qquad \left(\frac{E}{c}\right)^2-p^2=m^2c^2 $$
+Il 4-momento di una particella di massa nulla (\textbf{fotone}) vale:
+$$ p^\mu=\hbar\cdot (\omega, \ubar{k}) $$
+dove $\omega$ è la frequenza angolare e $\ubar{k}$ è il vettore d'onda ($|\ubar{k}|=\frac{\omega}{c}$).\\\\
+Per studiare un urto relativistico è sufficiente utilizzare la conservazione del 4-momento ed eventualmente dell'energia, come nel caso classico. In relatività speciale il centro di massa non è ben definito, conviene quindi porsi in un sistema di riferimento che annulli il momento classico (ZM-frame, corrispondente al sistema di riferimento del centro di massa classico):
+$$ v_{CM}=\frac{\sum_i\gamma_iv_i}{c\sum_i\gamma_i} $$
+Nel caso dell'urto anelastico tra un fotone e un elettrone, il fotone verrà assorbito, trasferendo il suo momento all'elettrone e aumentandone la massa. Massa e velocità dell'elettrone dopo l'urto possono essere calcolati dalla conservazione del 4-momento.\\\\
+Nel caso di scattering di Compton, la lunghezza d'onda del fotone dopo l'urto dipenderà dall'angolo di deviazione secondo la legge:
+$$ \lambda_f-\lambda_i=\frac{h}{mc}(1-cos(\theta)) $$
+Tale legge può essere ricavata dalla conservazione del 4-momento (tenendo conto che $||p||^2=m^2c^2$ è Lorentz-invariante).
+
+
+
+
+
+
+
+
+
+\end{document}

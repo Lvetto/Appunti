@@ -1,25 +1,6 @@
 \documentclass{article}
-\usepackage{graphicx} % Required for inserting images
 
-% importa moduli
-\usepackage{dsfont}
-\usepackage{amssymb}
-%\usepackage{cases}
-\usepackage{ifthen}
-\usepackage{geometry}
- \geometry{
- a4paper,
- total={180mm,280mm},
- left=15mm,
- top=5mm,
- }
-\usepackage{stackengine}
-\usepackage{amsmath} 
-\usepackage{mathtools}
-\newcommand\ubar[1]{\stackunder[1.2pt]{$#1$}{\rule{.8ex}{.075ex}}}
-\usepackage{graphicx}
-\usepackage{wrapfig}
-%\graphicspath{ {./ims/} }
+\input{../libs/packages.tex}
 
 \title{Termodinamica}
 \author{Luca Vettore}
@@ -27,7 +8,7 @@
 
 \begin{document}
 
-\include{clib}
+\input{../libs/clib.tex}
 
 \maketitle
 

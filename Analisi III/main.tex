@@ -1,0 +1,460 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\input{../libs/packages.tex}
+
+\title{Analisi 3}
+\author{Luca Vettore}
+\date{Primo semestre 2022-2023}
+
+\begin{document}
+
+\input{../libs/clib.tex}
+
+\maketitle
+
+\section{Complementi di calcolo differenziale}
+
+\subsection{Funzioni definite implicitamente}
+Sia $F:\Omega\subseteq\R^m\rightarrow\R$, l'insieme $z_F=\{x\in\Omega:\, F(x)=0\}$ è detto insieme degli zeri di F. 
+Applicando un'opportuna traslazione è possibile descrivere ogni curva di livello di $F$ come insieme degli zeri di $G=F+a$.\\
+In generale l'insieme $z_F$ può assumere qualsiasi forma e risulta quindi molto difficile studiarne le proprietà. In alcuni casi $z_F$ può essere descritto localmente da una funzione.\\\\
+\textbf{Definizione:} sia $F:\Omega\subseteq\R^2\rightarrow\R$ e $(x_0,y_0)\in\Omega$ t.c. $F(x_0,y_0)=0$. Una funzione $y=f(x)$ è detta \textbf{definita implicitamente} da $F$ in un intorno I di $x_0$ se
+\begin{itemize}
+    \item $(x,f(x))\in\Omega\quad\forall x\in I$
+    \item $F(x,f(x))=0\quad\forall x\in I$
+    \item $y_0=f(x_0)$
+\end{itemize}
+(lo stesso per per $x=g(y)$)\\\\
+\textbf{Teorema (del Dini)*:}\\
+Sia $\Omega\subseteq\R^2$ aperto e $F:\Omega\rightarrow\R$, $F\in C^1$. Sia $(x_0,y_0)\in\Omega$ t.c.
+\begin{itemize}
+    \item $F(x_0,y_0)=0$
+    \item $\pd{F}{y}(x_0,y_0)\neq0$
+\end{itemize}
+Allora $\exists I$ intorno di $x_0$ e $J$ intorno di $y_0$ con $I\times J\subseteq\Omega$ t.c. $\exists!$ $y=f(x)\in J$ che soddisfi:
+\begin{equation*}
+    \begin{cases}
+    F(x,y)=0\\
+    y_0=f(x_0)
+    \end{cases}
+\end{equation*}
+Inoltre $f\in C^1(I)$ e vale $f'(x)=-\frac{\pd{F}{x}(x,f(x)}{\pd{F}{y}(x,f(x)}$ $\forall x\in I$\\\\
+\textbf{Teorema (del Dini "smart"):}\\
+Sia $F:\Omega\rightarrow\R$, $\Omega\subseteq\R^2$ aperto, $F\in C^0(\Omega)$ e $\pd{F}{y}\in C^0(\Omega)$.\\
+Se $(x_0,y_0)\in\Omega$ t.c. $F(x_0,y_0)=0$ e $\pd{F}{y}(x_0,y_0)\neq0$, allora $\exists\delta,\tau>0$
+ t.c $\exists!$ $f:I(x_0,\delta)\rightarrow I(y_0,\tau)$ t.c. $F(x,f(x))=0$ $\forall x\in I(x_0,\delta)$.
+ $f(x)$ è continua.\\\\
+ Entrambe le forme del teorema possono essere riscritte scambiando le variabili.\\
+ Se $\Nabla F(x_0,y_0)=\ubar{0}$ non è possibile applicare il teorema.\\
+ Nelle ipotesi sopra $F\in C^k\Rightarrow f\in C^k$.\\
+ Se $\pd{F}{x}(x_0,f(x_0))=0$ allora:
+ \begin{itemize}
+     \item $F_{xx}(x_0,f(x_0)\cdot F_y(x_0, f(x_0))<0\Rightarrow x_0$ è minimo forte per f
+     \item $F_{xx}(x_0,f(x_0)\cdot F_y(x_0, f(x_0))>0\Rightarrow x_0$ è massimo forte per f
+ \end{itemize}
+ \textbf{Teorema (del Dini per funzioni a valori vettoriali)*:}\\
+ Sia $\Omega\subseteq\R^{n+m}$ aperto, $(x_0,y_0)\in\Omega$, $F:\Omega\rightarrow\R^m$, $F\in C^1(\Omega)$ e $F(x_0,y_0)=\ubar{0}$. Se $det\pd{F}{y}(x_0,y_0)\neq0$, allora $\exists U,V$ intorni di $x_0,y_0$ t.c. $\exists!$ $y=f(x)\in V$ che verifichi:
+ \begin{equation*}
+     \begin{cases}
+     F(x,f(x))=0\\
+     f(x_0)=y_0
+     \end{cases}
+ \end{equation*}
+$f\in C^1$ e $J_f(x)=-\left(\pd{F}{y}\right)^{-1}\cdot \pd{F}{x}(x,f(x))$ $\forall x\in U$.\\\\
+\textbf{Teorema ($\exists!$ globale):}\\
+Sia $F\in C^0([a,b]\times[c,d])$ t.c.
+\begin{itemize}
+    \item $F(x,c)\cdot F(x,d)<0\,\forall x\in[a,b]$
+    \item $F(x,\cdot)$ strettamente monotona in $[c,d]$ $\forall x\in[a,b]$
+\end{itemize}
+allora $\exists!\,g:[a,b]\rightarrow[c,d]$ t.c. $F(x,g(x))=0\,\forall x\in[a,b]$
+
+
+\subsection{Diffeomorfismi e invertibilità locale}
+Sia $f:\Omega\subseteq\R^n\rightarrow\R^n$ una funzione di classe $C^1$ e sia $\Omega$ aperto
+\begin{itemize}
+    \item f è detta localmente invertibile in $x_0\in\Omega$ se $\exists I\subseteq\Omega$ t.c. $x_0\in I$ e $f_{|_I}$ è invertibile
+    \item f è detto diffeomorfismo locale se $f_{|_I}\in C^1$ e $f_{|_I}^{-1}\in C^1$ (se $I=\Omega$, allora f è diffeomorfismo globale)
+\end{itemize}
+\textbf{Definizione:} Siano $A,B\subseteq\Omega$ aperti, essi sono diffeomorfi se $\exists$ $f:A\rightarrow B$ diffeomorfismo\\\\
+Se $dim A\neq dim B$ essi non possono essere diffeomorfi.\\
+Sia $f$ diffeomorfismo globale, allora la sua Jacobiana è invertibile in ogni punto.\\\\
+\textbf{Teorema (invertibilità locale)*:}\\
+Sia $\Omega\subseteq\R^n$ aperto, $f:\Omega\rightarrow\R^n$, $f\in C^1(\Omega)$ e $x_0\in\Omega$.\\
+Se $det J_f(x_0)\neq0$, allora $\exists U,V$ intorni di $x_0,f(x_0)$ t.c. $f:U\rightarrow V$ è diffeomorfismo di classe $C^1$\\ e vale $J_{f^{-1}}(y)=[J_f(f^{-1}(y))]^{-1}$\\\\
+\textbf{Corollario}\\
+Siano $A,B$ aperti di $\R^n$, $f:A\rightarrow B$ di classe $C^1$.\\
+f diffeomorfismo $\Leftrightarrow$ è biunuvoca e $\forall x$ $det J_f(x)\neq0$.
+
+
+
+
+\subsection{Curve e integrali curvilinei}
+\subsubsection{Curve}
+\textbf{Definizione:} Una funzione $\phi:[a,b]\rightarrow\R^n$ definita e continua su un intervallo chiuso e limitato è detta curva.\\\\
+Sia $\phi:[a,b]\rightarrow\R^n$ una curva:
+\begin{itemize}
+    \item l'immagine dell'intervallo $\phi([a,b])$ è detto sostegno della curva
+    \item se $\phi(a)=\phi(b)$ la curva è detta chiusa
+    \item se per $a\leq t_1<t_2\leq b$ $\phi(t_1)=\phi(t_2)\Rightarrow (t_1,t_2)=(a,b)$ è detta semplice.
+    \item una curva è di classe $C^1$ se è derivabile con derivata continua sul suo intervallo di definizione, $C^1$ a tratti se è possibile dividere $[a,b]$ in un numero finito di intervalli su cui sia $C^1$
+    \item una curva semplice è detta regolare se $\phi'(t)\neq0$ $\forall t\in[a,b]$
+\end{itemize}
+Due curve $\phi:I\rightarrow\R^n,\psi:J\rightarrow\R^n$ sono dette equivalenti se $\exists g:I\rightarrow J$, $g\in C^1$, $g'(t)\neq0$ t.c. $\phi(t)=\psi(g(t))$. Le due curve hanno lo stesso sostegno.\\\\
+Data una curva $\phi:[a,b]\rightarrow\R^n$ si definisce la sua lunghezza come:
+$$ L(\phi)=\int_a^b||\phi'(t)||dt $$
+Due curve equivalenti hanno la stessa lunghezza (la parametrizzazione scelta non cambia la lunghezza).\\\\
+\textbf{Definizione:} Siano $\phi,\psi$ due curve con sostegno in $\Omega\subseteq\R^n$ definite sullo stesso intervallo $[a,b]$. $\phi$ e $\psi$ si dicono omotope se esiste $T:[a,b]\times[0,1]\rightarrow\Omega$ continua t.c.
+\begin{itemize}
+    \item $T(t,0)=\phi(t)$ e $T(t,1)=\psi(t)$ $\forall t\in[a,b]$
+    \item $T(a,\lambda)=p$ e $T(b,\lambda)=q$ $\forall\lambda\in[0,1]$
+\end{itemize}
+$\forall\lambda$ $T(t,\lambda)$ è una curva chiusa con sostegno in $\Omega$. La funzione $T$ rappresenta quindi una deformazione continua che porta $\phi$ in $\psi$.
+
+
+\subsubsection{Integrali curvilinei}
+Sia $\phi:[a,b]\rightarrow\R^n$ una curva $C^1$ a tratti e $f:\Omega\rightarrow\R$ una funzione definita lungo il sostegno di $\phi$. Si definisce integrale curvilineo di $f$ lungo $\phi$:
+$$ \int_\phi f\,ds=\int_a^bf(\phi(t))||\phi'(t)||dt $$
+L'integrale non cambia se calcolato lungo due curve equivalenti. 
+
+
+
+
+\subsection{Ottimizzazione vincolata e moltiplicatori di Lagrange}
+Gli strumenti del corso di analisi II permettono di trovare massimi e minimi di una funzione $\R^n\rightarrow\R$ nei punti interni del suo dominio. Alcuni punti stazionari possono però trovarsi sulla frontiera del dominio.\\\\
+\textbf{Definizione:} sia $f:\Omega\subseteq\R^n\rightarrow\R$, diciamo che $x_0\in\Omega$ è un punto di massimo o minimo vincolato per f con vincolo z, se è punto di massimo o minimo per $f_{|_z}$.\\
+Se z è il sostegno di una curva, il problema si riduce ad uno di ottimizzazione in una variabile.\\
+Nel caso generale il teorema del Dini ci permette di ricavare uno strumento utile:\\\\
+\textbf{Teorema (del moltiplicatore di Lagrange)*:}\\
+Sia $\Omega\subseteq\R^2$ aperto, $f:\Omega\rightarrow\R$ e $F:\Omega\rightarrow\R$ di classe $C^1(\Omega)$.\\
+Sia $(x_0,y_0)\in\Omega$ estremante di f con vincolo $F(x,y)=0$ e sia $\nabla F(x_0,y_0)\neq0$, allora $\exists\lambda_0\in\R$ t.c.
+\begin{equation*}
+    \begin{cases}
+    \pd{f}{x}(x_0,y_0)=\lambda_0\pd{F}{x}(x_0,y_0)\\
+    \pd{f}{y}(x_0,y_0)=\lambda_0\pd{F}{y}(x_0,y_0)\\
+    F(x_0,y_0)=0
+    \end{cases}
+\end{equation*}
+Sia $L(x,y,\lambda)=f(x,y)-\lambda F(x,y)$ (lagrangiana del sistema). Sotto le ipotesi del teorema precedente $(x_0,y_0,\lambda_0)$ è punto stazionario libero di $L$. Grazie a questo risultato i punti stazionari vincolati di $f$ possono essere trovati risolvendo il sistema:
+\begin{equation*}
+    \begin{cases}
+    \nabla L(x_0,y_0,\lambda_0) =\ubar{0}\\
+    F(x_0,y_0)=0
+    \end{cases}
+\end{equation*}
+I risultati precedenti si possono generalizzare al caso di funzioni a valori vettoriali.\\\\
+\textbf{Teorema (moltiplicatori di Lagrange e Lagrangiana):}\\
+Siano $f:\Omega\subseteq\R^{n+m}\rightarrow\R$ e $F:\Omega\rightarrow\R^n$ di classe $C^1$. Se $x_0$ è estremante di f con vincolo $F(x,y)=\ubar{0}$ e $J_F$ ha rango massimo lungo il vincolo, allora $\exists\lambda_1,...,\lambda_n\in\R$ t.c.
+$$ \nabla f= \begin{pmatrix} \lambda_1\\...\\\lambda_n\end{pmatrix}\cdot\nabla F$$
+e $(x_0,\lambda)$ è punto stazionario di $L(x,y,\lambda_1,...,\lambda_n)=f(x,y)-\begin{pmatrix} \lambda_1\\...\\\lambda_n\end{pmatrix}\cdot F(x,y)$\\\\
+L'esistenza di massimi e minimi su un vincolo può essere dimostrata utilizzando il teorema di Weirestrass, sfruttando la continuità di F (il vincolo $F(x)=0$ con $F\in C^1$ è chiuso perché controimmagine di un chiuso, rimane da dimostrare solo la limitatezza).
+
+\newpage
+\section{Forme differenziali}
+\subsection{Insiemi}
+\textbf{Definizione:} Sia $(X,d)$ metrico. Due suoi sottoinsiemi $A,B\neq\emptyset$ si dicono separati se:
+$$ \bar{A}\cap B=\emptyset\quad e\quad A\cap\bar{B}=\emptyset $$
+\textbf{Definizione} Sia $(X,d)$ metrico. $E\subseteq X$ si dice connesso se non può essere espresso come unione di due insiemi separati.\\\\
+\textbf{Definizione:} $E\subseteq\R^n$ si dice connesso per archi se $\forall p,q\in E$ $\exists\phi:[a,b]\rightarrow E$ $C^1$ a tratti t.c. $\phi(a)=p$ e $\phi(b)=q$.\\\\
+\textbf{Definizione:} $E\subseteq\R^n$ è detto stellato se $\exists x_0\in E$ t.c. $\forall x\in E$ il segmento che congiunge $x$ e $x_0$ è contenuto in E.\\\\
+\textbf{Definizione:} Un insieme è detto semplicemente connesso se ogni curva chiusa è omotopa a un punto.\\\\
+Valgono i seguenti risultati:
+\begin{itemize}
+    \item $E\subseteq\R$ è connesso $\Leftrightarrow$ è un intervallo
+    \item $\Omega\subseteq\R^n$ aperto è connesso $\Leftrightarrow$ è connesso per archi
+    \item convesso $\Rightarrow$ connesso
+    \item stellato $\Rightarrow$ convesso
+\end{itemize}
+
+
+\subsection{Forme differenziali e campi vettoriali}
+Sia $\Omega\subseteq\R^n$ aperto. $\forall x\in\Omega$ possiamo definire uno spazio vettoriale $E_x$ (vettori applicati in x) e lo spazio duale associato $E^*_x$ (applicazioni lineari in $E_x$).\\\\
+\textbf{Definizione:} una mappa che associa ad ogni x un elemento di $E_x$ è detta campo vettoriale.\\\\
+\textbf{Definizione:} una mappa che associa ad ogni x un elemento di $E^*_x$ è detta forma differenziale.\\\\
+Dato un campo vettoriale $F(x)$ è sempre possibile ricavare una forma differenziale attraverso al prodotto scalare: $\omega_F(x)=<F(x),\cdot>$. Anche il viceversa è vero.\\
+Sia $f:\Omega\rightarrow\R$ una funzione di classe $C^1$, è sempre possibile definire una funzione che mandi $v\in E_x$ in $(D_vf)(x)$. Questa è una forma differenziale nota come differenziale di f, che si indica con $(df)(x)$. Il campo vettoriale associato a questa forma è il gradiente di f.\\\\ 
+\textbf{Definizione:} Un campo vettoriale F è detto conservativo su $\Omega\subseteq\R^n$ se $\exists f:\Omega\rightarrow\R$ di classe $C^1$ con $\nabla f=F$\\\\
+\textbf{Definizione:} Una forma differenziale $\omega$ è detta esatta su $\Omega\subseteq\R^n$ se $\exists f:\Omega\rightarrow\R$ di classe $C^1$ con $df=\omega$.\\\\
+f è detto potenziale o primitiva per $F$ e $\omega$.\\
+Il potenziale può non esistere e se esiste non è unico ($f$ potenziale $\Rightarrow f+c$ potenziale).\\
+Se $\Omega$ è un aperto connesso allora tutti i potenziali differiscono di una costante.\\\\
+Denotiamo con $\partial_j$ il campo vettoriale definito come $\partial_j=$ versore di $E_x$ e con $d_j$ la forma differenziale ottenuta differenziando la funzione proiezione sulla j-esima coordinata. Possiamo quindi riscrivere il generico campo vettoriale $F$ e la generica forma differenziale $\omega$ come:
+$$ F = \begin{pmatrix} a_1\\...\\a_n \end{pmatrix} \cdot \begin{pmatrix} \partial_1\\..\\\partial_n \end{pmatrix}\quad \omega = \begin{pmatrix} a_1\\...\\a_n \end{pmatrix} \cdot \begin{pmatrix} d_1\\..\\d_n \end{pmatrix}$$
+dove $a_j:\Omega\rightarrow\R$ sono funzioni.\\
+Una forma differenziale o un campo vettoriali sono detti di classe $C^k$ quando $a_j\in C^k$ $\forall j$.\\
+Se una forma è esatta o un campo conservativo $\exists f$ t.c. $\pd{f}{x_j}=a_j$.\\\\
+\textbf{Definizione:} Una forma differenziale $\omega=\sum a_jdx_j$ è detta chiusa se $\pd{a_j}{x_k}(x)=\pd{a_k}{x_j}(x)$ $\forall i\neq k$ $\forall x$.\\\\
+\textbf{Definizione:} Un campo vettoriale è detto irrotazionale se $\pd{a_j}{x_k}(x)=\pd{a_k}{x_j}(x)$ $\forall i\neq k$ $\forall x$ ($rotF=\nabla\times F$, $F$ irrotazionale $\Rightarrow rotF=0$).\\\\
+\textbf{Teorema*:} sia $\omega$ forma differenziale di classe $C^1$, allora $\omega$ esatta $\Rightarrow$ chiusa.\\\\
+\textbf{Definizione:} sia $\omega=\ubar{a}\cdot\ubar{dx}$ una forma differenziale continua su $\Omega$, $\gamma:[a,b]\rightarrow\Omega$ una curva regolare a tratti. Si definisce integrale di $\omega$ su $\gamma$:
+$$ \int_\gamma\omega=\int_a^b\ubar{a}(\gamma(t))\cdot\ubar{\gamma}'(t)dt $$
+L'integrale è additivo: $\int_{\gamma_1+\gamma_2}\omega=\int_{\gamma_1}\omega+\int_{\gamma_2}\omega$\\\\
+\textbf{Teorema*:} sia $\omega$ forma differenziale di classe $C^0$, siano $\phi,\gamma$ due curve equivalenti equiorientate, allora: $\int_\gamma\omega=\int_\phi\omega$\\
+Se hanno orientamento opposto: $\int_\gamma\omega=-\int_\phi\omega$\\\\
+\textbf{Teorema*:} sia $\omega$ una forma differenziale esatta su $\Omega$ e siano $x_1,x_2\in\Omega$, $\gamma:[a,b]\rightarrow\Omega$ curva regolare a tratti t.c. $\gamma(a)=x_0$ e $\gamma(b)=x_1$; allora:
+$$ \int_\gamma\omega=f(x_1)-f(x_0) $$
+dove f è una primitiva di $\omega$.\\\\
+\textbf{Teorema (invarianza omotopica):}\\
+Sia $\Omega\subseteq\R^n$ aperto e $\omega$ forma differenziale chiusa in $\Omega$, $p,q\in\Omega$ e $\gamma_1,\gamma_2$ curve regolari a tratti equiorientate da p a q. Se $\gamma_1$ e $\gamma_2$ sono omotope, allora:
+$$ \int_{\gamma_1}\omega=\int_{\gamma_2}\omega $$
+\\\\
+\textbf{Teorema (invarianza omotopica 2):}\\
+Sia $\Omega$ aperto connesso e $\omega$ forma differenziale chiusa in $\Omega$, $\gamma_1,\gamma_2$ curve regolari a tratti chiuse. Se $\gamma_1$ e $\gamma_2$ sono omotope, allora:
+$$ \int_{\gamma_1}\omega=\int_{\gamma_2}\omega $$
+\\\\
+\textbf{Proposizione (nulla omotopia):}\\
+Sia $\Omega\subseteq\R^n$ aperto. Sia $\gamma$ regolari a tratti, passante per $p\in\Omega$, chiusa e omotopa a un punto (nulla omotopa). Allora: $\int_\gamma\omega=0$\\\\
+\textbf{Teorema (condizioni di esattezza)*:} sia $\Omega$ un aperto connesso e $\omega$ una forma differenziale continua in $\Omega$, sono equivalenti:
+\begin{itemize}
+    \item $\omega$ è esatta
+    \item $\forall p,q\in\Omega$ l'integrale di $\omega$ lungo $\gamma$, dove $\gamma$ è una curva regolare che congiunge i due punti, non dipende dalla scelta di $\gamma$.
+    \item per ogni curva chiusa $\gamma$ in $\Omega$ regolare a tratti $\int_\gamma\omega=0$
+\end{itemize}
+Risultati equivalenti a questi teoremi valgono per il campo vettoriale associato a $\omega$.\\\\
+\textbf{Teorema:} sia $\Omega$ un aperto connesso e $\omega$ una forma differenziale continua in $\Omega$, allora:
+\begin{center}
+    $\omega$ esatta $\Leftrightarrow \int_\gamma\omega=0$
+\end{center}
+per ogni $\gamma$ curva semplice, chiusa e regolare a tratti.\\\\
+\textbf{Teorema (lemma di Poincaré)*:}\\
+Sia $\Omega\subseteq\R^n$ aperto stellato, allora $\omega$ forma differenziale chiusa $\Rightarrow$ esatta.\\\\
+Ogni bolla aperta è un aperto stellato (ogni forma chiusa è localmente esatta).\\
+Il potenziale di una forma differenziale $\omega$ in uno stellato può essere trovato integrando lungo un segmento che congiunge un punto generico a uno rispetto al quale l'insieme è stellato.\\\\
+\textbf{Lemma (derivazione sotto il segno di integrale):}\\ ...\\\\
+\textbf{Teorema:}\\
+Sia $\Omega$ aperto semplicemente connesso, allora $\omega$ chiusa $\Rightarrow\omega$ esatta.
+
+
+
+
+\newpage
+\section{Misura e integrazione}
+\subsection{Volumi e misura esterna}
+\textbf{Definizione:} definiamo intervallo di $\R^n$ un insieme della forma:
+$$ I=[a_1,b_1]\times...\times[a_n,b_n] $$
+\textbf{Definizione:} definiamo volume di un intervallo d $\R^n$ il valore:
+$$ v(I)=\prod_i(b_1-a_1) $$
+Sia $I=\bigcup_jI_j$ vale $v(I)\leq\sum_jv(I_j)$. Sia anche $I_j^o\cap I_k^o=\emptyset$ allora $v(I)=\sum_jv(I_j)$.\\\\
+\textbf{Definizione:} sia $A\subseteq\R^n$, definiamo ricoprimento una successione numerabile di intervalli $\{I_j\}_{j\in k}$ t.c. $A\subseteq\bigcup_jI_j$.\\
+Definiamo volume del ricoprimento $R=\{I_j\}_{j\in k}$ il valore:
+$$ vol(R)=\sum_jv(I_j) $$
+\textbf{Definizione:} definiamo misura esterna di $A\subseteq\R^n$ il valore:
+$$ m^*(A)=inf_{R\in R_a}(vol(R)) $$
+dove $R_a$ è l'insieme di tutti i ricoprimenti possibili di A.\\\\
+La misura esterna ha le seguenti proprietà:
+\begin{itemize}
+    \item $m^*(A)\in[0,+\infty]$ $\forall A$
+    \item Se A è intervallo, allora la misura esterna coincide con il volume.
+    \item Se $A\subseteq B\Rightarrow m^*(A)\leq m^*(B)$
+    \item Sia I intervallo, allora $m^*(I^o)=m^*(I)$
+    \item Data una successione numerabile di insiemi $\{A_j\}$ vale $m^*(\bigcup_jA_j)\leq\sum_jm^*(A_j)$
+    \item $m^*(A)=inf\{m^*(E)|\forall E\,\,aperto\,\,t.c.\,\,A\subseteq E\}$ $\forall A$
+    \item Siano $A,B\subseteq\R^n$ t.c. $d(A,B)>0$, allora $m^*(A\cup B)=m^*(A)+m^*(B)$
+\end{itemize}
+
+
+\subsection{Misura di Lebesgue}
+\textbf{Definizione:} un insieme $E\subseteq\R^n$ si dice misurabile secondo Lebsegue e si denota $E\in M(\R^n)$ se
+$$ \forall\epsilon>0\,\,\exists G\,\,aperto\,\,t.c.\,\,m^*(G\setminus E)\leq\epsilon $$
+$M(\R^n)$ ha le seguenti proprietà:
+\begin{itemize}
+    \item $A$ aperto $\Rightarrow A\in M$
+    \item $m^*(E)=0\Rightarrow E\in M$
+    \item $E\sim\N\Rightarrow E\in M$
+    \item $\{E_k\}\subset M\Rightarrow\bigcup E_k\in M$
+    \item $E\in M\Rightarrow E^c\in M$
+    \item $E$ chiuso $\Rightarrow E\in M$
+    \item $\{E_k\}\subset M\Rightarrow\bigcap E_k\in M$
+    \item $A,B\in M\Rightarrow A\setminus B\in M$
+\end{itemize}
+\textbf{Definizione:} sia $E\in M$, si definisce misura di Lebesgue: $ m(E)=m^*(E) $\\\\
+Oltre alle proprietà della misura esterna, per la misura di Lebesgue valgono:
+\begin{itemize}
+    \item $\{A_j\}_{j\in K}\subset M$, $k\subseteq\N$, $A_i\cap A_j=\emptyset$ $\forall i\neq j$ $\Rightarrow m(\bigcup A_j)=\sum m(A_j)$
+    \item $\{A_j\}_{j\in K}\subset M$, $k\subseteq\N$, $m(A_i\cap A_j)=0$ $\forall i\neq j$ $\Rightarrow m(\bigcup A_j)=\sum m(A_j)$
+    \item $A,B,\in M$, $B\subset A$ e $m(B)<+\infty$ $\Rightarrow m(A\setminus B)=m(A)-m(B)$
+\end{itemize}
+\textbf{Definizione:} La funzione $F:E\subseteq\R^n\rightarrow\R$ è detta misurabile se $\forall A\subseteq\bar{\R}$ aperto $f^{-1}(A)\in M(\R^n)$. In tal caso si denota $f\in Mis(\R^n)$.\\\\
+La classe $Mis(\R^n)$ ha le seguenti proprietà:
+\begin{itemize}
+    \item $f,g\in Mis$, $\lambda\in\R\Rightarrow (f+\lambda g)\in Mis$
+    \item $f\in Mis$ e $\phi\in C\Rightarrow(\phi(f))\in Mis$
+    \item $f,g\in Mis\Rightarrow f^2,f\cdot g,|f|,f^+,f^-\in Mis$
+    \item $f\in Mis\Rightarrow\frac{1}{f}\in Mis$
+    \item $f_n\in Mis\;\forall n\Rightarrow sup_n(f_n),inf_n(f_n)\in Mis$ e $liminf(f_n), limsup(f_n)\in Mis$
+\end{itemize}
+
+\subsection{Funzioni semplici e integrale secondo Lebesgue}
+\textbf{Definizione:} si definisce funzione semplice una funzione della forma:
+$$ s(x)=\sum_j^k c_j\chi_{A_j}(x) $$
+dove $\chi_A(x)=0$ se $x\notin A$ o $1$ se $x\in A$.\\
+Una funzione semplice assume un numero finito di valori.\\\\
+\textbf{Teorema:}\\
+Sia $f\in Mis\Rightarrow\exists\{s_n\}$ successione di funzioni semplici t.c. $s_n(x)\rightarrow f(x)$ $\forall x$. Se $f$ è limitata $s_n\rightarrow f$ uniformemente.\\\\
+\textbf{Definizione:} sia $s(x)$ funzione semplice, si definisce integrale di Lebesgue di s il valore:
+$$ \int_Es(x)dx=\sum_n^Nm(A_n\cap E) $$
+\textbf{Definizione:} sia $f$ una funzione non negativa, si definisce integrale di Lebesgue il valore:
+$$ \int_Efdx=sum\left\{\int_Es(x)dx|0\leq s(x)\leq f(x)\,\forall x\in E,\,s\,semplice\right\} $$
+Sia $f:E\rightarrow\bar{\R}$ misurabile. Si dice che f ha integrale se esiste finito almeno uno di $\int f^+$ e $\int f^-$. Se esistono finiti entrambi si dice integrabile e si definisce:
+$$ \int_E f=\int_E f^+-\int_Ef^-$$
+si denota $f\in L(E)$ e vale l'implicazione $f\in L(E)\Leftrightarrow\int_E|f|<+\infty$.\\\\
+L'integrale di Lebesgue ha le seguenti proprietà:
+\begin{itemize}
+    \item sia $E\in M$ e $f\in Mis$ allora per $0<a<+\infty$ e $E_a=\{x\in E|f(x)\geq a\}$ vale $m(E_a)\leq\frac{1}{a}\int_Ef$
+    \item se $\exists g\in L(E)$ t.c. $|f|\leq g$ q.o. $\Rightarrow f\in L(E)$
+    \item $f\leq g$ q.o. e $f,g\in L\Rightarrow\int_Ef\leq\int_Eg$
+    \item $A\subseteq E$ misurabile, $f\in L(E)\Rightarrow f\in L(A)$
+    \item $m(E)=0, f\in Mis(E)\Rightarrow\int_Ef=0$
+    \item $f\in L(E), E=\bigcup_j^\infty E_j$ con $E_j\cap E_i=\emptyset$ $i\neq j$, allora $\int_Ef=\sum_i^\infty\int_Ej f$ 
+    \item $f,g\in L, \lambda\in\R\Rightarrow f+\lambda g\in L$ e $\int_E(f+\lambda g)=\int_Ef+\lambda\int_Eg$
+    \item $f\in L,g\in Mis$ e $\exists k$ t.c. $|g(x)|\leq k$ q.o., allora $f\cdot g\in L(E)$
+    \item $f\in Mis(E),|f|\leq k\in\R$ q.o. e $m(E)<+\infty$, allora $f\in L(E)$
+    \item $f$ continua e limitata su E, $m(E)<+\infty$, allora $f\in L(E)$
+    \item $f\in R(E)\Rightarrow f\in L(E)$
+    \item $f\in R([a.b])\Rightarrow \int_a^bf=\int_{[a,b]}f$
+\end{itemize}
+\textbf{Teorema (convergenza uniforme)*:}\\
+Sia $E\in M(\R^n), m(E)<+\infty$, $\{f_k\}\subseteq L(E), f_k\rightarrow f$ uniformemente in E, allora $f\in L(E)$ e $$\int_Ef_k\rightarrow\int_E f$$
+\textbf{Teorema (convergenza monotona di Bebbo Levi*):}\\
+Sia $\{f_k\}\subseteq Mis(E), f_\rightarrow f$ in E con monotonia. Se $\exists g\in L(E)$ t.c. $g(x)\leq f(x)$ q.o., allora $f_k$ ha integrale $\forall k$ e $\exists \int_Ef_k=\int_E f$.\\\\
+\textbf{Teorema (integrazione serie a termini non negativi*):}\\
+Sia $\{f_k\}\subseteq Mis(E)$, $f_k\geq0$ $\forall k$, allora:
+$$ \int\sum_k^\infty f_k=\sum_k^\infty\int_E f_k $$
+\textbf{Lemma (di Fatou*):}\\
+...\\\\
+\textbf{Teorema (convergenza dominata*):}\\
+Siano $f_k:E\rightarrow\bar{\R}$ t.c.
+\begin{itemize}
+    \item $f_k\in L(E)$ $\forall k$
+    \item $lim f_k=f$ q.o. su E
+    \item $\exists G\in L(E)$ t.c. $|f_k|\leq G$ q.o. $\forall k$
+\end{itemize}
+Allora $f\in L(E)$ e 
+$$ lim\int_Ef_k=\int_E limf_k=\int_E f $$
+\textbf{Teorema (continuità rispetto a un parametro):}\\
+Sia $f:E\time\Omega\rightarrow\R$ t.c.
+\begin{itemize}
+    \item $E\in M(\R^n)$ e $\Omega$ aperto di $\R^n$
+    \item $f(\cdot,x)\in L(E)$ $\forall x\in\Omega$
+    \item $f(u,\cdot)$ continua $\forall u\in E$
+    \item $\exists g\in L(E):|f(u,x)|\leq g(u)$ $\forall u,x$
+\end{itemize}
+Allora $F:\Omega\rightarrow\R$, $F:=\int_Ef(x,u)du$ è continua.\\\\
+\textbf{Teorema (regolarità rispetto a un parametro):}\\
+Sia $f:E\time\Omega\rightarrow\R$ t.c.
+\begin{itemize}
+    \item $\Omega$ aperto di $\R^n$
+    \item $f(\cdot,x)\in L(E)$ $\forall x\in\Omega$
+    \item $f(u,\cdot)\in C^1$ $\forall u\in E$
+    \item $\exists g\in L(E):|\pd{f}{x_j}(x,u)|\leq g_j(u)$ $\forall u,x,j$
+\end{itemize}
+Allora $F:=\int_Ef(x,u)du$ è $C^1(\Omega)$ e $\pd{F}{x_j}(x)=\int_E\pd{f}{x_j}(x,u)du$.\\\\
+
+\newpage
+\section{Integrazione multidimensionale}
+\subsection{Proiezioni e sezioni}
+\textbf{Definizione:} definiamo proiezione di $E\subseteq\R^n=\R^m\times\R^k$ sull'asse x l'insieme:
+$$P_x(E)=\{x\in\R^m|\exists y\in\R^k\,t.c\,(x,y)\in E \}$$
+\textbf{Definizione:} definiamo sezione x di E l'insieme:
+$$ E(x)=\{y\in\R^k|(x,y)\in E\} $$
+\textbf{Teorema:}\\ sia $E\in M(\R^{m+k})\Rightarrow E(x)\in M(\R^k)$ q.o. $x\in\R^m$
+
+\subsection{Teoremi di Fubini e Tonelli}
+Per $f:\R^n\rightarrow\R$, con $n\geq2$, non vale il teorema fondamentale del calcolo integrale, non risulta quindi possibile calcolare direttamente il valore dell'integrale. In alcuni casi risulta però possibile spezzare l'integrale in integrali iterati, ad esempio:
+$$f:\R^2\rightarrow\R\quad E=[a,b]\times[c,d]\quad \int_Ef=\int_c^d\left(\int_a^b f(x,y) dx \right)dy$$
+\textbf{Teorema (di Tonelli):}\\
+Sia $\R^n=\R^m\times\R^k$, $f:E\subseteq R^n\rightarrow[0,+\infty]$, $f\in Mis(E)$. Sia inoltre f estesa con valore 0 fuori da E. Allora:
+\begin{itemize}
+    \item $f(x,\cdot)\in Mis(E(x))$ per q.o. $x\in P_x(E)$
+    \item sia $g(x)=\int_{E(x)}f(x,y)dy\Rightarrow g\in Mis(\R^m)$
+    \item $\int_Ef=\int_{\R^m}\left(\int_{E(x)}f(x,y)dy\right)dx$
+\end{itemize}
+Gli integrali nella tesi possono essere infiniti ($f\notin L(E)$).\\
+Il teorema vale per qualsiasi decomposizione di $\R^n$. In particolare rimane valido scambiando le variabili x e y.\\
+Il teorema richiede misurabilità e non negatività di f.\\
+Sotto le ipotesi del teorema si ha:
+$$ \int_Ef(x,y)dxdy=\int_{P_x(E)}dx\int_{E(x)}f(x,y)dy=\int_{P_y(E)}dy\int_{E(y)}f(x,y)dx $$
+e che l'esistenza di un integrale implica quella degli altri.\\\\
+\textbf{Teorema (di Fubini):}\\
+Sia $\R^n=\R^m\times\R^k$, $f:E\subseteq R^n\rightarrow\bar{R}$, $f\in Mis(E)$, allora $f(x,\cdot)\in Mis(E(x))$ q.o. $x\in\R^m$.\\
+Se $f\in L(E)$, allora:
+\begin{itemize}
+    \item $f(x,\cdot)\in L(E(x))$ per q.o. $x$
+    \item $g(x)=\int_{E(x)}f(x,y)dy\Rightarrow g\in L(\R^m)$
+    \item $\int_{\R^m}\left( \int_{E(x)}f(x,y)dy \right)dx=\int_Ef$
+\end{itemize}
+analogamente scambiando x e y.\\
+Questo teorema permette di calcolare l'integrale scomponendo $\R^n$ a piacere ed eventualmente scambiando le variabili, ma richiede che la funzione sia integrabile.\\\\
+Per dimostrare l'integrabilità di una funzione e valutarne l'integrale si procede prima studiando $\int_E|f|$ (sempre $>0$, quindi si applica Tonelli). Se questo integrale è limitato, allora la funzione è integrabile e si può procedere con il teorema di Fubini.
+
+\subsection{Calcolo di integrali in $\R^n$}
+\subsubsection{Cambiamento di variabili}
+\textbf{Definizione:} dati due aperti $A,B\subseteq\R^n$ definiamo cambiamento di variabili un diffeomorfismo $\phi:A\rightarrow B$\\\\
+\textbf{Teorema:}\\
+Sia $\phi:A\rightarrow B$ un cambiamento di variabili, sia $E\subseteq A$, $E\in M$, allora $\phi^{-1}(E)\in Mis(\R^n)$.\\
+Sia $f:E\rightarrow\bar{\R}$, $f\in L(E)$, allora $(f(\phi)\cdot detJ_\phi)\in L(\phi^{-1}(E))$ e
+$$ \int_E fdy=\int_{\phi^{-1}(E)}f(\phi(x))\cdot|detJ_\phi|dx $$
+Per roto-traslazioni $\phi(x)=L\cdot x+q$, quindi $J_\phi=L$ e $det L=\pm 1$
+\subsubsection{In $\R^2$}
+\textbf{Definizione:} Sia $D\subseteq\R^2$, è detto normale se:
+$$ D=\{ (x,y)\in\R^2|x\in[a,b],\,\alpha(x)\leq y\leq\beta(x) \}\quad o \quad D=\{ (x,y)\in\R^2|y\in[a,b],\,\alpha(y)\leq x\leq\beta(y) \}$$
+se$\alpha,\beta\in C^1$ l'insieme è detto regolare.\\\\
+\textbf{Definizione:} si dice dominio regolare un insieme formato da un unione finita di insiemi normali regolari con interni disgiunti.\\\\
+La frontiera di un dominio regolare è sostegno di una curva o unione di curve.\\\\
+\textbf{Definizione:} sia D un dominio regolare, siano $\nu,\tau$ rispettivamente un versore normale e tangente a D tali che la coppia $(\nu,\tau)$ abbia la stessa orientazione della base canonica. L'orientazione così ottenuta di $\partial D$ è detta positiva e si denota $\partial D^+$.\\\\
+\textbf{Teorema (formule di Green in $\R^2$)*:}\\
+Sia $D\subseteq\Omega\subseteq\R^2$ dominio regolare, $f:\Omega\rightarrow\R$, $f\in C^1(\Omega)$, $\Omega$ aperto, allora:
+$$ \int_D\pd{f}{x}(x,y)dxdy=\int_{\partial D^+}f(x,y)dy $$
+$$ \int_D\pd{f}{y}(x,y)dxdy=-\int_{\partial D^+}f(x,y)dx $$
+Le formule di Green permettono di valutare un integrale doppio calcolando l'integrale curvilineo di una forma differenziale.\\\\
+\textbf{Teorema (di Gauss)*:}\\
+Sia $D\subseteq\Omega$ dominio regolare, $F\in C^1(\Omega)$ un campo vettoriale, allora:
+$$ \int_DdivF\,\,dxdy=\int_{\partial D^+}F\cdot \nu \,ds $$
+$divF=\nabla\cdot F$ e $\nu=\frac{1}{||\phi'||}\begin{pmatrix}\phi'_2\\-\phi'_1 \end{pmatrix}$ è il versore normale a D, data una parametrizzazione $\phi$ di $\partial D$.\\\\
+\textbf{Teorema (di Stokes):*}\\
+Sia $D\subseteq\Omega$ dominio regolare, $F\in C^1(\Omega)$, $F(x)=\begin{pmatrix}f(x)\\g(x)\end{pmatrix}$, allora:
+$$ \int_D\left( \pd{g}{x}-\pd{f}{y} \right)dxdy=\int_{\partial D^+}f\,dx+\int_{\partial D^+}g\,dy $$
+\textbf{Teorema (formula di integrazione per parti)*:}\\
+Sia $D\subset\Omega$ dominio regolare connesso, $f,g\in C^1(\Omega)$, allora:
+$$ \int_Df\pd{g}{x}\,dxdy=\int_{\partial D^+}fg\,dy-\int_Dg\pd{f}{x}\,dxdy $$
+
+\subsubsection{In $\R^3$}
+\textbf{Definizione:} si definisce dominio normale regolare in $\R^3$ un insieme della forma:
+$$ T=\{ (x,y,z)\in\R^3|(x,y)\in D,\,\alpha(x,y)\leq z\leq \beta(x,y) \} $$
+dove D è un dominio regolare in $\R^2$ e $\alpha,\beta:D\rightarrow\R$ sono funzioni di classe $C^1$.\\
+Allo stesso modo scambiando le variabili.\\\\
+\textbf{Definizione:} sia $D\in\R^2$ un dominio connesso, una mappa $\phi:D\rightarrow\R$ di classe $C^1$ t.c.
+\begin{itemize}
+    \item $\phi$ ristretta a $D^o$ è iniettiva
+    \item $J_\phi$ ha rango 2 su D
+\end{itemize}
+$S=\phi(D)$ è detto sostegno della superficie.\\
+Il piano tangente alla superficie nel punto $\phi(u,v)$ ha equazione:
+$$ det\,(x-\phi(u,v)\quad\partial_u\phi(u,v)\quad\partial_v\phi(u,v))=0 $$
+Il versore normale:
+$$ \nu=\frac{\partial\phi_u\times\partial\phi_v}{||\partial\phi_u\times\partial\phi_v||} $$
+e la superficie è detta continua se $\nu$ varia con continuità rispetto a $(u,v)$.\\\\
+\textbf{Definizione: } sia $\phi:D\subseteq\R^2\rightarrow\R^3$ una superficie regolare con sostegno S, si definisce integrale di $f$ lungo S:
+$$ \int_Sfd\sigma=\int_Df(\phi(u,v))\cdot||\partial\phi_u\times\partial\phi_v||\,dudv $$
+\textbf{Definizione:} Sia D un dominio connesso e $\phi\in C^1$ t.c.
+\begin{itemize}
+    \item $\phi$ iniettiva su D
+    \item $J_\phi$ ha rango 2 su D
+\end{itemize}
+allora $\phi$ è detta curva regolare con bordo.\\\\
+\textbf{Teorema (di Gauss in $\R^3)$}:\\
+Sia T un dominio regolare e $F=\begin{pmatrix}F_1\\F_2\\F_3 \end{pmatrix}$ un campo vettoriale di classe $C^1$, allora vale:
+$$ \int_TdivF\,dxdydz=\int_{\partial T^+}F\cdot\nu\,d\sigma $$
+\textbf{Teorema (di Stokes in $\R^3)$}:\\
+Sia $\phi:D\subseteq\R^2\rightarrow\R^3$ una superficie regolare con bordo con sostegno S, sia F un campo vettoriale di classe $C^1$, allora:
+$$ \int_SrotF\cdot\nu\,d\sigma=\int_{\partial S^+}F\cdot\tau\,ds $$
+dove:
+$$ rot\,F=det\begin{pmatrix} i & \partial_x & F_1\\j & \partial_y & F_2\\k & \partial_z & F_2\\ \end{pmatrix} = \begin{pmatrix} \partial_yF_3-\partial_zF_2\\\partial_zF_1-\partial_xF_3\\\partial_xF_2-\partial_yF_1\end{pmatrix} $$
+
+
+
+
+\newpage
+\Index
+\end{document}

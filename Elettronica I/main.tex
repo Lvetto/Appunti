@@ -1,0 +1,424 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\input{../libs/packages.tex}
+
+\title{Elettronica I}
+\author{Luca Vettore}
+\date{Ottobre 2023}
+
+\begin{document}
+
+\input{../libs/clib.tex}
+
+\maketitle
+
+\section{Introduzione}
+
+\subsection{Che cosa è l'elettronica}
+L’elettronica è la disciplina scientifico-tecnologica che si occupa della
+generazione, del trasporto, del controllo e della raccolta di particelle
+subatomiche dotate di massa e di carica elettrica (come, ad esempio, gli
+elettroni).\\\\
+Gli elettroni sono adatti ad essere impiegati nei sistemi per l’elaborazione, la
+trasmissione e l’archiviazione delle informazioni.\\\\
+È possibile far muovere un elevato numero di elettroni a grande velocità e
+impiegando un ridotta quantità di energia, perché la massa delle particelle è
+piccola.\\\\
+L’elettronica permette di realizzare sistemi di acquisizione, elaborazione, controllo
+e memorizzazione molto complessi, efficienti e veloci.
+
+\subsection{Unità di misura}
+Le unità di misura fondamentali del sistema internazionale sono le seguenti:
+
+\begin{center}
+\begin{tabular}{|c|c|p{6cm}|}
+\hline
+\textbf{Unità di misura} & \textbf{Simbolo} & \textbf{Grandezza misurata} \\
+\hline
+Metro & m & Lunghezza o distanza \\
+Chilogrammo & kg & Massa \\
+Secondo & s & Tempo \\
+Ampere & A & Corrente elettrica \\
+Kelvin & K & Temperatura \\
+Mole & mol & Quantità di sostanza \\
+Candela & cd & Intensità luminosa \\
+\hline
+\end{tabular}
+\end{center}
+Combinando le unità fondamentali, è possibile definire delle unità derivate. In elettronica sono utili le seguenti:
+
+\begin{center}
+\begin{tabular}{|c|c|p{6cm}|}
+\hline
+\textbf{Unità di misura} & \textbf{Simbolo} & \textbf{Grandezza misurata} \\
+\hline
+Volt & V & Tensione elettrica \\
+Ohm & $\Omega$ & Resistenza elettrica \\
+Watt & W & Potenza elettrica \\
+Farad & F & Capacità elettrica \\
+Hertz & Hz & Frequenza \\
+Henry & H & Induttanza \\
+Coulomb & C & Carica elettrica \\
+Tesla & T & Induzione magnetica \\
+Siemens & S & Conduttanza elettrica \\
+\hline
+\end{tabular}
+\end{center}
+Le grandezze misurate possono appartenere a ordini di grandezza molto diversi tra loro. Per questo motivo si introducono dei prefissi moltiplicativi da porre davanti alle unità di misura per specificarne il numero di zeri da aggiungere.\\\\
+Di seguito alcuni dei prefissi più comuni e l'ordine di grandezza associato, oltre all'abbreviazione da usare per i simulatori circuitali basati su SPICE:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Nome} & \textbf{Simbolo} & \textbf{Valore} & \textbf{Abbreviazione SPICE} \\
+\hline
+Yotta & Y & $10^{24}$ & \\
+Zetta & Z & $10^{21}$ & \\
+Exa & E & $10^{18}$ & \\
+Peta & P & $10^{15}$ & \\
+Tera & T & $10^{12}$ & T \\
+Giga & G & $10^9$ & G \\
+Mega & M & $10^6$ & MEG \\
+Kilo & k & $10^3$ & K\\
+Hetto & h & $10^2$ & \\
+Deca & da & $10^1$ & \\
+Deci & d & $10^{-1}$ & \\
+Centi & c & $10^{-2}$ & \\
+Milli & m & $10^{-3}$ & M \\
+Micro & $\mu$ & $10^{-6}$ & U \\
+Nano & n & $10^{-9}$ & N \\
+Pico & p & $10^{-12}$ & P \\
+Femto & f & $10^{-15}$ & F \\
+Atto & a & $10^{-18}$ & \\
+Zepto & z & $10^{-21}$ & \\
+Yocto & y & $10^{-24}$ & \\
+\hline
+\end{tabular}
+\\(la maggior parte dei simulatori SPICE non differenzia tra maiuscole e minuscole)
+\end{center}
+
+\subsection{Grandezze}
+In questa sezione sono presentate alcune delle grandezze più importanti nello studio dell'elettronica.
+
+\subsubsection{Carica elettrica}
+La carica elettrica è una proprietà fondamentale della materia e si misura in coulomb ($1C=1A\cdot s$). Questa grandezza e le sue proprietà stanno alla base del funzionamento di tutti i sistemi elettronici.\\\\
+La carica elettrica è quantizzata: le cariche sono sempre multipli (positivi o negativi) della carica elementare $q_e=1.6021\cdot 10^{-19}C$.\\\\
+Normalmente la materia è elettricamente neutra, ma è possibile separare cariche negative e positive in alcuni processi. Nei solidi esistono cariche fisse e mobili. Le cariche mobili sono quelle che danno origine alle correnti, mentre le cariche fisse possono avere una grande importanza nel funzionamento di alcuni dispositivi (ad es quelli a semiconduttori).
+
+\subsubsection{Corrente elettrica}
+Uno spostamento di cariche all'interno di un conduttore è chiamato corrente elettrica. L'intensità di corrente è definita come
+$$ I=\frac{dQ}{dt} $$
+e si misura in ampere ($1A=1C/s$).\\\\
+Nonostante il concetto di carica risulti più fondamentale rispetto alla corrente, si è deciso di inserire l'ampere tra le unità di misura fondamentali perché è decisamente più facile generare una corrente piuttosto che isolare una carica elettrica.
+
+\subsubsection{Differenza di potenziale}
+Due particelle dotate di carica interagiscono tra loro con una forza di intensità proporzionale al prodotto delle cariche. Questa forza è chiamata forza di Coulomb ed è conservativa.\\
+Possiamo definire il campo elettrico come rapporto tra la forza subita da una particella di carica q in un punto dello spazio e il valore della carica stessa:
+$$ E=\frac{F_c}{q} $$
+Questa grandezza si misura in newton/coulomb o equivalentemente in volt/metro.\\\\
+A questo campo possiamo associare un potenziale. La differenza di potenziale tra due punti dello spazio è chiamata tensione o voltaggio e si misura in volt ($1V= \frac{1Kg\cdot m^2}{A s^3}$).
+
+
+
+
+
+
+
+
+\newpage
+\section{Nodi e maglie di un circuito}
+Un punto dove si incontrano più terminali di elementi circuitali è detto nodo.
+\im{0.5}{ims/nodi}
+In base al modo in cui è disegnato un circuito i nodi potrebbero non risultare puntiformi. Le due immagini rappresentano lo stesso circuito, con lo stesso numero di nodi, ma disegnati diversamente. La rappresentazione di sinistra può risultare più ordinata e comprensibile, mentre ridurre il numero di collegamenti come nel caso di destra aiuta nella risoluzione dei circuiti.\\\\
+Una maglia è un percorso chiuso attraverso due o più elementi circuitali.
+\im{0.35}{ims/maglie}
+Nel conteggio delle maglie bisogna stare attenti a considerare sia le maglie elementari (che non circondando altre maglie), che eventuali maglie esterne. Questa distinzione ha senso solo nel caso di circuiti planari, cioè che possono essere rappresentati su un piano senza incrociare le connessioni.
+
+\subsection{Leggi di Kirchoff}
+Le leggi di Kirchoff permettono di calcolare le grandezze elettriche all'interno di un circuito in corrente continua usando i concetti di nodi e maglie.\\\\
+La prima legge di Kirchoff ("KVL" o "Kirchoff voltage law") prevede che la somma (con segno) delle tensioni lungo qualsiasi maglia del circuito debba essere nulla:
+$$ \sum_{k\in\text{maglia}} V_k=0 $$
+Questa legge è conseguenza della conservatività del campo elettrico ($\Rightarrow\oint_\gamma E=0\quad \forall \gamma$).\\\\
+La seconda legge di Kirchoff ("KCL" o  "Kirchoff circuit law") prevede che la somma (con segno) delle correnti in un nodo debba essere nulla:
+$$ \sum_{k\in\text{nodo}} I_k=0 $$
+Questa legge è conseguenza della legge di conservazione della carica, con l'ipotesi aggiuntiva che non vi sia accumulo di carica in un nodo.\\\\
+Entrambe le leggi rimangono valide indipendentemente dall'ordine in cui sono considerati i componenti e dal segno dato alle grandezze elettriche. Nonostante ciò, nella risoluzione di un circuito è utile scegliere una convenzione sui segni e mantenerla fino alla fine, per evitare contraddizioni ed errori. In questi appunti viene usata la convenzione degli utilizzatori.
+
+\subsubsection{KCL nel dominio del tempo}
+Per un nodo a cui non sono collegati generatori di tensione, la legge di Kirchoff per la corrente può essere scritta come:
+$$ i(v)+\frac{d}{dt}q(v)+u=0 $$
+dove la dipendenza da t è sottintesa.\\
+Le grandezze utilizzate rappresentano:
+\begin{itemize}
+    \item $i(v)$: la corrente nei bipoli resistivi
+    \item $\frac{d}{dt}q(v)$: corrente nei bipoli capacitivi
+    \item $u(t)$: segnali in ingresso prodotti da generatori di corrente
+\end{itemize}
+
+\subsection{Teorema di Tellegen}
+In qualsiasi circuito, la somma (con segno) della potenza di tutti i bipoli è nulla.\\
+La potenza può essere espressa come $P=VI$, quindi:
+$$ \sum_kP_k=\sum_kV_kI_k=0 $$
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Bipoli, n-poli}
+Un circuito è formato da elementi (o componenti) circuitali connessi tra loro. Gli elementi più semplici sono i bipoli elettrici.\\\\
+\im{0.3}{ims/Bipolo.png}
+I bipoli sono caratterizzati da due terminali, il polo positivo (+) e quello negativo (-). Usando la convenzione degli utilizzatori (non necessaria, ma utile per rimanere coerenti con le definizioni durante la risoluzione di circuiti):
+\begin{itemize}
+    \item la tensione è misurata dal polo negativo a quello positivo
+    \item la corrente è considerata positiva se entra nel bipolo e negativa se ne esce
+\end{itemize}
+Un bipolo può essere descritto attraverso a una relazione tra tensione e corrente, nota come caratteristica tensione-corrente. Questa relazione può essere espressa in diversi modi:
+\begin{itemize}
+    \item forma implicita: $f(V,I)=0$ (questa forma esiste sempre)
+    \item forma esplicita rispetto a I: $I=g(V)$ (se esiste)
+    \item forma esplicita rispetto a V: $V=h(I)$ (se esiste)
+\end{itemize}
+Se la caratteristica tensione-corrente di un bipolo in forma esplicita rispetto a I o V è una funzione lineare, allora il bipolo è detto lineare. In questo caso la rappresentazione grafica della caratteristica sarà una retta.\\\\
+Un elemento circuitale con più di 2 terminali è detto n-polo o multipolo. Il comportamento di questi elementi è più complicato rispetto ai bipoli e va studiato caso per caso.
+
+\subsection{Resistore}
+Il resistore è il bipolo lineare più semplice. La sua caratteristica tensione-corrente è data dalla legge di Ohm:
+$$ V-RI=0 $$
+La costante R è chiamata resistenza e si misura in ohm ($1\Omega=1\frac{V}{A}$).\\\\
+L'inverso di R è detto conduttanza e si misura in siemens ($1S=\Omega^{-1}$) e la legge di ohm può essere riscritta in termini di conduttanza:
+$$ I=GV $$
+Un resistore dissipa una potenza pari al prodotto tra corrente e tensione:
+$$ P=VI $$
+\im{0.3}{ims/resistore}
+
+\subsection{Generatore di tensione/corrente}
+Il generatore di tensione è un bipolo che mantiene una tensione costante tra i terminali.\\
+La sua caratteristica tensione-corrente è:
+$$ V=V_0 $$
+\im{0.3}{ims/gen-tensione}
+Il simbolo (a) è utilizzato esclusivamente per generatori di tensione costante, mentre il simbolo (b) viene spesso disegnato insieme alla forma della funzione generata.\\\\
+Il generatore di corrente è un bipolo attraversato da una corrente costante.\\
+La sua caretteristica tensione-corrente è:
+$$ I=I_0 $$
+\im{0.3}{ims/gen-corrente}
+
+\subsubsection{Circuiti aperti e cortocircuiti}
+Un generatore di corrente spento è attraversato da una corrente nulla. Questa configurazione è chiamata circuito aperto e può essere utilizzata per modellare l'assenza di collegamento.\\\\
+Un generatore di tensione spento ha ai capi una tensione nulla. Questa configurazione è chiamata cortocircuito e si usa per rappresentare una connessione con un filo conduttore ($R\rightarrow0$).
+
+\subsubsection{Generatori dipendenti}
+I generatori dipendenti sono 4-poli (o doppi bipoli) che generano una grandezza elettrica in funzione di un'altra grandezza elettrica. Questi componenti hanno 4 terminali: 2 in ingresso per la grandezza di controllo e 2 in uscita per la grandezza generata. I generatori dipendenti possono essere di 4 tipi:
+\begin{itemize}
+    \item \textit{Generatore di tensione controllato in tensione}: \\
+    non assorbe corrente in ingresso e genera un segnale dato da: $$ V_o=EV_i $$ dove $E$ è detto guadagno di tensione.\\
+    \im{0.3}{ims/VCVS}
+
+    \item \textit{Generatore di corrente controllato in corrente}:\\
+    non c'è caduta di tensione tra i terminali in ingresso. Il segnale in uscita è dato da:
+    $$ I_o=FI_i $$
+    dove $F$ è detto guadagno di corrente.
+    \im{0.3}{ims/CCCS}
+
+    \item \textit{Generatore di corrente controllato in tensione}:\\
+    non assorbe corrente in ingresso e produce un segnale dato da:
+    $$ I_o=GV_i $$
+    dove $G$ è detta transconduttanza e ha l'unità di misura di una conduttanza.
+    \im{0.3}{ims/VCCS}
+
+    \item \textit{Generatore di tensione controllato in corrente}:\\
+    non c'è caduta di tensione tra i terminali d'ingresso e produce un segnale dato da:
+    $$ V_o=HI_i $$
+    dove $H$ è detta transresistenza e ha le dimensioni di una resistenza.
+    \im{0.3}{ims/CCVS}
+    
+\end{itemize}
+
+
+\subsection{Amplificatore operazionale}
+L'amplificatore operazionale è un generatore di tensione controllato in tensione che amplifica la differenza di potenziale tra i terminali in ingresso:
+$$ V_{out}=E(V^+-V^-) $$
+\im{0.4}{ims/ampop}
+La maggior parte degli amplificatori operazionali sul mercato hanno un unico terminale di uscita, la tensione $V_{out}$ è quindi da intendersi come riferita al nodo di terra.\\
+Oltre al terminale in uscita, l'amp-op presenta due terminali in ingresso, indicati rispettivamente da $+$ (ingresso non invertente) e $-$ (ingresso invertente). Gli amp-op reali hanno inoltre due terminali $V_{cc}^\pm$ per l'alimentazione.\\\\
+L'amplificatore operazionale ideale è caratterizzato da:
+\begin{itemize}
+    \item guadagno $E\rightarrow+\infty$
+    \item resistenza in uscita $R_{out}=0$
+    \item resistenza in ingresso $R_{in}\rightarrow+\infty$
+    \item banda passante $B\rightarrow+\infty$
+\end{itemize}
+Gli amplificatori operazionali sono molto spesso usati in configurazione retroazionata, riportando, cioè, il segnale in uscita a uno (o entrambi) degli ingressi attraverso una rete di componenti passivi (rete di retroazione). La retroazione è detta positiva se il segnale è riportato all'ingresso non invertente, negativa altrimenti. Il comportamento di un amp-op retroazionato può essere studiato attraverso ai grafi di Mason.\\
+In generale i due tipi di retroazione hanno comportamenti diversi:
+\begin{itemize}
+    \item \textit{retroazione negativa}:\\
+    $V_{out}$ è stabile, cioè non può divergere spontaneamente. Vale il principio di terra virtuale: i due terminali in ingresso si trovano alla stessa tensione.
+
+    \item \textit{retroazione positiva}:\\
+    $V_{out}$ può divergere spontaneamente (in un amp-op reale tende a $V_{cc}^\pm$).
+    
+\end{itemize}
+
+\subsubsection{Grafi di Mason}
+(...)
+
+
+\subsection{Condensatore}
+Il condensatore è costituito da due superfici metalliche separate da un materiale isolante.\\
+Un condensatore è in grado di accumulare sulle sue superfici una carica pari a
+$$ q(t)=Cv(t) $$
+La costante $C$ è detta capacità e si misura in Farad.\\\\
+Per un circuito in continua, un condensatore si comporta come un circuito aperto, non lasciando passare corrente tra i suoi terminali.\\
+In generale la caratteristica tensione-corrente di un condensatore è:
+$$ i=C\frac{dv}{dt} $$
+da cui
+$$ v=\frac{1}{C}\int i\;dt $$
+quindi la tensione è una funzione continua di t.\\\\
+Possiamo scrivere potenza istantanea $p$ ed energia immagazzinata $w$ come:
+$$ p=vi=Cv\frac{dv}{dt} \quad\Rightarrow\quad w=\frac{1}{2}Cv^2 $$
+
+\subsection{Induttore}
+L'induttore è costituito da un filo conduttore avvolto a spirale. All'interno dell'avvolgimento si ha un campo magnetico proporzionale alla corrente:
+$$ \Phi=Li $$
+una variazione di flusso magnetico provoca una differenza di potenziale ai capi del filo, per cui la relazione tensione-corrente risulta:
+$$ v=L\frac{di}{dt} $$
+la corrente risulta:
+$$ i=\frac{1}{L}\int v\;dt $$
+e l'energia interna con un procedimento analogo a quello usato per il condensatore:
+$$ w=\frac{1}{2}Li^2 $$
+
+
+
+
+
+
+\newpage
+\section{Analisi nel dominio del tempo}
+Un segnale è una grandezza elettrica che varia nel tempo.\\
+Un segnale è continuo nel tempo se il suo valore può variare in qualsiasi istante, campionato se il suo valore varia in corrispondenza con un segnale di clock (o temporizzazione).
+\im{0.8}{ims/segnali}
+Un segnale è detto periodico se si ripete dopo un tempo $T$ detto periodo:
+$$ x(t+T)=t \forall t $$
+L'inverso del periodo è la frequenza: $f=\frac{1}{T}$\\
+La pulsazione o frequenza angolare si definisce come: $\omega=2\pi f$\\\\
+Il valore medio di un segnale periodico è dato da:
+$$ v_m=\frac{1}{T}\int_0^Tv(t)dt $$
+Mentre il valore efficace (o "root-mean-square") è dato da:
+$$ v_{rms} = \sqrt{\frac{1}{T}\int_0^T(v(t))^2dt}$$
+Quest'ultimo valore è importante perché è il valore corrispondente di una tensione costante che dissipa la stessa potenza in un bipolo resistivo rispetto al segnale variabile.\\\\
+Una grandezza che può assumere un numero infinito di valori è detto analogico, mentre se il suo valore cambia in modo discreto è detto digitale.
+
+\section{Analisi nel dominio della frequenza}
+Un segnale può essere espresso 
+
+
+
+
+
+\newpage
+\section{Configurazioni circuitali}
+La risoluzione di un circuito si riconduce normalmente alla risoluzione di un sistema lineare. Il numero di equazioni in questo sistema cresce, però, molto velocemente. Per ridurre il numero di equazioni da risolvere è possibile fare delle semplificazioni all'interno del circuito quando si incontrano configurazioni note. In questa sezione sono presentate alcune di queste configurazioni.
+
+\subsection{Collegamento in serie}
+Due bipoli attraversati dalla stessa corrente sono detti in serie.
+\im{0.5}{ims/serie2}
+Per questa configurazione valgono:
+$$ I_1=I_2 $$
+$$ V=V_1+V_2 $$
+
+\subsubsection{Resistori}
+Applicando le leggi di Kirchoff è possibile calcolare il valore del resistore $R_e$ con cui è possibile sostituire due resistori $R_1,R_2$, mantenendo invariate le altre grandezze elettriche. Vale la relazione:
+$$ R_e=R_1+R_2 $$
+che può essere estesa al caso di n resistori in serie:
+$$ R_e=\sum_k^nR_k $$
+
+\subsubsection{Generatori}
+La tensione ai capi di n generatori di tensione collegati in serie vale:
+$$ V=\sum_k^nV_k $$
+Nel caso di generatori di corrente, il collegamento è possibile solo se le loro correnti sono uguali. Altrimenti si otterrebbe una configurazione in cui la corrente entrante nel nodo è diversa da quella uscente.
+
+
+\subsection{Collegamento in parallelo}
+Due bipoli che hanno la stessa tensione ai capi sono detti in parallelo.
+\im{0.45}{ims/parallelo}
+In questo caso si ha:
+$$ I=I_1+I_2 $$
+$$ V_1=V_2 $$
+
+\subsubsection{Resistori}
+Applicando le leggi di Kirchoff, possiamo calcolare il resistore equivalente a due resistori collegati in parallelo:
+$$ R_e= \frac{1}{\frac{1}{R_1}+\frac{1}{R_2}}=\frac{R_1R_2}{R_1+R_2}$$
+che si estende al caso di n resistori come:
+$$ R=\frac{1}{\sum_k^n\frac{1}{R_k}} $$
+
+\subsubsection{Generatori}
+Due generatori di tensione possono essere collegati in parallelo solamente se hanno la stessa tensione.\\\\
+Nel caso di generatori di corrente collegati in parallelo, la corrente totale è data dalla somme delle correnti:
+$$ I=I_1+I_2 $$
+
+
+\subsection{Stella e triangolo}
+La stella e il triangolo di resistori sono due configurazioni non semplificabili come collegamenti in serie o in parallelo. In alcuni casi può essere più semplice risolvere una configurazione piuttosto che l'altra e per questo esistono relazioni che permettono di passare da stella a triangolo e viceversa.
+\im{0.5}{ims/stella-triangolo}
+
+\subsubsection{Stella $\rightarrow$ triangolo}
+\im{0.5}{ims/stella-triangolo2}
+Se le tre resistenze sono uguali, allora vale:
+$$ R_\Delta=3R_Y $$
+
+\subsubsection{Triangolo $\rightarrow$ stella}
+\im{0.5}{ims/stella-triangolo3}
+Se le tre resistenze sono uguali, allora vale:
+$$ R_Y=\frac{1}{3}R_\Delta $$
+
+\subsection{Generatori equivalenti}
+Quando non è necessario calcolare le grandezze elettriche corrispondenti a tutti i bipoli, una rete di resistori e generatori può essere considerata equivalente a un singolo generatore e un resistore.
+
+\subsubsection{Generatore di Thévenin}
+Possiamo considerare la rete di resistori e generatori equivalente a un generatore di tensione in serie a una resistenza.
+\im{0.6}{ims/thevenin}
+Il valore $V_{eq}$ è pari alla tensione di circuito aperto, ottenuta risolvendo il circuito, mentre $R_{eq}$ è pari alla resistenza vista tra i terminali spegnendo tutti i generatori indipendenti.\\\\
+Per trovare questi valori, è sufficiente considerare spenti tutti i generatori dipendenti, collegare un generatore di corrente tra i terminali A e B, ricavare la tensione $V_{eq}=V_{ab}$ e quindi $R_{eq}=\frac{V_x}{I_x}$.
+
+\subsubsection{Generatore di Norton}
+Possiamo considerare la rete di resistori e generatori equivalente a un generatore di corrente in parallelo a una resistenza.
+\im{0.6}{ims/norton}
+La corrente $I_{eq}$ è quella ottenuta cortocircuitando i terminali A e B e risolvendo il circuito. Il valore della resistenza è lo stesso del circuito di Thévenin.\\\\
+Per i due circuiti equivalenti valgono quindi le relazioni:
+$$ R_{eq}^{Norton} = R_{eq}^{Thevenin}$$
+$$ V_{eq} = R_{eq}I_{eq} $$
+
+\subsubsection{Massimo trasferimento di potenza}
+Consideriamo un circuito equivalente a un circuito di Thévenin, a cui è collegata una resistenza (equivalente) di carico $R_L$.
+\im{0.4}{ims/maxP}
+Il valore di $R_L$ che massimizza l'assorbimento di potenza dal generatore è:
+$$ R_L=R_{eq} $$
+\im{0.5}{ims/potenza-carico}
+Questo risultato è utile nell'ambito della trasmissione dei segnali, in particolare di segnali deboli, poiché permette di massimizzare la potenza trasferita a un ricevitore.
+
+\subsubsection{Principio di sovrapposizione}
+In un circuito formato da componenti con caratteristica tensione-corrente lineare, che contiene generatori indipendenti e dipendenti anch'essi lineari, è possibile considerare separatamente l'effetto di ogni generatore e poi calcolarne la somma.\\\\
+Sotto queste ipotesi, un circuito può essere risolto come segue:
+\begin{itemize}
+    \item si spendono tutti i generatori indipendenti tranne uno
+    \item si calcolano tensioni e correnti risultanti
+    \item si ripetono i passaggi precedenti per tutti i generatori indipendenti
+    \item si sommano le grandezze ottenute
+\end{itemize}
+Per poter applicare questo procedimento è necessario che \textbf{tutti} i componenti siano lineari, le grandezze elettriche da calcolare siano lineari (ad es: la potenza non è una grandezza che dipende linearmente dalle altre) e che siano solamente in generatori indipendenti a venir rimossi.
+
+
+
+
+
+
+\newpage
+\Index
+\end{document}

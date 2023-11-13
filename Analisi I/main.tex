@@ -1,0 +1,790 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{ dsfont }
+\usepackage{ amssymb }
+\usepackage{cases}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={190mm,257mm},
+ left=10mm,
+ top=20mm,
+ }
+\usepackage{stackengine}
+\newcommand\ubar[1]{\stackunder[1.2pt]{$#1$}{\rule{.8ex}{.075ex}}}
+\title{Analisi I}
+\author{Luca Vettore}
+\date{Primo semestre 2021}
+\begin{document}
+\maketitle
+
+\section{Insiemi numerici}
+Prima di cominciare a studiare i concetti dell'analisi matematica è necessario definire alcuni elementi di base, primi tra tutti gli insiemi numerici.
+
+\subsection{Gli insiemi $\mathds{N}$ e $\mathds{Z}$}
+Il primo insieme da considerare è l'insieme dei numeri naturali $\mathds{N}$. L'esistenza di questo insieme e le sue proprietà sono spesso postulate. $\mathds{N}$ è formato dai numeri interi non negativi (nella definizione più comune non include lo 0).\\\\
+$\mathds{N}_0$ è definito come $\mathds{N} \cup \{0\}$.\\\\
+L'insieme dei numeri interi relativi $\mathds{Z}$ include numeri interi positivi e negativi, oltre allo 0.\\
+$\mathds{Z}$ ha alcune proprietà:
+\begin{itemize}
+    \item
+    Possiede l'inverso della somma: $n + (-n) = 0$ $\forall n \in \mathds{Z}$
+    \item
+    $(\mathds{Z}, +)$ è u gruppo (l'addizione è associativa, commutativa e ha un inverso)
+    \item
+    $(\mathds{Z}, \cdot)$ non è un gruppo perché non è chiuso ($\exists n:$ $\frac{1}{n}$ $\notin$ $\mathds{Z}$)
+\end{itemize}
+
+\subsection{L'insieme $\mathds{Q}$}
+$\mathds{Q}$ è l'insieme dei numeri razionali (\{$r=\frac{p}{q};$ $p,q \in \mathds{Z}$, $q \neq 0$\}). Ha le seguenti proprietà:
+\begin{itemize}
+    \item
+    Possiede l'inverso della somma: $r + (-r) = 0$ $\forall r \in \mathds{Q}$
+    \item
+    $(\mathds{Q}, +)$ è u gruppo (l'addizione è associativa, commutativa e ha un inverso)
+    \item
+    $(\mathds{Q}, \cdot)$ è un gruppo perché è chiuso ($r \neq 0 \rightarrow r \cdot \frac{1}{r} = 1$)
+    \item
+    Ogni elemento può essere rappresentato da infinite coppie p e q, ma solo una in cui p e q sono coprimi
+    \item
+    Ogni elemento può essere rappresentato univocamente da un allineamento decimale del tipo $c_o, c_1 c_2 ... c_n$ con $n \in \mathds{N}$ e $n \leq q$
+\end{itemize}
+\textbf{Teorema: allineamenti decimali}\\
+Ogni $r \in \mathds{Q}$ può essere rappresentato da un allineamento decimale con $n \in \mathds{N}$ e $n \leq q$.\\\\
+\textbf{Dimostrazione:}
+\begin{enumerate}
+    \item
+    Se denotiamo con $c_0$ la parte intera di r, $c_n$ la cifra ennesima e $p_n$ il resto ennesimo: $\frac{p}{q} = c_o + \frac{p_0}{q}$
+    \item
+    Allo stesso modo: $\frac{p_0}{q} = \frac{1}{10} \cdot \frac{10 p_0}{q} = \frac{1}{10} \cdot \left(c_1 + \frac{p_1}{q} \right) = \frac{c_1}{10} + \frac{p_1}{10q}$ \qquad $0 \leq c_1 \leq 9$ e $p_1 < q$
+    \item
+    Applicando ripetutamente lo stesso procedimento per i resti successivi otteniamo: $r = c_0 + \frac{c_1}{10} + \frac{c_2}{10^2} + \frac{c_3}{10^3} + ... + \frac{c_n}{10^n} + ...$ \\\\
+    I resti possibili sono sempre $0 \leq p_n < q-1$, quindi dopo un massimo di q passaggi otteniamo resti uguali ai precedenti. In questo caso chiamiamo l'allineamento periodico e definiamo periodo la parte decimale che si ripete e antiperiodo la precedente.\\\\
+    Gli allineamenti con periodo 9 risultano identici agli allineamenti con periodo 0 ($0,\bar{9} = 1$). Questo algoritmo non produce mai i numeri con periodo $\bar{9}$.
+
+\end{enumerate}
+
+\subsection{L'insieme $\mathds{R}$}
+L'insieme $\mathds{Q}$ non contiene la totalità degli allineamenti decimali, non contiene ad esempio $1,101001000100001...$ (dove ogni 1 è preceduto sempre da un numero maggiore di 0). Alcuni dei numeri che incontriamo come risultati di comuni equazioni non possono essere rappresentati da un allineamento razionale.\\\\
+\textbf{Teorema: irrazionalità di $\sqrt{2}$}\\
+L'equazione $x^2 = 2$ non ha soluzioni in $\mathds{Q}$.\\\\
+\textbf{Dimostrazione:}\\
+Supponendo per assurdo che esista una coppia di numeri naturali p e q primi tra loro tali che $\frac{p}{q} = \sqrt{2}$ otteniamo che $2 = \frac{p^2}{q^2} \rightarrow p^2 = 2 q^2$, da cui deduciamo che p deve essere pari. $2m = p \rightarrow 4m^2 = 2p^2 \rightarrow 2m^2 = p^2$, quindi p è pari, ma p e q sono primi fra loro per ipotesi $\rightarrow$ assurdo.\\
+\\
+Un numero reale è definito come un allineamento decimale (periodico o no) preceduto da segno $\pm$. Per definizione $\mathds{N} \subset \mathds{Z} \subset \mathds{Q} \subset \mathds{R}$ e l'insieme $\mathds{R} \setminus \mathds{Q}$ è chiamato insieme dei numeri irrazionali.
+\subsubsection{Ordinamento}
+Siano $\alpha \in \mathds{R}$ e $\beta \in \mathds{R}$, $\alpha \neq \beta$ non negativi (una definizione analoga vale per negativi e discordi) e siano $a_n$ e $b_n$ le prime cifre diverse, allora se $a_n > b_n \rightarrow \alpha > \beta$ e viceversa.\\\\
+L'ordinamento in $\mathds{R}$ ha le seguenti proprietà:
+\begin{enumerate}
+    \item
+    $\forall \alpha, \beta \in \mathds{R}$ vale solo una delle relazioni $\alpha = \beta$ oppure $\alpha < \beta$ opure $\alpha > \beta$
+    \item
+    $\forall \alpha, \beta, \gamma \in \mathds{R}$ se $\alpha < \beta$ e $\beta < \gamma$ allora $\alpha < \gamma$
+\end{enumerate}
+Sia $A \subset \mathds{R}$ e $A \neq \emptyset$
+\begin{itemize}
+    \item 
+    A è superiormente limitato se $\exists \Lambda \in \mathds{R}$: $\forall a \in A$ $a \leq \Lambda$
+    \item
+    A è inferiormente limitato se $\exists \lambda \in \mathds{R}$: $\forall a \in A$ $a \geq \lambda$
+    \item
+    A è limitato se valgono le due condizioni precedenti
+\end{itemize}
+Un numero reale M è detto massimo di un insieme $A \neq \emptyset$; $A \subset \mathds{R}$ se $M \in A$ e $\forall a \in A$ $M \geq a$ e si denota max A\\
+Un numero reale m è detto minimo di un insieme $A \neq \emptyset$; $A \subset \mathds{R}$ se $m \in A$ e $\forall a \in A$ $m \leq a$ e si denota min A\\
+Un sottoinsieme di $\mathds{R}$ non ha necessariamente massimo e minimo, ma se esistono questi sono necessariamente unici.\\\\
+Un numero reale $\Lambda$ è maggiorante di $A \subset \mathds{R}$ se $\Lambda \in \mathds{R}$ e $\forall a \in A$ $\Lambda \geq a$\\
+Un numero reale $\lambda$ è minorante di $A \subset \mathds{R}$ se $\lambda \in \mathds{R}$ e $\forall a \in A$ $\lambda \leq a$\\
+Massimo e minimo sono rispettivamente maggioranti e minoranti di un insieme, ma un maggiorante o un minorante non sono necessariamente massimo e minimo.\\
+Un insieme $A \subset \mathds{R}$; $A \neq \emptyset$ ha sicuramente maggioranti e minoranti, ma non massimo e minimo.\\\\
+Sia $A \subset \mathds{R}$, se A è superiormente limitato è detto estremo superiore ($sup A$) il minimo dei maggioranti, se A è inferiormente limitato è detto estremo inferiore ($inf A$) il massimo dei minoranti.
+($\Lambda=\sup A\Leftrightarrow\forall x\in A$ $\Lambda>x$ e $\forall\epsilon>0\exists x\in A:$ $L-\epsilon<x$.)\\
+Estremo superiore e inferiore sono unici. Se A non è superiormente limitato per convenzione $sup A = +\infty$, allo stesso modo se A non è inferiormente limitato $inf A = -\infty$.\\\\
+\textbf{Teorema: completezza di $\mathds{R}$}\\
+Sia $A \subset \mathds{R}$ un insieme superiormente limitato, allora l'insieme dei maggioranti ha minimo. Se A è inferiormente limitato, allora l'insieme dei minoranti ha massimo.\\\\
+\textbf{Dimostrazione:}\\
+Ci limitiamo a dimostrare la prima condizione, con tutti i maggioranti $\geq 0$, gli altri casi sono analoghi.\\\\
+Chiamiamo B l'insieme dei maggioranti di A. L'insieme delle parti intere di B ha minimo non negativo ($\leftarrow$ l'insieme parti intere di B è $\subset \mathds{N}$). Denotiamo con $c_0$ questo minimo e definiamo $B_0$ := $\{\beta \in B$: la parte intera di $\beta$ è $c_0 \}$.\\
+L'insieme delle prime cifre decimali $c_1$ degli elementi di $B_0$ ha minimo ($\leftarrow c_1 \in \mathds{N}$ e $0 \leq c_1 \leq 9$). Definiamo quindi $B_1$ := $\{\beta \in B_0:$ la prima cifra decimale di $\beta$ è $c_1$\}.\\
+Possiamo applicare lo stesso procedimento per $B_k$ := \{$\beta \in B_{k - 1}:$ la k-esima cifra di $\beta$ è $c_k$\}. $\forall k$ $B_k \neq \emptyset$ e $B_k \subseteq B_{k-1}$.\\
+Poniamo $\gamma$ := $c_0, c_1 c_2 ... c_k ...$
+\begin{itemize}
+    \item $\gamma \in \mathds{R}$:\\
+    Supponiamo per assurdo che $\gamma$ abbia periodo 9 $\rightarrow \gamma \notin \mathds{R}$. $c_k$ è minimo delle k-esime cifre decimali di $B_k$, quindi $c_k = 9$ $\rightarrow$ tutti gli elementi di $B_k$ hanno k-esima cifra = 9, ma allora $B_{k-1} = B_k = B_{k + 1} = ...$ e quindi tutti gli elementi di $B_{k-1}$ avrebbero periodo 9 che è assurdo.
+    \item $\gamma$ è maggiorante di A:\\
+    Supponiamo per assurdo che $\gamma$ non sia maggiorante di A. Allora $\exists \alpha \in A$: $\alpha > \gamma \rightarrow$ definito k il primo indice per cui $a_k \neq c_k$ $\alpha > \beta$ $\forall\beta \in B_k$
+    \item $\gamma$ è minimo dei maggioranti:\\
+    Sia $\beta \in B$, allora\\
+    o $\beta \in B_k \in B$ $\forall k \in \mathds{N}_0 \rightarrow \beta = \gamma$\\
+    oppure $\exists k \in \mathds{N}_0: \beta \notin B_k \rightarrow \beta > \gamma$
+\end{itemize}
+$\Rightarrow \gamma$ è $sup A$\\
+\\
+L'insieme $\mathds{Q}$ non è completo (A := \{ $r \in \mathds{Q}^+: r^2 < 2$\} è limitato, ma non esiste $sup A \in \mathds{Q}$).\\\\
+\textbf{Teorema: densità di $\mathds{Q}$ e ($\mathds{R} \setminus \mathds{Q}$})\\
+Tra due numeri reali esistono infiniti numerali razionali e irrazionali.\\\\
+\textbf{Dimostrazione:}\\
+Consideriamo il caso $x,y \in \mathds{R}$; $0<x<y$. Gli altri sono analoghi.
+\begin{itemize}
+    \item $\Rightarrow \exists n: x_n < y_n$
+    \item $\Rightarrow \exists k>n: x_k<9$
+\end{itemize}
+$r=x_0,x_1 x_2 ... x_n ... x_{k-1} 9 \bar{0}$: \begin{itemize}
+    \item $r \in \mathds{Q}$
+    \item $r < y \leftarrow$ la prima cifra diversa è la n-esima e $x_n=r_n<y_n$
+    \item $r > x \leftarrow$ la prima cifra diversa è la k-esima e $r_k=9>x_k$
+\end{itemize}
+$z=x_0,x_1 x_2 ... x_n ... x_{k-1} 9 0$ + [qualsiasi successione di numeri non periodica]: \begin{itemize}
+    \item $z \notin \mathds{Q}$
+    \item $z < y \leftarrow$ la prima cifra diversa è la n-esima e $x_n=r_n<y_n$
+    \item $z > x \leftarrow$ la prima cifra diversa è la k-esima e $r_k=9>x_k$
+\end{itemize}
+Ripetendo questo procedimento all'infinito si ha la tesi.\\
+
+
+\subsubsection{Troncamenti e operazioni}
+Tutte le operazioni algebriche possibili in $\mathds{Q}$ si possono estendere a $\mathds{R}$. Per estenderle è però necessario definire il concetto di troncamento.\\
+Il troncamento k-esimo di $x \in \mathds{R}$ è definito come: $x^{(k)}:=x_0,x_1x_2...x_k \bar{0}$, dove $sup \{x^{(k)}; k\in \mathds{N}\} = x$\\
+A questo punto è possibile definire la somma di due numeri reali $\alpha$ e $\beta$ come: $\alpha + \beta := sup \{\alpha^{(k)}+\beta^{(k)}; k\in \mathds{N}\}$ e allo steso modo le altre operazioni.
+\section{Le funzioni}
+Il concetto di funzione può essere definito a partire dal prodotto cartesiano, ma per ora ci limitiamo a descriverle come una legge che dati due insiemi $X,Y \neq \emptyset$ associa ad ogni elemento di X uno e un solo elemento di Y.
+\begin{itemize}
+    \item $X$ è detto insieme di definizione o dominio.
+    \item $Y$ è detto insieme di arrivo o codominio.
+    \item $f(x)$ è detta immagine di $x$ tramite $f$.
+    \item L'insieme $f(X):= \{f(x); x \in X \}$ è detta immagine di $f(x)$.
+    \item L'insieme $graf(f) := \{(x,y) \in X \times Y: y=f(x); x \in X \}$ è deto grafico di $f$
+    \item L'insieme $\{x \in X: f(x)=y \}$ è detta controimmagine di $f$
+    \item L'insieme $f^{-1}(B) := \{x \in X: f(x) \in B \}$, con $B \subset Y$ è detta controimmagine di $B$ attraverso ad $f$
+\end{itemize}
+$f(X) \subset Y$ sempre, ma non necessariamente $f(X) = Y$.
+\begin{itemize}
+    \item Una funzione è detta suriettiva se $f(X) = Y$
+    \item Una funzione è detta iniettiva se $\forall x_1,x_2 \in X, x_1 \neq x_2 \Rightarrow f(x_1) \neq f(x_2)$
+    \item Una funzione è detta biettiva se è iniettiva e suriettiva
+\end{itemize}
+Se $f(x)$ è biettiva allora è definita la funzione inversa $f^{-1}(y):=x$.\\\\
+Siano $f: X \rightarrow Y$ e $g: Y \rightarrow Z$ due funzioni, è detta funzione composta: $g o f(x):=g(f(x))$. La composizione di due funzioni biunivoche è anch'essa biunivoca.\\
+
+\subsection{Le successioni}
+Sia $X \neq \emptyset$ un insieme, una successioni a valori in $X$ è una qualunque funzione $f: \mathds{N} \rightarrow X.$ L'immagine $f(n)$ è generalmente denotata $x_n$. La successione può essere rappresentata dall'elenco dei suoi valori ($x_0,x_1,x_2,x_3,...,x_n,...$) oppure con la notazione  $\{x_n\}_{n \in N}$. L'insieme degli $n$ è chiamato insieme degli indici.\\\\
+Data una successione $\{x_n\}_{n \in N}$ e una successione crescente di interi $n_1, n_2, n_3, ..., n_k, ...$, è detta sottosuccessione di $\{x_n\}_{n \in N}$ la successione $\{x_{nk}\}_{k \in N}$.
+\subsection{La cardinalità}
+Sia $X \neq \emptyset$, si dice che $X$ è finito se è in corrispondenza biunivoca con $\{1, 2, 3, ..., n\}$. Il numero $n$ è detta cardinalità o potenza di $X$. Un insieme non vuoto si dice infinito se non è finito.\\
+Due insiemi infiniti $X,Y$ hanno la stessa cardinalità (o sono equipotenti) se $\exists (f: X \rightarrow Y)$ biunivoca e si denota $X \sim Y$.\\
+$X \neq \emptyset$ è detto numerabile se $X \sim \mathds{N}$.\\\\
+\textbf{Teorema}\\
+Sia $X,A \neq \emptyset$, $X$ numerabile, $A$ infinito e $A \subset X$, allora $A$ è numerabile.\\\\
+\textbf{Dimostrazione}\\
+$X$ numerabile $\Rightarrow \exists (f: \mathds{N} \rightarrow X)$ biunivoca.\\
+Poniamo: $a_1 = x_{k1}$ dove $k_1 = min\{k \in \mathds{N}: x_k \in A\}$; $a_2 = x_{k2}$ dove $k_2 = min\{k>k_1 \in \mathds{N}: x_k \in A\}$; ...\\
+Per induzione troviamo una successione $a_n$, quindi una funzione $f: \mathds{N} \rightarrow A$ biunivoca $\Rightarrow A$ è numerabile.\\
+\\
+\textbf{Teorema}\\
+Sia $A_j$ una successione di insiemi numerabili, allora \begin{itemize}
+    \item $A:= \bigcup_{j \in \mathds{N}} A_j$ è numerabile
+    \item $A^k:= \bigcup_{j = 1} ^k A_j$ è numerabile
+\end{itemize}
+\textbf{Dimostrazione}\\
+Ogni $A_j$ è numerabile $\Rightarrow$ $\exists f_j: \mathds{N} \rightarrow A_j$ biunivoca, ponendo $a_{jn} := f_j(n)$, otteniamo che $A_j = \{a_{j1}, a_{j2}, ..., a_{jn}, ...\}$, da cui:\\
+$A_1: a_{11}, a_{12}, a_{13}, a_{14}, a_{15}, ...$\\
+$A_2: a_{21}, a_{22}, a_{23}, a_{24}, a_{25}, ...$\\
+$A_3: a_{31}, a_{32}, a_{33}, a_{34}, a_{35}, ...$\\
+Possiamo quindi definire una successione che elenchi tutti gli elementi dell'unione leggendo lungo le diagonali: $\bigcup_{j \in \mathds{N}} A_j = \{a_{11}, a_{21}, a_{12}, a_{31}, a_{22}, a_{13}, ...\}$\\\\
+Abbiamo così una funzione biunivoca tra $\mathds{N}$ e $\bigcup_{j \in \mathds{N}} A_j$ semplicemente rinominando gli indici. Nel caso in cui ci fossero elementi presenti in più di un insieme sarebbe sufficiente eliminarli mano a mano mentre si applica lo stesso metodo.\\\\
+$A^K := \bigcup_{j=1} ^K A_j$ è numerabile $\Leftarrow A^K \subset \bigcup_{j \in \mathds{N}} A_j$\\
+\\
+\textbf{Teorema}\\
+Siano $A$ e $B$ due insiemi numerabili, allora il loro prodotto cartesiano $A \times B$ è numerabile.\\\\
+\textbf{Dimostrazione}\\
+$A$ numerabile $\Rightarrow$ posso definire una successione ${a_n}$ contenente tutti i suoi elementi, lo stesso vale per b.\\\\
+$A \times B$:\\
+$(a_1,b_1), (a_1,b_2), (a_1,b_2), (a_1,b_2), ...$\\
+$(a_2,b_1), (a_2,b_2), (a_2,b_2), (a_2,b_2), ...$\\
+$(a_3,b_1), (a_3,b_2), (a_3,b_2), (a_3,b_2), ...$\\\\
+Come nel teorema precedente, è sufficiente seguire le diagonali per ottenere un ordinamento.\\
+\\
+\textbf{Teorema: numerabilità di $\mathds{Z}$ e $\mathds{Q}$}\\
+$\mathds{Z}$ e $\mathds{Q}$ sono numerabili.\\\\
+\textbf{Dimostrazione}\\
+$\mathds{Z} = \mathds{N}_0 \cup -\mathds{N} \Rightarrow$ $\mathds{Z}$ è numerabile.\\\\
+$\mathds{Q} = \mathds{Q}^+ \cup \{0\} \cup \mathds{Q}^-$ \begin{itemize}
+    \item $\mathds{Q}^+ = \{\frac{p}{q}; p,q \in \mathds{N} \} \sim \mathds{N} \times \mathds{N} \Rightarrow$ numerabile
+    \item $\mathds{Q}^- \sim \mathds{Q}^+$
+\end{itemize}
+$\Rightarrow \mathds{Q}$ è numerabile\\
+\\
+Un insieme è detto al più numerabile se è finito o numarabile.\\
+Un insieme ha la potenza del continuo se è equipotente a $\mathds{R}$. Ogni intervallo in $\mathds{R}$ ha la potenza del continuo (ad es: $f(x)= \frac{x}{1-|x|}: (-1, 1) \rightarrow \mathds{R}$ biunivoca).\\\\
+\textbf{Teorema: teorema di Cantor}\\
+$\mathds{R}$ ha potenza maggiore del numerabile.\\\\
+\textbf{Dimostrazione}\\
+$(0, 1) \sim \mathds{R} \Rightarrow$ basta dimostrare che $\nexists f: \mathds{N} \rightarrow (0,1)$ biunivoca.\\
+Supponiamo per assurdo che $\exists f: \mathds{N} \rightarrow (0,1)$ biunivoca, possiamo quindi elencare gli elementi di (0,1). Considero gli allineamenti decimali:\\
+$x_1: 0,c_{11}c_{12}c_{13}c_{14}$\\
+$x_2: 0,c_{21}c_{22}c_{23}c_{24}$\\
+...\\
+$x_n: 0,c_{n1}c_{n2}c_{n3}c_{n4}$\\
+Posso sempre costruire un $x \in (0,1)$ non nell'elenco: \begin{itemize}
+    \item $x = 0,c_1c_2c_3...c_n...$
+    \item $c_1 \neq 0; c_1 \neq c_{11}; c_1 \neq 9$
+    \item $c_2 \neq c_{22}; c_2 \neq 9$
+    \item $c_n \neq c_{nn}; c_n \neq 9$
+\end{itemize}
+$x \in \mathds{R} \Leftarrow$ non ha periodo 9, $x \in (0,1)$, $x$ non è nell'elenco che è assurdo.\\
+\\
+\textbf{Corollario}\\
+$\mathds{R} \setminus \mathds{Q}$ non è numerabile.
+
+\section{Spazi euclidei}
+Sia $n \in \mathds{N}$. Definiamo $\mathds{R}^n:= \mathds{R} \times \mathds{R} \times ... \times \mathds{R}$ (per n volte) $= \{(x_1,x_2,...,x_n): x \in \mathds{R}$ $\forall i=1,2,...,n\}$. Un elemento di $\mathds{R}^n$ si indica con $\ubar{x}$ e può essere rappresentato come un vettore n-dimensionale.\\
+$\mathds{R}^n$ è uno spazio vettoriale su $\mathds{R}$, cioè al suo interno sono definite le operazioni vettoriali: \begin{itemize}
+    \item $\ubar{x},\ubar{y} \in \mathds{R}^n$ \quad $\ubar{x} + \ubar{y}=\{x_1+y_1,...,x_n+y_n\}$
+    \item $\ubar{x} \in \mathds{R}^n, \alpha \in \mathds{R}$ \quad $\alpha \cdot \ubar{x}=\{\alpha \cdot x_1,...,\alpha \cdot x_n\}$
+\end{itemize}
+Oltre a queste operazioni è anche possibile definire un prodotto interno (o prodotto scalare) con le seguenti proprietà: \begin{itemize}
+    \item $<\ubar{x}, \ubar{y}>:=\sum_{i=1}^n x_iy_i$
+    \item $<\ubar{x}, \ubar{y}> = <\ubar{y}, \ubar{x}>$
+    \item $<\alpha \cdot \ubar{x}, \ubar{y}> = \alpha \cdot <\ubar{x}, \ubar{y}>$
+    \item $<\ubar{x} + \ubar{y}, \ubar{z}> = <\ubar{x}, \ubar{z}> + <\ubar{y}, \ubar{z}>$
+    \item $<\ubar{x}, \ubar{x}> \geq 0$
+    \item $<\ubar{x}, \ubar{x}> = 0 \Leftrightarrow \ubar{x}=0$
+\end{itemize}
+Uno spazio $\mathds{R}^n$ dotato delle tre operazioni sopra citate è definito spazio euclideo.\\\\
+Si definisce norma di un vettore $\ubar{x}$ il numero reale $||\ubar{x}|| = \sqrt{<\ubar{x}, \ubar{x}>}$\\\\
+\textbf{Teorema: diseguaglianza di Cauchy-Schwartz}\\
+$\forall \ubar{x},\ubar{y}\in\mathds{R}^n$ \quad $|<\ubar{x}, \ubar{y}>| \leq ||\ubar{x}||$ $||\ubar{y}||$\\\\
+\textbf{Dimostrazione}\\
+Se $\ubar{y} = 0$ la tesi è vera.\\
+Altrimenti: $\forall \lambda \in \mathds{R}$ \quad $0\leq||\ubar{x}+\lambda\ubar{y}||^2=<\ubar{x}+\lambda\ubar{y},\ubar{x}+\lambda\ubar{y}>=<\ubar{x},\ubar{x}>+<\ubar{x},\lambda\ubar{y}>+<\lambda\ubar{y},\ubar{x}>+<\lambda\ubar{y},\lambda\ubar{y}>$ $=||x||^2+2\lambda<\ubar{x},\ubar{y}>+\lambda^2||y||^2$ che è un polinomio di secondo grado, fissati $\ubar{x}$ e $\ubar{y} \Rightarrow 0 \geq \Delta=4<\ubar{x},\ubar{y}>^2-4||\ubar{x}||^2||\ubar{y}||^2$
+$\Rightarrow ||<\ubar{x},\ubar{y}>|| \leq ||x||$ $||y||$\\
+\\
+\textbf{Teorema: diseguaglianza triangolare}\\
+$\forall\ubar{x},\ubar{y}\in\mathds{R}^n$ $||\ubar{x}+\ubar{y}||\leq||x||$ + $||y||$\\\\
+\textbf{Dimostrazione}\\
+$||\ubar{x}+\ubar{y}||^2\leq||x||^2||y||^2 \Rightarrow <\ubar{x},\ubar{x}>+<\ubar{x},\ubar{y}>+<\ubar{y},\ubar{x}>+<\ubar{y},\ubar{y}>=||\ubar{x}||^2+2<\ubar{x},\ubar{y}>+||y||^2 \leq ||\ubar{x}||^2||\ubar{y}||^2$\\
+$\Rightarrow ||\ubar{x}+\ubar{y}||\leq||x||$ + $||y||$
+
+\section{Spazi metrici}
+Sia $X\neq\emptyset$ e $d: X\times X\rightarrow[0,+\infty]$ una funzione, $(X,d)$ è detto spazio metrico se $d$ rispetta le condizioni:
+\begin{itemize}
+    \item $d(x,y)=0 \Leftrightarrow x=y$
+    \item $d(x,y)=d(y,x)$ $\forall x,y\in X$ (simmetria)
+    \item $d(x,y)\leq d(x,z)+d(z,y)$ $\forall x,y,z\in X$ (diseguaglianza triangolare)
+\end{itemize}
+$d(x,y)$ è detta distanza dal punto $x$ al punto $y$.\\\\
+Sia $(X,d)$ uno spazio metrico, è detta bolla aperta di raggio $r>0$ e centro $x\in X$ (o intorno) l'insieme\\ $B_r(x):=\{y\in X: d(x,y)<r\}$\\\\
+\textbf{Teorema: proprietà di Hausdorff}\\
+Sia $(X,d)$ spazio metrico, $x,y\in X$, $x\neq y$ allora $\exists r>0: B_r(x)\cap B_r(y)=\emptyset$\\\\
+\textbf{Dimostrazione}\\
+Poniamo $r=\frac{1}{3}d(x,y)$. Sia $z\in B_r(x)\Rightarrow$ per la disuguaglianza triangolare $3r=d(x,y)\leq d(x,z)+d(z,y)\leq r+d(y,z)$ $\Rightarrow d(y,z)\geq2r$ quindi $z\notin B_r(y)$\\
+
+\subsection{Classificazione dei punti}
+Sia $E\subset X$, un punto $p\in E$ si dice:
+\begin{itemize}
+    \item interno se $\exists r>0:B_r(p)\subset E$ ($p\in E$ necessariamente)
+    \item esterno se $\exists r>0: B_r(p)\subset E^c$ ($p\notin E$ necessariamente)
+    \item di frontiera se $\forall r>0$ $B_r(p)\cap E \neq \emptyset, B_r(p)\cap E^c \neq \emptyset$ ($p$ può appartenere a $E$ o $E^c$)
+\end{itemize}
+Un punto $p\in E$ è detto di accumulazione se $\forall r>0$ $\exists x\neq p:x\in B_r(p)\cap E$ oppure isolato se $\exists r>0:$ $B_r(p)\cap E=\{p\}$\\
+Un punto di accumulazione non appartiene necessariamente all'insieme, un punto isolato si.\\\\
+L'insieme $E^0$ è l'insieme dei punti interni di $E$, $\partial E$ l'insieme dei punti di frontiera e $E'$ l'insieme dei punti di accumulazione.\\\\
+\textbf{Teorema}\\
+Sia $(X,d)$ spazio metrico e $E\subset X, p\in E$, allora $p\in E'\Leftrightarrow\forall r>0$ $B_r(p)\cap E$ contiene infiniti punti di $E$.\\\\
+\textbf{Dimostrazione}\\
+Supponiamo per assurdo $p\in E'$ e $\exists r>0:$ $B_r(p)\cap E\setminus\{p\}=\{x_1,..,x_n\}, n\in\mathds{N}$\\
+Poniamo $\bar{r}<min\{d(x,p), \forall x\in B_r(p)\cap E\setminus\{p\}\}$, allora $B_{\bar{r}}(p)\cap E=\{p\}$ che è assurdo.\\
+\\
+\textbf{Corollario}\\
+Se $p\in E'$ allora $\exists\{x_n\}_{n\in\mathds{N}}\subset(E\setminus\{p\}):$ $d(x_n,p)<\frac{1}{n}$
+
+\subsection{Insiemi limitati in $(X,d)$}
+In uno spazio metrico generico $(X,d)$ non esiste necessariamente l'ordine, ma esiste la distanza. Definiamo quindi $diam(E):=sup_{x,y\in E}d(x,y)$. Si dice che $E\subset X$ è limitato se $diam(E)<+\infty$, altrimenti è illimitato.\\
+Sia $E\in X, E\neq \emptyset$, $E$ è limitato $\Leftrightarrow\exists x_0\in X, \exists r>0:$ $E\subset B_r(x_0)$.\\
+Ogni $E\subset X$ finito è limitato.\\
+Se $E_1,E_2\subset X$ sono limitati allora $E_1 \cup E_2$ è limitato.
+
+\subsection{Insiemi aperti e chiusi}
+Sia $(X,d)$ uno spazio metrico, un insieme $E\subset X$ è detto:
+\begin{itemize}
+    \item aperto $\Leftrightarrow E=E^0$
+    \item chiuso $\Leftrightarrow E^c$ è aperto
+\end{itemize}
+\textbf{Teorema:}\\
+Sia $(X,d)$ uno spazio metrico, $E\subset X$ è chiuso $\Leftrightarrow E'\subset E$\\\\
+\textbf{Dimostrazione}
+\begin{itemize}
+    \item $E$ chiuso $\Rightarrow E^c$ aperto. Sia $p\in E'$, supponiamo per assurdo che $p\notin E\Rightarrow\exists r>0:$ $B_r(p)\subset E^c\Rightarrow B_r(p)\cap E=\emptyset\Rightarrow p\notin E'$ che è assurdo.
+    \item $E'\subset E \Rightarrow \forall p\in E^c$ si ha che $p\notin E'$, quindi $\exists r>0:$ $(B_r(p)\cap E)\setminus\{p\}=\emptyset$, ma $p\notin E\Rightarrow B_r(p)\subset E^c\Rightarrow p$ è interno a $E^c$.
+\end{itemize}
+Sia $E\subset X$, $(X,d)$ metrico, è detta chiusura di $E$ l'insieme $\bar{H}=E\cup E'$\\\\
+Sia $(X,d)$ metrico, $E,F\subset X$
+\begin{itemize}
+    \item $\bar{E}$ è chiuso
+    \item $F$ chiuso, $E\subset F\Rightarrow \bar{E}\subset F$
+    \item $F$ chiuso $\Rightarrow$ $\bar{E}=E$
+    \item $F\subset E\Rightarrow \bar{F}\subset\bar{E}$
+\end{itemize}
+\textbf{Teorema: unioni e intersezioni}\\
+Sia $(X,d)$ metrico:
+\begin{enumerate}
+    \item se $\{E_i\}_{i\in I}$ è na famiglia di aperti allora $\bigcup_{i\in I}E_i$ è aperto
+    \item se $\{E_1,..,E_n\}$ è una famiglia finita di aperti $\bigcap_{i=1}^N E_i$ è aperto
+    \item se $\{E_i\}_{i\in I}$ è na famiglia di chiusi allora $\bigcap_{i\in I}E_i$ è chiuso
+    \item se $\{E_1,..,E_n\}$ è una famiglia finita di aperti $\bigcup_{i=1}^N E_i$ è chiuso
+\end{enumerate}
+\textbf{Dimostrazione}\\
+\begin{enumerate}
+    \item Sia $E=\bigcup_{i\in I}E_i$ dove $E_i$ è aperto. Sia $x\in E\Rightarrow \exists i_o\in I: x\in E_{i0}$ (aperto) $\Rightarrow$ $\exists r>0:$ $B_r(x)\subset E_{i0}\subset E$
+    \item Sia $E=\bigcap_{i=1}^N E_i, E_i$ aperto. Sia $x\in E\Rightarrow x\in E_i \forall i=1,..,N\Rightarrow\exists r_1,..,r_n>0: B_{r_i}(x)\subset E_i \forall i=1,...,N$. Sia $0<r=min\{r_1,...,r_N\} \Rightarrow B_{r_i}(x)\subset B_r(x) \forall i \Rightarrow E\subset B_r(x)$
+    \item Per dimostrare i punti 3 e 4 utilizziamo un lemma (leggi di Morgan) (dim sul libro): \begin{itemize}
+        \item $\left(\bigcup_{i\in I} E_i\right)^c=\bigcap_{i\in I}E_i^c$
+        \item $\left(\bigcap_{i\in I} E_i\right)^c=\bigcup_{i\in I}E_i^c$
+    \end{itemize}
+    $\left(\bigcap_{i\in I} E_i\right)^c$ è aperto $\Leftarrow \bigcup_{i\in I}E_i^c$ chiuso
+    \item $\left(\bigcup_{i\in I} E_i\right)^c$ è aperto $\Leftarrow \bigcap_{i\in I}E_i^c$ chiuso
+\end{enumerate}
+
+\section{Limiti di successioni}
+\subsection{In spazi metrici}
+Sia $(X,d)$ spazio metrico, $\{x_n\}_{n\in\mathds{N}}$ una successione a valori in $X$. Si dice che $x_n$ converge a $p\in X$ se $\forall\epsilon>0 \exists N=N(\epsilon):$ $\forall n>N$ $d(x_n,p)<\epsilon$. P è detto limite di $x_n$ e si scrive: $lim_{n\rightarrow+\infty}x_n=p$\\
+$x_n\rightarrow p$ per $n\rightarrow+\infty\Leftrightarrow$ $\forall\epsilon>0$ $\exists N=N(\epsilon)\in\mathds{N}: \forall n>N$ $x_n \in B_\epsilon(p)$\\\\
+Non tutte le successioni convergono (es: $x_n=(-1)^n$)\\\\
+\textbf{Teorema: unicità del limite}\\
+Sia $(X,d)$ spazio metrico e $\{x_n\}$ una successione convergente. Il limite di $x_n$ è unico.\\\\
+\textbf{Dimostrazione}\\
+Supponiamo per assurdo che $p,p'=lim_{n\rightarrow+\infty}x_n$. Per la proprietà di Hausdorff: $\exists r>0: B_r(p)\cap B_r(p')=\emptyset$, ma $\forall r>0$ $x_n\in B_r(p)$ e $x_n\in B_r(p')$ definitivamente, che è una contraddizione.
+\\\\
+\textbf{Teorema}\\
+Se una successione è convergete, allora è limitata.\\\\
+\textbf{Dimostrazione}\\
+Fisso $\epsilon=1\rightarrow\exists N(1):\forall n>N$ $d(x_n,p)<1\Rightarrow\forall m,n>N(1)$ $d(x_n,x_m)\leq d(x_n,p)+d(x_m,p)\leq 2$, quindi $E_n=\{x_n;n>N\}$ è limitato e $E=\{x_n;n\in\mathds{N}\}=\{x_1,...,x_n\}\cup E_n$ è anch'esso limitato.\\
+\\
+Essere limitata è condizione necessaria, ma non sufficiente.\\\\
+Una successione è detta di Cauchy se soddisfa la condizione:$\forall\epsilon>0$ $\exists N:\forall n,m>N$ $d(x_n,x_m)<\epsilon$\\
+Uno spazio metrico è detto completo se ogni successione di Cauchy converge. $\mathds{R}$ è completo.\\\\
+\textbf{Teorema: convergenza $\rightarrow$ Cauchy}\\
+Una successione convergente è una successione di Cauchy.\\\\
+\textbf{Teorema:}\\
+Ogni successione di Cauchy è limitata.\\\\
+\textbf{Teorema: convergenza sottosuccesioni:}\\
+Sia $\{x_n\}$ una successione a valori in $(X,d)$ metrico, se $x_n\rightarrow p$ allora ogni sottosuccesione di $x_n$ converge p.\\\\
+\textbf{Dimostrazione}\\
+Sia $\{x_{nk}\}$ una sottosuccessione di $\{x_n\}$, poiché $n_k$ è una successione crescente di interi $\exists K_0:n_{k_0}\geq N(\epsilon)\Rightarrow$ [...]\\\\
+\textbf{Teorema: convergenza e punti di accumulazione}\\
+Sia $\{x_n\}$ una successione a valori in $(X,d)$ metrico, se $p\in X$ è punto di accumulazione per $E=\{x_;n\in N\}$ allora esiste una sottosuccessione di $x_n$ che converge a p.\\\\
+\textbf{Dimostrazione}\\
+Se p è di accumulazione allora $\forall r>0$ $B_r(p)$ contiene infiniti elementi.\\
+Scelgo $r=1,1/2,...,1/k,...$ e $n_1\in B_1(p)\rightarrow d(p,x_{n_1})<1$, ..., $n_k\in B_{1/k}(p)\rightarrow d(p,x_{n_k})<1$ e ottengo una sottosuccessione convergente a p.
+
+\subsection{In $\mathds{R}$}
+Sia $\{x_n\}$ una successione a valori in $\mathds{R}$, usando la metrica euclidea, si dice che $x_n$ tende a $p$ oppure
+$lim_{n\rightarrow+\infty}x_n=p\in\mathds{R}$\\
+$\Leftrightarrow\forall\epsilon>0$ $\exists N=N(\epsilon):\forall n>N$ $|x_n-p|<\epsilon$\\\\
+In $\mathds{R}$ si può definire anche la convergenza per eccesso o per difetto:\begin{itemize}
+    \item $x_n$ converge per eccesso $\Leftrightarrow\forall\epsilon>0\exists N=N(\epsilon):\forall n>N$
+    $ p\leq x_n <p+\epsilon$
+    \item $x_n$ converge per difetto $\Leftrightarrow\forall\epsilon>0\exists N=N(\epsilon):\forall n>N$
+    $ p+\epsilon<x_n \leq p$
+\end{itemize}
+Il limite di una successione se esiste è unico.\\
+Si possono inoltre definire le successioni divergenti:\begin{itemize}
+    \item una successione $x_n$ si dice convergente se $\exists p\in\mathds{R}: lim_{n\rightarrow+\infty}x_n=p$
+    \item si dice divergente a $+\infty$ se $\forall M>0$ $\exists N=N(M)\in\mathds{N}: \forall n\geq N$ $x_n>M$ e si denota $lim_{n\rightarrow+\infty}x_n=+\infty$
+    \item si dice divergente a $-\infty$ se $\forall M>0$ $\exists N=N(M)\in\mathds{N}: \forall n\geq N$ $x_n<-M$ e si denota $lim_{n\rightarrow+\infty}x_n=-\infty$
+\end{itemize}
+Una successione si dice regolare se ha limite e irregolare se non lo ha.
+
+\subsubsection{Monotonia}
+Sia $\{x_n\}$ una successione a valor in $\mathds{R}$:\begin{itemize}
+    \item si dice monotona crescente se $x_n\leq x_{n+1}$ $\forall n\in\mathds{N}$
+    \item si dice monotona decrescente se $x_n\geq x_{n+1}$ $\forall n\in\mathds{N}$
+\end{itemize}
+\textbf{Teorema}\\
+Ogni funzione monotona è regolare, in particolare:\begin{itemize}
+    \item se $x_n$ è crescente allora $lim_{n\rightarrow+\infty}=sup\{x_n;n\in\mathds{N}\}$
+    \item se $x_n$ è decrescente allora $lim_{n\rightarrow+\infty}=inf\{x_n;n\in\mathds{N}\}$
+\end{itemize}
+\textbf{Dimostrazione}\\
+Consideriamo solo il primo caso, l'altro è analogo.\\
+Sia $E=\{x_n;n\in\mathds{N}\}$, allora ci sono due possibilità:\begin{itemize}
+    \item E è superiormente limitato:\\
+    Sia $L=sup(E)\Rightarrow\forall\epsilon>0$ $\exists N=N(\epsilon):$ $L-\epsilon<x_n\leq L$ dalla definizione, ma $x_n$ è crescente $\Rightarrow\forall n\geq N$ $L-\epsilon<x_n\leq L$ $\Rightarrow lim_{n\rightarrow+\infty}x_n=sup(E)$
+    \item E non è superiormente limitato:\\
+    $\forall M>0$ $\exists N=N(M): x_N>M$ dalla definizione, ma $x_n$ è crescente $\Rightarrow\forall n\geq N$ $x_n>x_n>M$\\ $\Rightarrow lim_{n\rightarrow+\infty}x_n=+\infty=sup(E)$
+\end{itemize}
+\textbf{Corollario}\\
+Una successione monotona e limitata è regolare.
+
+\subsubsection{Calcolo di limiti}
+Esistono dei teoremi che forniscono risultati utili al calcolo dei limiti in $\mathds{R}$.\\\\
+\textbf{Teorema: confronto per successioni divergenti}\\
+Siano $\{x_n\}$ e $\{y_n\}$ due successioni tali che $x_n\leq y_n$ definitivamente, allora:\begin{itemize}
+    \item se $x_n\rightarrow+\infty$ allora $y_n\rightarrow+\infty$
+    \item se $y_n\rightarrow-\infty$ allora $x_n\rightarrow-\infty$
+\end{itemize}
+\textbf{Dimostrazione}\\
+Dimostriamo solo il primo caso, il secondo è analogo.\\
+$x_n\rightarrow+\infty\Leftrightarrow\forall M>0$ $\exists N=N(M):$ $\forall n>N$ $x_n>M$, ma $y_n\geq x_n\Rightarrow y_n\rightarrow+\infty$\\
+\\
+\textbf{Teorema: confronto per successioni convergenti}\\
+Siano $x_n,y_n,z_n$ successioni a valori reali tali che $x_n\leq z_n\leq y_n$ definitivamente, se $x_n\rightarrow l\in\mathds{R}$ e $x_n\rightarrow l\in\mathds{R}$ allora $x_n\rightarrow l$\\\\
+\textbf{Dimostrazione}\\
+La dimostrazione è analoga alla precedente\\\\
+\textbf{Teorema: permanenza del segno}\\
+Sia $\{x_n\}$ una successione a valori reali, se $x_n\rightarrow p$, $p>0$ allora $x_n>0$ definitivamente.\\\\
+\textbf{Dimostrazione}\\
+Dalla definizione $x_n\rightarrow p \Rightarrow \forall\epsilon>0\exists N=N(\epsilon):$ $p-\epsilon<x_n$ $\forall n>N$, scegliendo $\epsilon$ tale che $p-\epsilon>0$ e un $N$ appropriato ho la tesi.\\
+\\
+Per le successioni convergenti si possono dimostrare alcune proprietà algebriche:
+\begin{itemize}
+    \item $a_n+b_n\rightarrow a+b$, dove $a$ e $b$ sono i limiti di $a_n$ e $b_n$
+    \item $\frac{a_n}{b_n}\rightarrow\frac{a}{b}$ con $b\neq0$
+    \item $a_n\cdot b_n=a\cdot b$
+\end{itemize}
+Risultati simili si possono ricavare per successioni divergenti, con degli accorgimenti:
+\begin{itemize}
+    \item $a_n\rightarrow+\infty$, $b_n\rightarrow b\Rightarrow a_n+b_n\rightarrow+\infty$
+    \item $a_n\rightarrow-\infty$, $b_n\rightarrow b\Rightarrow a_n+b_n\rightarrow-\infty$
+    \item $a_n\rightarrow+\infty$, $b_n\rightarrow b>0\Rightarrow a_n\cdot b_n\rightarrow+\infty$
+    \item $a_n\rightarrow+\infty$, $b_n\rightarrow b<0\Rightarrow a_n\cdot b_n\rightarrow-\infty$
+    \item $a_n\rightarrow\pm\infty$, $\Rightarrow \frac{1}{a_n}\rightarrow0$
+    \item $a_n\rightarrow\pm0, a_n>0$, $\Rightarrow \frac{1}{a_n}\rightarrow+\infty$
+    \item $a_n\rightarrow\pm0, a_n<0$, $\Rightarrow \frac{1}{a_n}\rightarrow-\infty$
+\end{itemize}
+Restano escluse tutte le forme riconducibili a $+\infty-\infty$, $\pm\infty\cdot0$, $\frac{0}{0}$, $\frac{\pm\infty}{\pm\infty}$ che sono dette forme di indecisione e andranno valutate caso per caso.\\\\
+\textbf{Teorema: criterio del rapporto per successioni}\\
+Sia $\{x_n\}$ una successione a valori reali tale che $x_n>0$, se $\exists lim_{n\rightarrow+\infty}\frac{x_{n+1}}{x_n}=l\in[0,+\infty)$ allora:
+\begin{itemize}
+    \item $0\leq l<1\Rightarrow x_n\rightarrow 0^+$
+    \item $1<l\leq+\infty\Rightarrow x_n\rightarrow+\infty$
+\end{itemize}
+\textbf{Dimostrazione}\\
+Consideriamo il primo caso.\\
+Dall'ipotesi ricaviamo che $\forall\epsilon>0\exists N(\epsilon)$: $l-\epsilon<\frac{x_{n+1}}{x_n}<l+\epsilon$, da cui $x_{n+1}<(l+\epsilon)x_n$.\\
+Per iterazione posso ottenere che $x{N+k}<(l+\epsilon)^kx_N$ $\forall k\geq1$, ponendo $n=N+k$ $0<x_N<(l+\epsilon)^n(l+\epsilon)^{-N}x_N$, dove all'aumentare di $n\in\mathds{N}$ $(l+\epsilon)^{-N}x_N$ rimane costante e $(l+\epsilon)^n\rightarrow 0$, per confronto quindi $x_n\rightarrow 0$.\\
+Nel secondo caso basta porre $y_n=\frac{1}{x_n}$ e verifico le ipotesi della dimostrazione precedente.\\
+\\
+Se $lim\frac{x_n}{y_n}=0$ si denota $y_n>>x_n$ o $x_n<<y_n$.\\
+Usando questa notazione è possibile definire una "gerarchia degli infiniti": $(log_bn)^q<<n^p<<a^n<<n!<<n^n$ ($b>1,q>0,p>0,a>1$)\\\\
+Siano $x_n$ e $y_n$ due successioni a valori reali, entrambe diverse da 0, si denota $x_n=o(y_n)$ se $\frac{x_n}{y_n}\rightarrow0$ o $x_n\sim y_n$ se $\frac{x_n}{y_n}\rightarrow1$. Se $x_n\sim y_n$ allora $x_n=y_n+o(y_n)$
+\begin{itemize}
+    \item $x_n=o(y_n)\Rightarrow c\cdot x_n=o(y_n)$, $c\neq0$
+    \item $x_n=o(y_n)\Rightarrow x_n\cdot z_n=o(z_n\cdot y_n)$
+    \item $x_n\sim y_n$ e $z_n=o(x_n)\Rightarrow a_n=o(y_n)$
+    \item $x_n=o(z_n)$ e $y_n=o(z_n)\rightarrow x_n\pm y_n=o(z_n)$
+\end{itemize}
+
+\section{Serie a valori reali}
+Sia $\{a_n\}$ una successione a valori reali, definisco la somma parziale $S_k:=a_1+a_2+...+a_k$, il limite per $k\rightarrow+\infty$ della successione delle somme parziali è detto serie a valori reali di termine generale $a_n$ e corrisponde alla somma di tutti gli elementi di $a_n$ e si denota $\sum_{n=n_0}^{+\infty}a_n$.\\\\
+La serie si dice convergente se la successione delle somme parziali converge, divergente se diverge oppure irregolare se non esiste il limite.
+Calcolare le somme di infiniti termini in molti casi risulta difficile ed è spesso sufficiente studiarne il carattere (convergenza, ecc..) utilizzando appositi teoremi e riconducendosi a serie a carattere noto.
+
+\subsection{Teoremi sul carattere delle serie}
+\textbf{Teorema: Criterio di Cauchy per le serie}\\
+La serie $a_n$ converge se e solo se rispetta la condizione di Cauchy: $\forall\epsilon>0\exists N=N(\epsilon)\in\mathds{N}:$ $\forall m\geq N$ $\forall k\geq N$ $\left|\sum_{n=m}^{m+k}a_n\right|<\epsilon$\\\\
+\textbf{Dimostrazione}\\
+$\sum_{n=m}^{m+k}a_n=S_{m+k}-S_{m-1}$, dove $S_t$ è la somma parziale fino a $t$.\\
+Ponendo $p=m-1$ e $q=m+k$ possiamo riscrivere la condizione di Cauchy come $(q>p)$ $\forall\epsilon>0 \exists N=N(\epsilon)$: $\forall q>p\geq N-1$ $|S_q-S_p|<\epsilon$, che è la condizione di Cauchy per la successione delle somme parziali e in $\mathds{R}$ è condizione necessaria e sufficiente alla convergenza.\\
+\\
+\textbf{Teorema: condizione necessaria, ma non sufficiente}\\
+Se una serie comverge, il suo termine generale tende a 0.\\\\
+\textbf{Dimostrazione}\\
+Sia $S=\sum_{n=m}^{m+k}a_n$, $s\in\mathds{R}$ allora $S_k\rightarrow S\Rightarrow (S_k-S_{k-1})\rightarrow S-S=0$\\
+\\
+\textbf{Teorema: serie definitivamente uguali}\\
+Due serie definitivamente uguali hanno lo stesso carattere\\\\
+\textbf{Teorema: prodotto per costante}\\
+Le serie $\sum_{n=n_0}^{+\infty}a_n$ e $\sum_{n=n_0}^{+\infty}c\cdot a_n$ hanno lo stesso carattere.
+
+\subsubsection{Serie a termine generale non negativo}
+I seguenti teoremi si applicano solo nel caso in cui il termine generale della serie sia maggiore o uguale a 0. Le somme parziali di una serie a termine generale non negativo costituiscono una successione non decrescente.\\\\
+\textbf{Teorema}\\
+Sia $a_n\geq0$ allora $\sum_{n=n_0}^{+\infty}a_n$ è regolare.\\\\
+\textbf{Teorema: criterio del confronto per le serie}\\
+Siano $\sum_{n=n_0}^{+\infty}a_n$ e $\sum_{n=n_0}^{+\infty}b_n$ due serie tali che $0\leq a_n\leq b_n \forall n\in\mathds{N}$, allora \begin{enumerate}
+    \item se $\sum_{n=n_0}^{+\infty}b_n$ converge anche $\sum_{n=n_0}^{+\infty}a_n$ converge
+    \item se $\sum_{n=n_0}^{+\infty}a_n$ diverge anche $\sum_{n=n_0}^{+\infty}b_n$ diverge
+\end{enumerate}
+\textbf{Dimostrazione}
+\begin{enumerate}
+    \item Ponendo $S_k:=\sum_{n=n_0}^{k}a_n$ e $T_k=\sum_{n=n_0}^{k}b_n$ si ha $0\leq S_k\leq T_k$. Chiamando $\sum_{n=n_0}^{+\infty}b_n=T\in\mathds{R}$, $T$ è maggiorante di $\{S_k\}$, quindi $S_k$ è limitata e crescente, quindi converge.
+    \item E sufficiente applicare il teorema del confronto alle successioni delle somme parziali
+\end{enumerate}
+\textbf{Teorema: criterio asintotico}\\
+Siano $\sum_{n=n_0}^{+\infty}a_n$ e $\sum_{n=n_0}^{+\infty}b_n$ due serie a termine generale non negativo, tali che $a_n\sim b_n$, allora le due serie hanno lo stesso carattere.\\\\
+\textbf{Dimostrazione}\\
+Per ipotesi $lim_{n\rightarrow+\infty}\frac{a_n}{b_n}=1$, quindi $\forall\epsilon>0$ $1-\epsilon\leq\frac{a_n}{b_n}\leq\epsilon+1$\\
+fissato un $\epsilon^*>0$ si ha $0<(1-\epsilon^*)\cdot b_n<a_n<(\epsilon^*+1)\cdot b_n$ definitivamente e posso quindi applicare il teorema del confronto.\\
+\\
+\textbf{Teorema: criterio del rapporto per le serie}\\
+Sia $\sum_{n=n_0}^{+\infty}a_n$ una serie a termine generale non negativo tale che $\lim_{n\rightarrow+\infty}\frac{a_{n+1}}{a_n}=l\in[0,+\infty]$ allora:\begin{itemize}
+    \item se $0\leq l<1$ la serie converge
+    \item se $1<l\leq+\infty$ la serie diverge
+    \item se $l=1$ non si può dire nulla sul carattere della serie
+\end{itemize}
+\textbf{Teorema: criterio della radice}\\
+Sia $\sum_{n=n_0}^{+\infty}a_n$ una serie a termine generale non negativo tale che $\lim_{n\rightarrow+\infty}\sqrt[n]{a_n}=l\in[0,+\infty]$ allora:\begin{itemize}
+    \item se $0\leq l<1$ la serie converge
+    \item se $1<l\leq+\infty$ la serie diverge
+    \item se $l=1$ non si può dire nulla sul carattere della serie
+\end{itemize}
+\textbf{Teorema: criterio di condensazione}\\
+Sia $a_n$ una successione decrescente e positiva, le serie $\sum_{n=1}^{+\infty}a_n$ e $\sum_{n=1}^{+\infty}2^na_{2^n}$ hanno lo stesso carattere. Quest'ultima è detta serie condensata.
+
+\subsubsection{Altri criteri di convergenza}
+Nel caso di serie a termine generale negativo è sufficiente moltiplicare per $c=-1$ e applicare i teoremi precedenti. Per serie il cui termine generale non è definitivamente positivo o negativo esistono alcuni criteri che possono essere applicati.\\\\
+\textbf{Teorema: convergenza assoluta}\\
+Se la serie $\sum_{n=1}^{+\infty}|a_n|$ converge, allora anche $\sum_{n=1}^{+\infty}a_n$ converge.\\\\
+\textbf{Dimostrazione}\\
+Definiamo parte positiva di $a_n$ come $a_n^+=\max(a_n,0)$ e parte negativa di $a_n$ come $a_n^-=\max(-a_n, 0)$. [nota: $a_n^-$ è sempre positivo!]\\
+$a_n=a_n^+-a_n^-$ e $|a_n|=a_n^++a_n^-$, quindi $0\leq a_n^+\leq|a_n|$ e $0\leq a_n^-\leq|a_n|$ $\forall n$, quindi se $\sum_{n=1}^{+\infty}|a_n|$ converge, per confronto anche $\sum_{n=1}^{+\infty}a_n^+$ e $\sum_{n=1}^{+\infty}a_n^-$ convergono e quindi la serie $\sum_{n=1}^{+\infty}a_n=\sum_{n=1}^{+\infty}a_n^+-\sum_{n=1}^{+\infty}a_n^-$ converge.\\
+\\
+Una serie si dice assolutamente convergente se la serie dei moduli converge.\\\\
+\textbf{Teorema: criterio di Leibniz}\\
+Sia $\sum_{n=1}^{+\infty}(-1)^na_n$ una serie tale che:
+\begin{itemize}
+    \item $a_n>0$ $\forall n$
+    \item $a_n>a_{n+1}$ $\forall n$
+    \item $\lim_{n\rightarrow+\infty}a_n=0$
+\end{itemize}
+la serie converge e in particolare se denotiamo con S la somma della serie e con $S_m$ la sua somma parziale $|S-S_m|\leq a_{m+1}$\\\\
+\textbf{Dimostrazione}\\
+
+\subsubsection{Serie notevoli}
+Esistono alcune serie con carattere (e a volte somma) noto che possono risultare utili.
+\begin{itemize}
+    \item \textbf{Serie di Mengoli:} $\sum_{n=1}^{+\infty}\frac{1}{n(n+1)}=1$
+    \item \textbf{Serie geometrica:} $\sum_{n=0}^{+\infty}q^n$ \begin{itemize}
+        \item se $q\geq1$ diverge a $+\infty$
+        \item se $|q|<1$ converge a $\frac{1}{1-q}$
+        \item se $q\leq-1$ è irregolare
+    \end{itemize}
+    \item \textbf{Serie armonica:} $\sum_{n=1}^{+\infty}\frac{1}{n}$ diverge a $+\infty$
+    \item \textbf{Serie armonica generalizzata:} $\sum_{n=2}^{+\infty}\frac{1}{n^p\log^qn}$ \begin{itemize}
+        \item converge per \begin{itemize}
+            \item $p>1$ e $q\in\mathds{R}$
+            \item $p=1$ e $q>1$
+        \end{itemize}
+        \item diverge per \begin{itemize}
+            \item $p=1$ e $q\leq1$
+            \item $p<1$ e $q\in\mathds{R}$
+        \end{itemize}
+    \end{itemize}
+    \item \textbf{Serie telescopica di passo uno:} $\sum_{n=1}^{+\infty}(b_{n+1}-b_n)=l-b_1$ con $b_n\rightarrow l$
+\end{itemize}
+
+\subsection{Riordinamenti}
+In alcuni casi cambiare l'ordine dei termini non cambia la somma, mentre in altri si.\\
+Definiamo un riordinamento della serie $\sum a_n$ come $\sum a_{\pi(n)}$, dove $\pi(n)$ è una funzione biunivoca $\mathds{N}\rightarrow\mathds{N}$.\\\\
+\textbf{Teorema: convergenza incondizionata}\\
+Se $\sum_{n=1}^{+\infty}a_n$ converge assolutamente, allora $\forall\pi(n)$ $\sum_{n=1}^{+\infty}a_n=\sum_{n=1}^{+\infty}a_{\pi(n)}$\\\\
+\textbf{Dimostrazione}\\
+Sia $S=\sum_{n=1}^{+\infty}a_n$, $b_n=a_{\pi(n)}$, $A_k=\sum_{n=1}^{k}a_n$ e $B_k=\sum_{n=1}^{+\infty}b_n$\\
+Consideriamo il caso in cui $a_n\geq0$ $\forall n$, negli altri consideriamo parte positiva e negativa e procediamo allo stesso modo.\\
+$\forall k\in\mathds{N}$ $B_k=\sum_{n=1}^{k}b_n\leq S$ (la somma di tutti gli elementi positivi della successione sarà sempre maggiore della somma di una parte degli elementi).\\
+$B_k$ è quindi crescente e superiormente limitata da $S$, quindi $\lim B_k=B\leq S$.\\
+Considero $\sum_{n=1}^{+\infty}a_n$ come riordinamento di $\sum_{n=1}^{+\infty}b_n$ e con un ragionamento analogo ottengo che $\lim A_k=S\leq B$, da cui $S=B$.\\
+\\
+\textbf{Teorema: di Riemann}\\
+Se $\sum_{n=1}^{+\infty}a_n$ converge, ma non assolutamente allora $\forall S\in\bar{\mathds{R}}$ $\exists\pi:$ $\sum_{n=1}^{+\infty}a_{\pi(n)}=S$ e $\exists\pi$ tale che la serie risulti irregolare.
+
+\section{Limiti di funzioni}
+
+E' possibile estendere il concetto di limite dalle successioni alle funzioni in spazi metrici con definizioni simili.
+\subsection{Funzioni in spazi metrici}
+Siano $(X_1,d_1)$ e $(X_2,d_2)$ spazi metrici e $E\subset X_1, E\neq\emptyset$. Siano $p\in E'$ e $l\in X_2$, allora $\lim_{x\rightarrow p}f(x)=l$\\
+$\Leftrightarrow\forall\epsilon>0$ $\exists\delta(\epsilon)>0:$ $\forall x\in E$ con $0<d_1(x,p)<\delta$ si ha che $d_2(f(x),l)<\epsilon$\\
+$\Leftrightarrow\forall\epsilon>0$ $\exists\delta(\epsilon)>0:$ $\forall x\in [E\cap(B_r(p)\setminus\{p\})]$ si ha $f(x)\in b_\epsilon(l)$\\
+$\Leftrightarrow\forall\epsilon>0$ $\exists\delta(\epsilon)>0:$ $f(E\cap(B_r(p)\setminus\{p\}))\subset B_\epsilon(l)$\\\\
+\textbf{Teorema}\\
+Siano $f:[E\subset X_1]\rightarrow X_2$, $p\in E'$ e $l\in X_2$,\\
+allora $\lim_{x\rightarrow p}f(x)=l\Leftrightarrow\lim_{n\rightarrow+\infty}f(x_n)=l$ $\forall[\{x_n\}\subset (E\setminus\{p\}):$ $x_n\rightarrow p]$\\\\
+\textbf{Dimostrazione}
+\begin{itemize}
+    \item Sia $\{x_n\}\subset (E\setminus\{p\}):$ $x_n\rightarrow p$\\
+    $\lim_{x\rightarrow p}f(x)=l\Leftrightarrow\forall\epsilon>0$ $\exists\delta(\epsilon)>0:$ $\forall x\in E$ con $0<d_1(x,p)<\delta$ si ha che $d_2(f(x),l)<\epsilon$\\
+    $x_n\rightarrow p\Rightarrow$ per qualsiasi $\delta(\epsilon)$ $\exists N(\delta(\epsilon)):$ $\forall n\geq N$ $0<d_1(x_n,p)<\delta$\\
+    $\Rightarrow$ $d_2(f(x_1),l)<\epsilon$ $\forall n\geq N(\delta(\epsilon))\Rightarrow\lim_{x\rightarrow p}f(x)=l$
+\end{itemize}
+\textbf{Teorema: unicità}\\
+Il limite di una funzione se esiste è unico
+\subsection{Funzioni $\mathds{R}\rightarrow\mathds{R}$}
+Ponendo $X_1=X_2=\mathds{R}$ e utilizzando la metrica euclidea la definizione di limite diventa:\\
+$\lim_{x\rightarrow p}f(x)=l\Leftrightarrow\forall\epsilon>0$ $\exists\delta(\epsilon)>0:$ $\forall[x\in E:$ $0<|x-p|<\delta]\Rightarrow|f(x)-l|<\epsilon$\\\\
+$+\infty$ e $-\infty$ sono punti di accumulazione per $\mathds{R}$, si possono quindi definire i limiti all'infinito come:\\
+$\lim_{x\rightarrow+\infty}f(x)=l\in\mathds{R}\Leftrightarrow\forall \epsilon>0$ $\exists M(\epsilon)>0:$ $\forall x\in E$ con $x>M\Rightarrow|f(x)-l|<\epsilon$\\\\
+e i limiti infiniti:\\
+$\lim_{x\rightarrow+\infty}f(x)=l\Leftrightarrow\forall M>0$ $\exists\delta(M):$ $\forall x\in E$ con $0<|x-p|<\delta\Rightarrow f(x)>M$\\\\
+Grazie alle proprietà di ordine e completezza i seguenti teoremi validi per le successioni valgono anche per le funzioni $\mathds{R}\rightarrow\mathds{R}$:
+\begin{itemize}
+    \item monotonia $\rightarrow$ regolarità
+    \item teoremi del confronto
+    \item algebra dei limiti
+\end{itemize}
+
+\section{Continuità}
+Siano $(X_1,d_1)$ e $(X_2,d_2)$ spazi metrici, una funzione $f:[E\subset(X_1,d_1)]\rightarrow(X_2,d_2)$ è detta continua in un punto $p\in E$:\\
+$\Leftrightarrow\forall\epsilon>0$ $\exists\delta(\epsilon,p):$ $\forall x\in E$ con $d_1(x,p)<\delta\Rightarrow d_2(f(x),f(p))<\epsilon$\\
+$\Leftrightarrow\forall\epsilon>0$ $\exists\delta(\epsilon,p):$ $\forall x\in[E\cap B_\delta(p)]\Rightarrow f(x)\in B_\epsilon(f(p))$\\\\
+$f$ continua in $p\Leftrightarrow\lim_{x\rightarrow p}f(x)=f(p)$.\\
+Tutte le funzioni elementari sono continue sul loro dominio.
+\subsection{In spazi metrici}
+\textbf{Teorema; continuità della funzione composta}\\
+Siano $(X_1,d_1)$, $(X_2,d_2)$, $(X_3,d_3)$ spazi metrici. Siano $E\subset X_1$ e $p\in E$. Siano $f:E\rightarrow X_2$ e $g:X_2\rightarrow X_3$ continue in $p$, allora la funzione composta $gof:E\rightarrow X_3$ è continua in $p$.\\\\
+\textbf{Dimostrazione}\\
+Se $p$ è isolato la funzione composta è continua.\\
+Se $p\in E'$, considero una successione $\{x_n\}$ tale che $\{x_n\}\in E$ e $x_n\rightarrow p$. Per la continuità di $f$ $f(x_n)\rightarrow f(p)$ e per la continuità di $g$ $g(f(x_n))\rightarrow g(f(p))$, da cui la tesi attraverso il limite.\\
+\\
+\textbf{Teorema: continuità globale}\\
+$f:(X_1,d_1)\rightarrow(X_2,d_2)$ è continua in $X_1\Leftrightarrow\forall A\subset X_2$ aperto $f^{-1}(A)$ è aperto.\\\\
+\textbf{Dimostrazione}
+\begin{itemize}
+    \item Sia $f$ continua in $X_1$. Sia $A\subset X_2$ aperto. Sia $q\in A$ e $f(p)=q$.\\
+    Scelto un $\epsilon>0$ per la continuità di $f$ esiste un $\delta>0$: $f(B_\delta(p))\subset B_\epsilon(q)$, da cui $B_\delta(p)\subset f^{-1}(B_\epsilon(q))\subset f^{-1}(A)$, da cui l'apertura di $A$ (tutti i punti sono interni)
+    
+    \item Sia $f^{-1}(A)$ aperto in $X_1$ per ogni $A$ aperto in $X_2$. Sia $p\in X_1$ e $f(p)=q$.\\
+    Scelto un $\epsilon>0$ e posto $A=B_\epsilon(q)$ per ipotesi $f^{-1}(B_\epsilon(q))$ è aperto, quindi $\exists\delta>0:$ $B_\delta(p)\subset f^{-1}(B_\epsilon(q))$, da cui $f(b_\delta(p))\subset B_\epsilon(q)$, quindi $f$ continua in $p$ $\forall p\in X_1$
+\end{itemize}
+
+\subsection{In $\mathds{R}$}
+Le funzioni reali continue hanno alcune proprietà particolari.\\\\
+\textbf{Teorema: degli zeri}\\
+Sia $f:[a,b]\rightarrow\mathds{R}$ con $b>a$ continua, $f(a)\cdot f(b)<0$, allora $\exists z\in(a,b):$ $f(z)=0$\\\\
+\textbf{Teorema: valori intermedi}\\
+Sia $f:[a,b]\rightarrow\mathds{R}$ con $b>a$ continua, essa assume tutti i valori compresi tra $f(a)$ e $f(b)$\\\\
+\textbf{Dimostrazione}\\
+Consideriamo il caso $f(a)<f(b)$, gli altri sono analoghi. \\
+Sia $y_0\in(f(a),f(b))$, definiamo $g(x)=f(x)-y_0$, $g(x)$ è continua su $(a,b)$.\\
+$g(a)<0$ e $g(b)>0$, quindi $g^{-1}(y_0)=0$ e si applica il teorema degli zeri. Questo procedimento si può applicare $\forall y_0\in(f(a),f(b))$.\\
+\\
+\textbf{Corollario}\\
+$f:I\subset\mathds{R}\rightarrow\mathds{R}$, $I$ intervallo e $f$ continua in $I$, allora $f(I)$ è un intervallo.\\\\
+\textbf{Teorema: proprietà algebriche della continuità}\\
+Siano $f,g:E\subset(X,d)\rightarrow\mathds{R}$ continua in $x_0\in E$ e sia $(X,d)$ metrico, allora:
+\begin{itemize}
+    \item $f\pm g$ è continua in $x_0$
+    \item $f\cdot g$ è continua in $x_0$
+    \item $\frac{f}{g}$ è continua in $x_0:g(x_0)\neq0$
+\end{itemize}
+Sia $f:(a,b)\subset\mathds{R}\rightarrow\mathds{R}$ una funzione non continua in $x_0\in(a,b)$, allora se:
+\begin{itemize}
+    \item $\exists\lim_{x\rightarrow x_0^+}f(x)=\lim_{x\rightarrow x_0^-}f(x)\neq f(x_0)$ la discontinuità è di prima specie o eliminabile
+    \item $\exists\lim_{x\rightarrow x_0^-}f(x)=l_1\in\mathds{R}, \exists\lim_{x\rightarrow x_0^+}f(x)=l_2\in\mathds{R}, l_1\neq l_2$ la discontinuità è di seconda specie o a salto
+    \item Se almeno uno dei due limiti è infinito o non esiste la discontinuità è di terza specie
+\end{itemize}
+\textbf{Teorema:}\\
+Sia $f:(a,b)\subset\mathds{R}\rightarrow\mathds{R}$ monotona, essa ha al più un'infinità numerabile di discontinuità di prima specie e nessuna delle altre.\\\\
+\textbf{Teorema: continuità dell'inversa}\\
+Siano $i,J\subset\mathds{R}$ intervalli e $f:I\rightarrow J$ continua e biunivoca, allora $f^-1:J\rightarrow I$ è continua.
+
+\subsection{Compattezza}
+Per definire la proprietà di compattezza è necessario prima definire il concetto di copertura aperta.\\
+Una copertura aperta di un insieme generico $E$ è una famiglia di insiemi aperti $\{A_j\}_{j\in I}$ tali che $E\subset\bigcup_{j\in I}A_j$\\
+Una famiglia finita di insiemi aperti estratta da una copertura aperta che verifica la medesima condizione è detta sottocopertura finita\\\\
+Sia $(X,d)$ metrico, $E\subset X,E\neq\emptyset$ è detto compatto se da ogni sua copertura aperta si può estrarre una sottocopertura finita ($\Leftrightarrow\forall\{A_j\}:E\subset\bigcup_{j\in I}A_j$ $\exists\{A_{i_1},...,A_{i_N}\}:E\subset\bigcup_{i=1}^{N}A_{i_k}$)\\\\
+\textbf{Teorema: condizione necessaria alla compattezza}\\
+Sia $(X,d)$ metrico, $E\subset X,E\neq\emptyset$ compatto $\Rightarrow$ \begin{enumerate}
+    \item E è chiuso e limitato
+    \item ogni insieme infinito contenuto in E ha almeno un punto di accumulazione
+\end{enumerate}
+\textbf{Dimostrazione}
+\begin{enumerate}
+    \item Considero la famiglia $\{B_1(p)\}_{p\in E}$. Per la compattezza di $E$ $\exists\{p_1,...,p_N\}:$ $E\subset \bigcup_{k=1}^NB_1(P_k)$, ma $B_1(p_k)$ è limitato e chiuso $\forall k$, quindi $E$ è chiuso e limitato perché unione finita di insiemi chiusi e limitati.
+    
+    \item Sia $A\subset E$ infinito. Supponiamo per assurdo $A'=\emptyset$. Considero la copertura di $E$ $\{B_{r(p)}(p)\}_{p\in E}$ con $r(p): E\rightarrow\mathds{R}$. Dalla compattezza di $E$ $A\subset E\subset\bigcup_{k=1}^NB_{r(p)}(p_k)$, quindi $E$ contiene un numero finito di elementi di $A$, ma $A$ è infinito e contenuto in $E$ che è assurdo.
+\end{enumerate}
+\textbf{Teorema: compattezza per successioni}\\
+Sia $(X,d)$ metrico, $E\subset X,E\neq\emptyset$ compatto, allora $\forall\{x_n\}_{n\in\mathds{N}}\subset E$ $\exists\{x_{n_k}\}_{k\in\mathds{N}}$ e $p\in E$ tali che $x_{n_k}\rightarrow p$\\\\
+\textbf{Teorema: Heine-Borel}\\
+$E\subset\mathds{R}^n$ è compatto $\Leftrightarrow E$ è chiuso e limitato.\\\\
+\textbf{Teorema: Bolzano-Weierstrass}\\
+Sia $\{x_i\}_{i\in\mathds{N}}$ una successione a valori in $(\mathds{R}^n,d)$ con $d$ metrica euclidea.\\ Se $A=\{x_i;i\in\mathds{N}\}$ è limitato, allora $\exists p\in\mathds{R}^n$ e $\{x_{i_k}\}_{k\in\mathds{N}}$ tali che $x_{i_n}\rightarrow p$\\\\
+\textbf{Dimostrazione}\\
+Se $A$ è limitato in $\mathds{R}^n$, allora $\exists z\in\mathds{R}^n$ e $r>0$ tali che $A\subset B_r(z)\subset \bar{B_r}(z)$ che è compatto.\\
+\\
+\textbf{Teorema: Weierstrass}\\
+Sia $f:k\in(X,d)\rightarrow\mathds{R}$, con $(X,d)$ metrico e compatto, f continua, allora $\exists x_M,x_m\in k:$ $f(x_M)=\max f(x)$ e $f(x_m)=\min f(x)$\\\\
+\textbf{Dimostrazione}\\
+Considero solo il massimo, l'altro caso è analogo.
+\begin{itemize}
+    \item supponiamo per assurdo $\sup k=+\infty$. Allora $\exists \{x_n\}\in k:$ $f(x_n)\rightarrow+\infty$. Per la compattezza di $k$ $\exists \{x_{n_k}\}$ e $x\in k$ tali che $x_{n_k}\rightarrow x$. Per la continuità di f in k $f(x_{n_k})\rightarrow f(x)\in\mathds{R}$, ma $+\infty\notin\mathds{R}$.
+    
+    \item
+\end{itemize}
+Una funzione $f:E\subset(X_1,d_1)\rightarrow(X_2,d_2)$ si dice uniformemente continua se $\forall\epsilon>0$ $\exists\delta=\delta(\epsilon):$ $\forall x,p\in E$ con $d_1(x,p)<\delta$ si ha $d_2(f(x),f(p))<\epsilon$. Una funzione uniformemente continua è anche continua.\\\\
+\textbf{Teorema: Heine-Cantor}\\
+Sia $f:k\subset(X_1,d_1)\rightarrow(X_2,d_2)$ una funzione continua in $k$ compatto, allora $f$ è uniformemente continua.
+
+\section{Calcolo differenziale}
+\subsection{La derivata}
+Sia $f:(a,b)\in\mathds{R}\rightarrow\mathds{R}$ e $x_0\in(a,b)$, essa è derivabile in $x_0$ se esiste finito il limite $\lim_{h\rightarrow0}\frac{f(x_0+h)-f(x_0)}{h}$. Derivabile in $(a,b)$ se è derivabile $\forall x\in(a,b)$.\\\\
+$\frac{f(x_0+h)-f(x_0)}{h}$ è detto rapporto incrementale e il suo limite è detto derivata della funzione nel punto: $f'(x_0)=\lim_{h\rightarrow0}\frac{f(x_0+h)-f(x_0)}{h}$\\
+Il rapporto incrementale corrisponde al coefficiente angolare della retta passante per i punto $p=(x_0,f(x_0)$ e $q=(x_0+h,f(x_0)+h$. In una funzione derivabile il rapporto al limite raggiunge il coefficiente angolare della tangente nel punto $x_0$.\\\\
+La derivata può anche essere definita come $f'(x_0)=\lim_{x\rightarrow x_0}\frac{f(x)-f(x_0)}{x-x_0}$ che equivale a porre $x=x_0+h$.\\
+La condizione di derivabilità può essere riscritta come: $\exists f'(x_0)\in\mathds{R}:$ $f(x)=f(x_0)+f'(x_0)(x-x_0)+o(x-x_0)$ per $x\rightarrow x_0$\\\\
+\textbf{Teorema: derivabilità $\rightarrow$ continuità}\\
+Sia $f:(a,b)\rightarrow\mathds{R}$ una funzione derivabile in $x_0\in(a,b)$, f è continua in $x_0$\\\\
+\textbf{Dimostrazione}\\
+Dalla derivabilità di $f$ in $x_0$: $f(x)=f(x_0)+f'(x_0)(x-x_0)+o(x-x_0)$ per $x\rightarrow x_0$, quindi $\lim_{x\rightarrow x_0}f(x)=f(x_0)$
+
+\subsection{Punti di non derivabilità}
+Sia $f:(a,b)\rightarrow\mathds{R}$ una funzione continua in $(a,b)$, essa non è necessariamente derivabile sull'intervallo. I punti in cui non è derivabile sono detti punti di non derivabilità.\\\\
+Alcuni punti di non derivabilità notevoli sono:\begin{itemize}
+    \item \textbf{Punto angoloso:} una funzione ha un punto angoloso in $x_0$ se esistono finiti i limiti del rapporto incrementale da destra e da sinistra per $x\rightarrow x_0$, ma sono diversi. (es: $f(x)=|x|$)
+    \item \textbf{Cuspide:} una funzione presenta una cuspide in $x_0$ se i limiti del rapporto incrementale esistono infiniti e discordi. (es:$f(x)=\sqrt{|x|}$)
+    \item \textbf{Flesso a tangente verticale:} la tangente alla funzione in un punto è verticale se i limiti del rapporto incrementale esistono infiniti e uguali. (es:$f(x)=\sqrt[3]{x}$)
+\end{itemize}
+
+\subsection{Teoremi fondamentali del calcolo differenziale}
+La derivata di una funzione può fornire informazioni importanti sul suo andamento attraverso ad acluni teoremi.\\\\
+Sia $f:I\in\mathds{R}\rightarrow\mathds{R}$ una funzione derivabile in $I$ intervallo, un punto $x_0\in I$ è detto massimo relativo (o locale) se $\exists\delta>0:$ $f(x)\leq f(x_0)$ $\forall x\in I\cap B_\delta(x_0)$. Una definizione analoga vale per il minimo relativo.\\\\
+\textbf{Teorema: Fermat}\\
+Sia $f:(a,b)\rightarrow\mathds{R}$ derivabile in $(a,b)$ e sia $x_0\in(a,b)$ un punto di massimo o minimo relativo per $f$, allora $f'(x_0)=0$\\\\
+\textbf{Dimostrazione}\\
+Considero il caso di un punto di massimo, l'altro è analogo.\\
+$x_0$ massimo $\rightarrow$ $\exists\delta>0:$ $f(x)\leq f(x_0)$ $\forall x\in I\cap B_\delta(x_0)$, quindi $\lim_{x\rightarrow x_0}\frac{f(x)-f(x_0)}{x-x_0}$ risulta $\leq0\forall x\in[x_0,x_0+\delta)$ e $\geq0\forall x\in(x_0-\delta,x_0]$, ma $f$ è derivabile in $x_0$, quindi $f'(x_0)=0$\\\\
+La conseguenza di questo teorema è che dato un intervallo i punti di massimo e minimo vanno cercati agli estremi, nei punti di non derivabilità e nei punti con derivata nulla.\\\\
+\textbf{Teorema: Rolle}\\
+Sia $f:[a,b]\rightarrow\mathds{R}$ una funzione continua in $[a,b]$, derivabile in $(a,b)$ e tale che $f(a)=f(b)$, allora $\exists  x_0\in(a,b):$ $f'(x_0)=0$\\\\
+\textbf{Dimostrazione}\\
+Se la funzione è costante $f'(x)=0\forall x\in [a,b]$, altrimenti per il teorema di Weierestrass $f(x)$ ha massimo e minimo e per il teorema di Fermat la derivata in questi punti è nulla.\\\\
+\textbf{Teorema: valor medio o di Lagrange}\\
+Sia $f:[a,b]\rightarrow\mathds{R}$ una funzione continua in $[a,b]$ e derivabile in $(a,b)$, allora $\exists x_0\in(a,b):$ $\frac{f(b)-f(a)}{b-a}=f'(x_0)$\\\\
+\textbf{Dimostrazione}\\
+Sia $g(x)=f(x)-[f(a)+\frac{f(b)-f(a)}{b-a}(x-a)]$ $\forall x\in[a,b]$. $g(x)$ verifica le ipotesi del teorema di Rolle, quindi $\exists x_0\in(a,b):$ $g'(x)=0$, ma $g'(x)=f'(x)-\frac{f(b)-f(a)}{b-a}\Rightarrow f'(x_0)=\frac{f(a)-f(b)}{b-a}$\\\\
+\textbf{Teorema: monotonia e derivata}\\
+Sia $f:I\subset\mathds{R}\rightarrow\mathds{R}$ una funzione derivabile in $I$ intervallo, allora:
+\begin{itemize}
+    \item $f$ crescente $\Leftrightarrow f'(x)\geq0$ $\forall x\in I$
+    \item $f$ decrescente $\Leftrightarrow f'(x)\leq0$ $\forall x\in I$
+\end{itemize}
+\textbf{Dimostrazione}\\
+Dimostriamo il primo caso, l'altro è analogo.
+\begin{itemize}
+    \item Supponiamo per assurdo $f$ crescente, ma $\exists x_o\in I:$ $f'(x_0)<0$.\\
+    $f(x)=f(x_0)+f'(x_0)(x-x_0)+o(x-x_0)$ per $x\rightarrow x_0\Rightarrow$ $f(x)-f(x_0)=(x-x_0)[f'(x_9+o(1)]$. Per $x>x_0$ $f(x)-f(x_0)>0$, $(x-x_0)>0$, ma $f'(x_0)+o(1)<0$ che è assurdo.
+    \item $\forall x_1,x_2\in I$ con $x_2>x_1$ $f:(x_1,x_2)\rightarrow\mathds{R}$ verifica le ipotesi del teorema di Lagrange, quindi $\frac{f(x_2)-f(x_1)}{x_2-x_0}=f'(x_0)$. Se $f'(x_0)>0$, allora $f(x_2)-f(x_1)=f'(x_0)\cdot(x_2-x_1)\geq0$, quindi $f(x_2)>f(x_1)$
+\end{itemize}
+
+\newpage
+\textbf{ToDo:}
+\begin{enumerate}
+    \item No $\bar{9}$ in $\mathds{Q}$ (algoritmo e dim con serie?)
+    \item Completezza
+    \item Tabella limiti notevoli
+    \item Tabella sviluppi in serie
+    \item Dim criterio rapporto per serie
+    \item Dim Leibniz
+    \item Dim lim successioni $\rightarrow$ funzioni
+    \item Dim teorema degli 0 e intervalli inscatolati
+    \item Definizione massimi e minimi globali?
+    \item Dim Weierstrass
+    \item Tabella derivate e regole derivazione
+\end{enumerate}
+
+
+\newpage
+\renewcommand*\contentsname{Indice}
+\tableofcontents
+\end{document}

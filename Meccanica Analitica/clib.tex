@@ -1,3 +1,23 @@
+% importa moduli
+\usepackage{ dsfont }
+\usepackage{ amssymb }
+\usepackage{cases}
+\usepackage{ifthen}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={180mm,280mm},
+ left=15mm,
+ top=5mm,
+ }
+\usepackage{stackengine}
+\usepackage{amsmath} 
+\usepackage{mathtools}
+\newcommand\ubar[1]{\stackunder[1.2pt]{$#1$}{\rule{.8ex}{.075ex}}}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+%\graphicspath{ {./ims/} }
+
 % importa immagini
 \newcommand{\im}[2]{
 \begin{center}
@@ -47,39 +67,8 @@
   \tiny\arraycolsep=0.3\arraycolsep\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}}
   
 % nabla
-\newcommand{\Nabla}[0]{\ubar{\nabla}}
+\newcommand{\Nabla}[]{\ubar{\nabla}}
 
 % cambia altezza righe tabelle
 \renewcommand{\arraystretch}{1.5}
 
-
-\newcommand{\doubleim}[8]{
-\begin{minipage}[b]{0.48\columnwidth}
-  \centering
-\im{#2}{immagini/#1}
-\ifx#5\empty 
-\else
-(a) #5
-\fi
-\end{minipage}
-\hspace{0.6 cm}
-\begin{minipage}[b]{0.48\columnwidth}
-  \centering
-\im{#4}{immagini/#3}
-\if#6\empty 
-\else
-(b) #6
-\fi
-% \centering
-\end{minipage}
-\if#7\empty
-\else
-\begin{center}
-    Figura #7
-    \if#8\empty
-    \else
-    \unskip: #8
-    \fi
-\end{center}
-\fi
-}

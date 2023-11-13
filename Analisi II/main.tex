@@ -1,0 +1,727 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+% inizia a copiare qua
+\usepackage{ dsfont }
+\usepackage{ amssymb }
+%\usepackage{cases}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={180mm,280mm},
+ left=15mm,
+ top=5mm,
+ }
+\usepackage{stackengine}
+\usepackage{amsmath} 
+\usepackage{mathtools}
+\newcommand\ubar[1]{\stackunder[1.2pt]{$#1$}{\rule{.8ex}{.075ex}}}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\graphicspath{ {./ims/} }
+
+\newcommand{\im}[2]{
+\begin{center}
+\includegraphics[width=#1\textwidth]{#2}
+\end{center}
+}
+
+\newcommand{\ims}[3]{
+\begin{center}
+\includegraphics[width=#1\textwidth]{#2}
+\includegraphics[width=#1\textwidth]{#3}
+\end{center}
+}
+
+\newcommand{\R}{\mathds{R}}
+\newcommand{\N}{\mathds{N}}
+\newcommand{\C}{\mathds{C}}
+
+\newcommand{\Index}{
+\newpage
+\renewcommand*\contentsname{Indice}
+\tableofcontents
+}
+
+% finisci qua
+
+\title{Analisi II}
+\author{Luca Vettore}
+\date{Secondo semestre 2021-2022}
+
+\begin{document}
+
+\maketitle
+
+\section{Primitive e integrali}
+Dato un intervallo $I\subset\R$ una funzione $F$ è detta primitiva di $f$ se
+\begin{itemize}
+    \item $F$ è derivabile in $I$
+    \item $F'(x)=f(x)$ $\forall x\in I$
+\end{itemize}
+In questo caso si indica $\int f(x)=F(x)$, dove $\int$ è detto integrale indefinito.\\\\
+Sia $f(x)$ una funzione Riemann-integrabile, in tal caso esiste l'integrale definito $\int_a^bf(x)$ che rappresenta l'area con segno compresa tra il grafico della funzione e l'asse delle ascisse.\\\\
+Le due nozioni di integrale sono collegate tra loro attraverso al teorema fondamentale del calcolo integrale:\\
+Sia $F(x)=\int f(x)$ e sia $f(x)\in R([a,b])$, allora: $$\int_a^bf(x)=F(b)-F(a)$$
+Il problema del calcolo di primitive e di integrali definiti sono quindi identici, una volta definiti gli intervalli di integrazione in modo appropriato.
+
+\subsection{Primitive fondamentali}
+Di seguito la tabella delle primitive delle funzioni elementari:
+
+\begin{center}
+\begin{tabular}{||c|c|c||}
+    \hline
+    f(x) & $\int f(x)$ & I\\
+    \hline\hline
+    $x^\alpha$ & $\frac{x^{\alpha+1}}{\alpha+1} + C$ & $\alpha\neq1$ $x>0$\\
+    \hline
+    $\frac{1}{x}$ & $\log(x) + C$ & $x>0$\\
+    \hline
+    $\frac{1}{x}$ & $\log(-x) + C$ & $x<0$\\
+    \hline
+    $e^x$ & $e^x + C$ & $x\in\R$\\
+    \hline
+    $sin(x)$ & $-cos(x) + C$ & $x\in\R$\\
+    \hline
+    $cos(x)$ & $sin(x) + C$ & $x\in\R$\\
+    \hline
+    $\frac{1}{cos^2(x)}$ & $tan(x) + C$ & $x\in(\frac{-\pi}{2},\frac{\pi}{2})$\\
+    \hline
+    $\frac{1}{1+x^2}$ & $atan(x) + C$ & $x\in\R$\\
+    \hline
+    $\frac{1}{\sqrt{1-x^2}}$ & $asin(x) + C$ & $x\in(-1,1)$\\
+    \hline
+    $\frac{-1}{\sqrt{1-x^2}}$ & $acos(x) + C$ & $x\in(-1,1)$\\
+    
+    \hline
+    \end{tabular}
+\end{center}
+
+\subsection{Trasformazioni lineari}
+Siano $f(x)$ e $F(x)$ tali che $\int f(x)=F(x)$ su un intervallo $I$, allora la funzione $f(a*x+b)$ ammette primitiva, e vale: $$\int f(a*x+b)=\frac{F(ax+b)}{a}$$
+
+\subsection{Linearità e omogeneità}
+L'integrale è omogeneo rispetto al prodotto per un numero reale e lineare rispetto all'addizione:
+$$a\times\int f(x)=\int( a\times f(x))\;\; e \;\int (f(x)+g(x))=\int f(x)+\int g(x)$$
+
+\subsection{Integrali per sostituzione}
+
+\subsubsection{Sostituzioni immediate}
+Dalla regola di derivazione delle funzioni composte si può derivare:
+$$\int f(y(x))\times y'(x)dx=\int f(t)dt|_{t=y(x)}$$
+
+\subsubsection{Sostituzioni non elementari}
+La tecnica di sostituzione per gli integrali può essere applicata anche in casi in cui non sia presente la derivata, applicando opportune trasformazioni.\\
+Sia $G(x)$ una primitiva di $g(x)=f(\varphi(x))*\varphi'(x)$, allora: $$\int f(t)dt=G(\varphi^{-1})+c \quad con:\; dx = \frac{1}{\varphi'(\varphi^{-1}(t))}dt$$
+
+\subsubsection{Classi di funzioni integrabili per sostituzione}
+La tecnica di sostituzione risulta utile per alcune classi di funzioni:
+\begin{itemize}
+    \item $\int R(e^x)dx$: si pone $e^x=t\rightarrow x=logt\rightarrow dx=\frac{1}{t}dt$
+    \item $\int R(sin(x), cos(x))dx$: si pone $t=tan\frac{x}{2}$, da cui $sin(x)=\frac{2t}{1+t^2}$, $cos(x)=\frac{1-t^2}{1+t^2}$ e $dx=\frac{2}{1+t^2}dt$. Attenzione agli incollamenti!
+    \item $\int R(sin^2(x), cos^2(x), sin(x)cos(x), tan(x))dx$: si pone $t=tan(x)$, quindi $sin^2(x)=\frac{t^2}{1+t^2}$, $cos^2(x)=\frac{1}{1+t^2}$, $sin(x)cos(x)=\frac{t}{t^2+1}$ e $dx=\frac{1}{1+t^2}dt$. Attenzione agli incolamenti!
+    \item $\int R(x^{\frac{p_1}{q_1}},...,x^{\frac{p_n}{q_n}})dx$: si pone $x=t^q$, dove $q=m.c.m(q_1,...,q_n)$, quindi $dx=qt^{q-1}dt$
+    \item $\int R(x, \sqrt{a^2-x^2})$: si pone $x=a*sin(t)$, da cui $dx=a*cos(t)dt$ su $(\frac{-\pi}{2}, \frac{\pi}{2})$
+\end{itemize}
+
+\subsection{Integrazione per parti}
+Dalla regole di derivazione delle funzioni composte si può ricavare inoltre:
+$$\int f(x)g'(x)dx=f(x)g(x)-\int f'(x)g(x)dx$$
+
+\subsubsection{Classi di funzioni integrabili per parti}
+Alcune classi di funzioni possono essere integrate per parti utilizzando un procedimento noto:
+\begin{itemize}
+    \item $\int P(x)sin(x)dx$ o $\int P(x)cos(x)dx$: si deriva il polinomio ripetutamente fino a raggiungere grado 0
+    \item $\int P(x)e^xdx$: si deriva il polinomio ripetutamente
+    \item $\int P(x)log^n(x)dx$: si deriva il logaritmo fino a ridurlo a $\frac{1}{x}$
+    \item $\int sin^n(x)dx$ o $\int cos^n(x)dx$ o $\int sin^n(x)cos^m(x)dx$: Si applica la formula ricorsiva:\\ $C_n=\int sin^n(x)dx\rightarrow C_n=\frac{-1}{n}sin^{n-1}(x)cos(x)+\frac{n-1}{n}C_{n-2}$ oppure\\ $C_n=\int cos^n(x)dx\rightarrow C_n=\frac{1}{n}cos^{n-1}(x)sin(x)+\frac{n-1}{n}C_{n-2}$\\
+    Si otterrà quindi un equazione da cui ricavare il valore dell'integrale
+    \item $\int P(x)atan(x)dx$ o $\int P(x)asin(x)dx$: si deriva $atan(x)$ o $asin(x)$
+    \item (aggiungere altra ricorsiva)
+\end{itemize}
+
+\subsection{Incollamenti}
+Nel caso di funzioni continue definite a tratti, si integra separatamente sugli intervalli e successivamente si deve rendere continua la primitiva ottenuta scegliendo opportunamente le costanti additive.
+
+\subsection{Integrazione di funzioni razionali}
+La primitiva di una funzione del tipo $f(x)=\frac{P(x)}{Q(x)}$, con $P(x),Q(x)$ polinomi, può essere trovata attraverso una serie di passaggi:
+\begin{itemize}
+    \item Controllare che $deg(Q(x)\geq deg(P(x))$, in caso contrario attraverso la divisione dei polinomi si può riscrivere la funzione come $f(x)=S(x)+\frac{R(x)}{Q(x)}$, dove $R(x)$ è il resto della divisione e $S(x)$ il risultato.\\
+    Per la divisione tra polinomi si rimanda al seguente esempio:
+    \im{0.4}{"pol"}
+    \item Una volta ricondotto l'integrale alla forma $\int \frac{P(x)}{Q(x)}$ con $deg(P(x))<deg(Q(x))$ si distinguono i casi:
+    \begin{itemize}
+        \item $deg(Q(x))=1$: l'integrale si riduce a $\int \frac{A}{x-x_0}dx$ con $x_0$ radice di $Q(x)$
+        \item $deg(P(x))=2$: l'integrale si può scrivere come $\int \frac{Ax+B}{ax^2+bx+c}$ e si possono distinguere alcuni casi in base al valore di $\Delta=b^2-4ac$:
+        \begin{itemize}
+            \item $\Delta>0$: è sempre possibile la scomposizione $\frac{Ax+B}{ax^2+bx+c}=\frac{C}{x-x_z}+\frac{D}{x-x_2}$ dove $x_1,x_2$ sono radici del polinomio
+            \item $\Delta=0$: è sempre possibile la scomposizione $\frac{Ax+B}{ax^2+bx+c}=\frac{C}{x-x_1}+\frac{D}{(x-x_1)^2}$
+            \item $\Delta<0$: $Q(x)$ è irriducibile e attraverso il completamento del quadrato si ottiene $\frac{Ax+B}{ax^2+bx+c}=C\frac{2ax+b}{ax^2+bx+c}+\frac{D}{(x-x_1)^2+k^2}$, dove l'integrale del primo termine si riconduce a un logaritmo e il secondo a un arcotangente
+        \end{itemize} 
+        \item $deg(Q(x))>2$: è possibile scomporre il polinomio attraverso le sue radici (vedi Ruffini).\\
+        Per $deg(Q(x))\leq12$ vale:
+        \im{0.6}{"scomp12"}
+        dove $x_k$ è la radice k-esima del polinomio e $n_k,m_k$ la sua molteplicità
+    \end{itemize}
+
+\end{itemize}
+
+\subsection{Integrali definiti}
+Durante la risoluzione di integrali definiti, bisogna prestare attenzione ad alcune loro particolarità rispetto agli indefiniti.
+
+\subsubsection{Sostituzione per integrali definiti}
+Siano $f:[a,b]\rightarrow\R$ e $\varphi:[c,d]\rightarrow[a,b]$ due funzioni tali che $f\in C([a,b])$ e $\varphi\in C^1([c,d])$, con $\varphi$ invertibile, vale: $$\int f(x)dx=\int^{\varphi^{-1}(b)}_{\varphi^{-1}(a)}f(\varphi(t))\varphi'(t)dt$$
+La differenza con gli integrali indefiniti è nella trasformazione degli estremi di integrazione. Nel caso degli integrali definiti, bisogna però prestare attenzione a operare una trasformazione invertibile sull'intervallo di integrazione, o in alternativa calcolare una primitiva ed estenderla con continuità. Nel caso in cui la primitiva non sia definita in un punto dell'intervallo e non sia possibile estenderla, si può comunque calcolare l'integrale definito dividendo l'intervallo in due e calcolando il limite della primitiva sul punto di discontinuità (integrale improprio).
+
+\subsubsection{Funzioni pari e dispari}
+Se $f$ è una funzione pari, quindi $f(x)=f(-x)$, allora $\int^a_{-a}f(x)dx=2\int^a_0f(x)dx$\\\\
+Se $f$ è una funzione dispari, quindi $f(x)=-f(-x)$, allora $\int^a_{-a}f(x)dx=0$\\
+
+\subsubsection{Teorema della media integrale}
+Sia $f\in R([a,b])$, allora:
+$$\exists c\in [a,b]:\;\int_a^bf(x)dx=f(c)*(b-a)$$
+Questo risultato può essere usato per dare una stima del valore di un integrale definito quando non si riesce a trovarne una primitiva.
+
+
+\subsection{Integrali impropri}
+Sia $f:[a,b)\rightarrow\R$ e $f\in R([a,x]) \forall x<b$, allora se esiste finito, si definisce integrale improprio il limite:
+$$\lim_{x\rightarrow b}\int_a^xf(t)dt $$
+Attraverso le proprietà degli integrali, questa definizione può essere estesa all'altro estremo.\\
+La definizione è valida anche nel caso $b=\pm\infty$.\\\\
+Lo studio della convergenza degli integrali impropri è simile a quello delle serie. Anche in questo caso si utilizzano una serie di criteri per ricondursi a forme note.
+
+\subsubsection{Forme notevoli}
+Di seguito alcuni integrali impropri notevoli (vedi serie notevoli).
+\begin{itemize}
+    \item $\int_0^a\frac{1}{x^\alpha}dx;$ $\quad a\in(\R\setminus \{0\})$ $\begin{cases} \alpha<1\;conv \\ \alpha\geq1\;non\;conv \end{cases}$
+    
+    \item $\int_a^{+\infty}\frac{1}{x^\alpha}dx;$ $\quad a\in(0,+\infty)$ $\begin{cases} \alpha>1\;conv \\ \alpha\leq1\;non\;conv \end{cases}$
+    
+    \item $\int_0^a\frac{1}{\log^\alpha x}dx;$ $\quad a\in(0,1)$ $\begin{cases} \alpha<1\;conv \\ \alpha\geq1\;non\;conv \end{cases}$
+    
+    \item $\int_1^a\frac{1}{\log^\beta x}dx;$ $\quad a\in(0,1)\vee a\in(1,+\infty)$ $\begin{cases} \beta<1\;conv \\ \beta\geq1\;non\;conv \end{cases}$
+    
+    \item $\int_a^{+\infty}\frac{1}{x^\alpha\log^\beta x}dx;$ $\quad a\in(1,+\infty)$ $\begin{cases} \alpha>1\;conv \\ \alpha=1\quad \beta>1\;conv \\ \alpha=1\quad \beta\leq1\;non\;conv\\ \alpha<1\;non\;conv \end{cases}$
+    
+    \item $\int_a^{+\infty}\frac{1}{x^\alpha\log^\beta x}dx;$ $\quad a\in[0,1)$ $\begin{cases} \alpha<1\;conv \\ \alpha=1\quad \beta>1\;conv \\ \alpha=1\quad \beta\leq1\;non\;conv\\ \alpha>1\;non\;conv \end{cases}$
+
+\end{itemize}
+
+\subsubsection{Criteri di convergenza}
+I criteri che si possono usare per studiare la convergenza di un integrale improprio sono i seguenti (vedi criteri convergenza serie):
+\begin{itemize}
+    \item \textbf{Criterio del confronto:} siano $g(x),f(x)$ localmente integrabili in $[a,b)$ e sia $0\leq f(x)\leq g(x)$, allora:
+    \begin{itemize}
+        \item Se l'integrale di $g(x)$ converge, anche l'integrale di $f(x)$ converge
+        \item Se l'integrale di $f(x)$ diverge, anche l'integrale di $g(x)$ diverge
+    \end{itemize}
+    
+    \item \textbf{Criterio del confronto asintotico}: siano $f(x),g(x)$ localmente integrabili su $(a,b]$, siano di segno costante in un intorno $U(a)$ e sia $f(x)\sim g(x)$ per $x\rightarrow a$, allora:
+    $$\int_a^b f(x)dx \; converge \Leftrightarrow \int_a^b f(x)dx \; converge $$
+    
+    \item \textbf{Convergenza assoluta:} sia $f(x)$ localmente integrabile su $[a,b)$, allora:
+    $$\int_a^b |f(x)|dx \; converge \rightarrow \int_a^b f(x)dx \; converge $$
+    Non è vero il contrario.
+\end{itemize}
+
+\subsubsection{Note}
+Sia $f:[a,+\infty)\rightarrow\R$. Consideriamo l'integrale improprio $\int_a^{+\infty}f(x)dx$:
+\begin{itemize}
+    \item \textbf{Non} è vero che se $\lim_{x\rightarrow +\infty}f(x)=0$, allora l'integrale converge
+    \item $\lim_{x\rightarrow +\infty}f(x)=0$ \textbf{non} è condizione necessaria alla convergenza dell'integrale 
+    \item L'esistenza di $\lim_{x\rightarrow +\infty}f(x)$ \textbf{non} è condizione necessaria alla convergenza dell'integrale
+    \item Se $\lim_{x\rightarrow +\infty}f(x)$ esiste e l'integrale converge, allora $\lim_{x\rightarrow +\infty}f(x)=0$
+\end{itemize}
+
+
+
+\subsection{Funzioni integrali}
+Sia $f\in R([a,b])$, si definisce funzione integrale la funzione:
+$$F(x)=\int_a^x f(t)dt=\int_0^x f(t)dt-\int_0^a f(t)dt $$
+Una funzione integrale qualsiasi ha le seguenti proprietà:
+\begin{itemize}
+    \item $F(a)=0$
+    \item Il suo dominio è sempre un intervallo
+    \item E' continua sul suo dominio
+    \item Ha come derivata la funzione integranda
+    \item I punti di discontinuità dell'integranda sono punti di non derivabilità della funzione integrale
+\end{itemize}
+
+\subsubsection{Dominio}
+Per ricavare il dominio di una funzione integrale si parte dall'estremo fisso e si studiano progressivamente i punti di discontinuità dell'integranda nelle due direzioni. Il processo continua finché non si trova un punto dove l'integrale improprio non converge o si raggiunge $\pm\infty$.
+
+\subsubsection{Monotonia}
+La monotonia della funzione si studia attraverso al segno della funzione integranda. La monotonia fornisce informazioni utili anche su altre caratteristiche della funzione integrale, come il comportamento asintotico.\\
+Lo studio della derivata dell'integranda fornisce informazioni sulla convessità della funzione.
+
+\subsubsection{Comportamento asintotico}
+I limiti agli estremi del dominio sono dati dalla convergenza dell'integrale improprio. Nel caso non esista l'integrale improprio, si può capire l'andamento asintotico della funzione studiandone la monotonia.\\
+Gli eventuali asintoti obliqui si ricavano da:
+\begin{itemize}
+    \item $\lim f(t)=m\neq0$ (f continua)
+    \item $\lim f(t)-m=q$
+\end{itemize}
+
+\subsubsection{Tangenti}
+L'equazione della retta tangente in un punto si ottiene dalla formula $t(x)=f(x)(x-x_0)+F(x)$
+
+\subsubsection{Funzioni integrali composte}
+Una funzione integrale può avere come estremi di integrazione un'altra funzione e presentarsi nella forma:
+$$F(x)=\int_{g(x)}^{h(x)} f(t)dt$$
+In tal caso la si può vedere come la composizione di una funzione integrale semplice con un'altra funzione.\\
+Lo studio del suo dominio può essere svolto partendo dal metodo utilizzato per le funzioni semplici, per poi assicurarsi attraverso a uno studio grafico che i punti di non integrabilità non incrocino l'area compresa tra le funzioni agli estremi.
+
+\newpage
+\section{Funzioni in più variabili reali}
+I concetti di limite, continuità, derivabilità e differenziabilità definiti per le funzioni a una variabile, possono essere estesi alle funzioni $\R^n\rightarrow\R^m$.
+
+\subsection{Limiti}
+Sia $f:\R^n\rightarrow\R$ e sia p un punto di accumulazione, allora se $\forall\epsilon>0\;\exists\delta(\epsilon)>0: \;x\neq p, ||x-p||<\delta\Rightarrow|f(x)-\alpha|<\epsilon$ si dice che $f(x)$ tende ad $\alpha$ e si indica:
+$$\lim_{x\rightarrow p}f(x)=\alpha $$
+Questa definizione, valida in uno spazio metrico generico è anche valida se $x\in\R^n$.\\
+Nel caso di una funzione $\R^n\rightarrow\R^m$ è sufficiente rappresentare $f(x)$ come un vettore e applicare la definizione precedente alle singole componenti.\\\\
+Il calcolo di limiti in $\R^n$ è più complicato di quello in $\R$, poiché è necessario studiare il comportamento della funzione su tutti i possibili percorsi passanti per il punto.
+
+\subsubsection{Percorsi e divergenza}
+Come conseguenza del teorema di unicità, è possibile dimostrare la non esistenza di un limite trovando due curve, passanti per il punto in cui si sta calcolando il limite, lungo le quali la funzione ha limiti diversi.\\
+Queste curve (o percorsi) sono della forma $x_i=f(x_j)$ e riducono quindi il problema a una sola variabile.\\
+Calcolare il limite lungo una curva o classe di curve non è sufficiente a dimostrare l'esistenza o il valore del limite stesso.\\
+Oltre alle rette ($x_i=mx_j$) e agli assi ($x_i=x_j$) le altre curve da controllare dipendono dalla specifica funzione.
+
+
+\subsubsection{Stime e convergenza}
+Grazie al teorema del confronto per i limiti (teorema dei carabinieri),  possibile ridurre il calcolo del limite in più variabili a una sola attraverso a delle stime.\\
+Data una funzione $f(x,y,...)$, per calcolare il suo limite è sufficiente trovare due funzioni in un intorno del punto che si sta considerando tali che $g(t)<f(x,y,..)<h(t)$. Se $h,g$ hanno lo stesso limite, allora anche f convergerà a quel valore. Nel caso il limite sia 0 è sufficiente una funzione tale che $|f(x,y,..)|<|g(t)|$.\\\\
+Nell'eseguire stime per funzioni della forma $f(x)=\frac{n(x)}{d(x)}$ è necessario prestare attenzione ad alcune particolarità:
+\begin{itemize}
+    \item per eseguire una stima per eccesso (o da sopra) di f, bisogna eseguire una stima per eccesso di n, ma una per difetto di d
+    \item la stima non deve introdurre singolarità nella funzione nell'intorno considerato
+\end{itemize}
+
+\subsubsection{Stime notevoli}
+Le equivalenze asintotiche risultano scomode da usare in $\R^n$, ma si possono usare per ottenere delle stime. Dalla definizione di asintotico se $f(t)\sim g(t)$, allora $\lim \frac{f(t)}{g(t)}=1$, da cui per la persistenza del segno:
+$$\frac{|g(t)|}{2}\geq|f(t)|\leq 2|g(t)| $$
+Alcune stime utili ricavate in questo modo sono:
+\begin{itemize}
+    \item $|atan(t)|\leq |t|\quad\forall t$
+    \item $\frac{|t|}{2}\leq |sin(t)|\leq 2|t|\quad t\in U(0)$
+    \item $\frac{|t|}{2}\leq |log(1+t)|\leq 2|t|\quad t\in U(0)$
+    \item $k_{p1}||(x,y)||^p\leq |x|^p+|y|^p\leq k_{p2}||(x,y)||^p\quad \forall (x,y)\in\R^2$
+    \item $|x|\leq||(x,y)||$ $\quad\forall (x,y)\in\R^2$
+    \item $|x|^a|y|^b\leq||(x,y)||^{a+b}$ $\quad\forall (x,y)\in\R^2$
+    \item $||(x,y)||\leq |x|+|y|\leq 2||(x,y)||$ $\quad\forall (x,y)\in\R^2$
+    \item $2|x||y|\leq x^2+y^2$ $\quad\forall (x,y)\in\R^2$
+    \item $ax^2+bxy+cy^2\geq \frac{\epsilon}{2}(x^2+y^2)$ $\quad\Delta<0$
+\end{itemize}
+
+
+\subsubsection{Coordinate polari}
+In alcuni casi può risultare più semplice ottenere delle stime passando ad un sistema di coordinate polari:
+$$(x,y)=(\rho\cos(\theta), \rho\sin(\theta)) $$
+
+\subsubsection{Limiti all'infinito}
+Il problema del calcolo di limiti per $(x,y,..)\rightarrow\pm\infty$ è analogo a quello dei limiti finiti, con la differenza che al posto di avere la singola variabile che tende a un valore, si ha $||(x,y,..)||\rightarrow\pm\infty$. La singola variabile può comunque non divergere.\\
+Se $f\rightarrow\pm\infty$ è sufficiente eseguire una stima, dal basso o dall'alto.
+
+\subsection{Continuità}
+Per dimostrare la continuità di una funzione in più variabili si usa la definizione con i limiti:
+$$ f\;continua\Leftrightarrow \lim_{(x_1,x_2,...)\rightarrow p}f(x_1,x_2,...)=f(p) $$
+Inoltre è possibile utilizzare la definizione di continuità globale:
+$$f\; continua\Leftrightarrow\forall A\; aperto\; in\; dom(f)\; si\; ha\; f^{-1}(A)\; aperto $$
+
+\subsection{Derivabilità e differenziabilità}
+In $\R^n$ derivabilità e differenziabilità non coincidono. Entrambe le nozioni, inoltre, si complicano.
+
+\subsubsection{Derivate direzionali e parziali}
+Data una funzione f e un versore v, si definisce derivata di f lungo la direzione v (se esiste) il valore:
+$$ D_vf(x,y)=\lim_{t\rightarrow0} \frac{f(x+tv_x,y+tv_y)-f(x,y)}{t}\quad v=v_x+v_y$$
+Si definisce derivata parziale nella variabile $x_i$ (se esiste) il valore:
+$$ \frac{\partial f}{\partial x_i}(x,y)= \lim_{t\rightarrow0}\frac{f(x_1,...,x_i+t,...,x_n)-f(x_1,...,x_n)}{t} $$
+Se esistono tutte le derivate parziali definisce gradiente di f il vettore:
+$$\nabla f(x,y) = \begin{psmallmatrix} \frac{\partial f}{\partial x_1}\\...\\...\\ \frac{\partial f}{\partial x_n}  \end{psmallmatrix}$$
+e vale:
+$$ D_vf(x,y)=<\nabla f(x,y), v> $$
+Per calcolare le derivate parziali normalmente si possono usare le usuali regole di derivazione considerando le altre variabili come costanti. Nei punti dove questo non sia possibile si deve ricorre alla definizione.\\
+Le derivate direzionali si calcolano attraverso alla loro definizione o utilizzando il gradiente.
+
+\subsubsection{Differenziabilità}
+Una funzione $f:\R^n\rightarrow\R$ si dice differenziabile nel punto $\ubar{a}$ se:
+$$ \lim_{\ubar{h}\rightarrow0}\frac{f(\ubar{a}+\ubar{h})-f(\ubar{a})}{||\ubar{h}||}=0 $$
+quindi:
+$$ f(\ubar{a}+\ubar{h})-f(\ubar{a})=\ubar{L}*\ubar{h}+o(||\ubar{h}||) $$
+Dove $\ubar{L}=\nabla f(x,y)$ è un'applicazione lineare.\\\\
+Nel caso di una funzione $\R^n\rightarrow\R^m$, la definizione di differenziabilità rimane la stessa, ma $L=J_f$ è una matrice detta Jacobiana:
+$$J_f=\begin{psmallmatrix}\frac{\partial f_1}{\partial x_1} ... \frac{\partial f_1}{\partial x_n}\\ \frac{\partial f_2}{\partial x_1} ... \frac{\partial f_2}{\partial x_n} \\ ...\;...\;... \\ \frac{\partial f_m}{\partial x_1} ... \frac{\partial f_m}{\partial x_n} \end{psmallmatrix}$$
+Per il \textbf{teorema del differenziale totale} se f ha tutte le derivate parziali e queste sono continue (oppure esistono e sono continue tutte tranne una) allora è differenziabile (condizione sufficiente, ma non necessaria).\\\\
+Siano $f,g$ differenziabili, allora la loro composizione $\Phi=f\circ g$ è differenziabile e vale:
+$$J_\Phi=J_f*J_g $$
+Per calcolare la Jacobiana di una funzione composta, è importante partire schematizzando la composizione, capendo tra che spazi operano le funzioni e in che punto si deve calcolare la matrice da moltiplicare.\\
+In alternativa al prodotto di matrici esiste una formula equivalente chiamata \textbf{regola della catena}. Questa regola corrisponde alla regola di derivazione delle funzioni composte già studiata per le funzioni in una variabile.\\\\
+Se una funzione è differenziabile, allora:
+\begin{itemize}
+    \item è continua
+    \item ha tutte le derivate direzionali
+\end{itemize}
+
+\subsubsection{Derivate di ordine superiore}
+Sia f una funzione, siano $\frac{\partial f}{\partial x_i}$ $i\in\{1,..,n\}$ le sue derivate parziali e siano queste derivabili, allora esistono le derivate parziali seconde $\frac{\partial^2 f}{\partial x_i^2}=\frac{\partial}{\partial x_i}\left(\frac{\partial f}{\partial x_i}\right)$ e le derivate seconde miste $\frac{\partial^2 f}{\partial x_i \partial x_j}=\frac{\partial f}{\partial x_i}\left(\frac{\partial f}{\partial x_j}\right)$.\\\\
+Per il \textbf{teorema di Schwartz}, sia $f:\R^m\rightarrow\R$ e $\forall i,j\in\{1,...,n\}$, $i\neq j$ $n\leq m$ esitano $\frac{\partial^2f}{\partial x_i \partial x_j}$ continue, allora:
+$$\frac{\partial^2f}{\partial x_i \partial x_j}=\frac{\partial^2f}{\partial x_j \partial x_i}$$
+Se esistono tutte le derivate seconde, allora si definisce Hessiana la matrice:
+$$ H=\begin{psmallmatrix} \frac{\partial^2f}{\partial x_1 \partial x_1} ... \frac{\partial^2f}{\partial x_1 \partial x_n} \\ ...\;...\;... \\ ...\;...\;... \\ \frac{\partial^2f}{\partial x_n \partial x_1} ... \frac{\partial^2f}{\partial x_n \partial x_n} \end{psmallmatrix}$$
+Se valgono le ipotesi di Schwartz $\forall i,j$, allora la matrice Hessiana è simmetrica.\\\\
+Sia $f:\R^n\rightarrow\R$ una funzione con tutte le derivate parziali fino all'ordine k continue, allora si dice che f è di classe $C^k$.
+
+\subsubsection{Sviluppo di Taylor}
+Sia f una funzione differenziabile di classe $C^k$, si definisce sviluppo di Taylor con resto di Peano il polinomio:
+$$f(\ubar{x})-f(\ubar{a})=\sum_j(x_j-a_j)\frac{\partial f}{\partial x_j}(\ubar{a})+...+ \frac{1}{k!}\sum_{j_1}...\sum_{j_k}\frac{\partial f}{\partial x_{j_1}...\partial x_{j_k}}(\ubar{a})*(x_{j_1}-a_{j_1})...(x_{j_k}-a_{j_k})\\+o(||x-a||^k)$$
+Mentre in $\R$ la condizione $f(x)=f(x_0)$ è possibile solo se il polinomio di Taylor è nullo $\forall x$, in $\R^n$ esistono alcuni percorsi che annullano il polinomio senza che esso sia sempre uguale a 0.\\\\
+Per calcolare lo sviluppo di Taylor di una funzione in più variabili senza passare dalla definizione, si possono usare gli sviluppi in $\R$, prestando attenzione a utilizzare correttamente gli o-piccolo.\\
+Esistono alcune regole che permettono di passare dagli o-piccolo delle componenti (usati negli sviluppi in una variabile) a quelli della norma. Per una funzione $\R^2\rightarrow\R$, $(x,y)\rightarrow(0,0)$
+\begin{itemize}
+    \item $|x|^a|y|^b=o(||(x,y)||^c)$ $\quad \forall c>0: (a+b)>c;$ $a,b>0$
+    \item $o(|x|^a|y|^b)=o(||(x,y)||^{a+b})$
+    \item $o(a_1x^{n_1}y^{m_1}+a_2x^{n_2}y^{m_2}=o(||(x,y)||^N)$ $\quad N=min(n_1+m_1,n_2+m_2)$
+\end{itemize}
+Nel caso sia richiesto lo sviluppo in un punto diverso da $(0,0)$ è sufficiente operare una traslazione per poter utilizzare le stesse regole, senza preoccuparsi di quale sia la norma da utilizzare.
+
+
+\subsubsection{Piani tangenti}
+Se una funzione $\R^2\rightarrow\R$ è differenziabile in $a=(x_0,y_0)$, allora esiste il piano tangente al suo grafico in a e ha equazione:
+$$ z-f(x_0,y_0)=\frac{\partial f(x_0,y_0)}{\partial x}*(x-x_0)+\frac{\partial f(x_0,y_0)}{\partial y}*(y-y_0) $$
+
+
+\subsubsection{Funzioni a valori vettoriali}
+Nel caso di una funzione $\R^n\rightarrow\R^m$ è possibile utilizzare tutti i principi elencati precedentemente, rappresentando la funzione come un vettore e studiando le singole componenti:
+$$ f(x_1,...,x_n)=\begin{psmallmatrix} f_1(x_1,...,x_n)\\...\\...\\f_m(x_1,...,x_n) \end{psmallmatrix} $$
+
+\subsubsection{Estremi locali}
+Sia $f:\Omega\subseteq\R^n\rightarrow\R$ una funzione a variabili reali, un punto $(x_0,y_0)$ è detto \textbf{massimo locale} se:
+$$ \exists\; U((x_0,y_0)): \forall x,y\in (U\cap \Omega)\; f(x_0,y_0)\geq f(x,y) $$
+allo stesso modo, è \textbf{minimo locale} se:
+$$ \exists\; U((x_0,y_0)): \forall x,y\in (U\cap \Omega)\; f(x_0,y_0)\leq f(x,y) $$
+Sia $f:\Omega\subseteq\R^n\rightarrow\R$ differenziabile in $\ubar{a}$ punto estremante, allora $\frac{\partial f}{\partial x_i}(\ubar{a})=0\;\;\forall i$\\
+Questo teorema fornisce una condizione sufficiente, ma non necessaria. Non tutti i punti che annullano le derivate parziali sono estremanti. Per controllare che un valore sia un estremante si può passare dalla definizione oppure utilizzare il \textbf{test della Hessiana}.\\\\
+Sia $f:\Omega\subseteq\R^n\rightarrow\R$, $f\in C^2(\Omega)$. Sia $\ubar{a}\in\Omega$ un punto stazionario (tutte le derivate parziali si annullano), siano m e M il minimo e massimo autovalore di $H(\ubar{a})$, Hessiana di f valutata nel punto $\ubar{a}$, allora:
+\begin{itemize}
+    \item $m>0\Rightarrow\ubar{a}$ è minimo relativo forte
+    \item $M<0\Rightarrow\ubar{a}$ è massimo relativo forte
+    \item $\ubar{a}$ minimo relativo $\Rightarrow m\geq0$
+    \item $\ubar{a}$ massimo relativo $\Rightarrow M\leq0$
+    \item $mM<0\Rightarrow\ubar{a}$ non è estremante
+\end{itemize}
+Sia $f:\Omega\subseteq\R^2\rightarrow\R$, $f\in C^2(\Omega)$, $\ubar{a}\in\Omega$ punto stazionario, allora
+\begin{itemize}
+    \item $det(H(\ubar{a}))>0\Rightarrow\ubar{a}$ è estremante forte, in particolare:
+    \begin{itemize}
+        \item $\frac{\partial^2f}{\partial x^2}(\ubar{a})>0\Rightarrow\ubar{a}$ è minimo
+        \item $\frac{\partial^2f}{\partial x^2}(\ubar{a})<0\Rightarrow\ubar{a}$ è massimo
+    \end{itemize}
+    
+    \item $det(H(\ubar{a}))<0\Rightarrow\ubar{a}$ non è estremante
+\end{itemize}
+Un primo passo utile nella ricerca di estremanti è spesso quello di studiare il segno della funzione e applicare il \textbf{teorema di Weierstrass}. Se la funzione si annulla in un punto circondato di valori negativi, allora quel punto sarà un massimo locale e viceversa. Il grafico del segno della funzione può anche risultare utile per i passi successivi della ricerca.\\\\
+Dove la funzione è differenziabile, gli estremi vanno cercati nei punti che annullano il gradiente. Questi punti devono poi essere controllati con il test della Hessiana, con lo studio del segno o con la definizione, per verificare che si tratti di estremi e verificarne la tipologia.\\\\
+Dove la funzione non è differenziabile, la condizione sufficiente imposta dal gradiente non si applica e non vale neanche il test dell'Hessiana. Questi punti dovranno essere controllati a mano o con il teorema di Weierstrass.
+
+
+
+\newpage
+\section{Successioni e serie di funzioni}
+Le nozioni di successione e di serie a valori reali possono essere estese ponendo come valori delle funzioni.
+
+\subsection{Successioni}
+Come per le successioni a valori reali, una successione di funzioni può convergere ad un valore. In questo caso esistono però diverse formulazioni di convergenza, con proprietà differenti.
+
+\subsubsection{Convergenza puntuale}
+Sia $\{f_n\}$ una successione di funzioni $(D\subseteq\R)\rightarrow\R$, si dice che essa converge puntualmente a $f$ su $E\subseteq D$
+$$\Leftrightarrow \forall x\in E\; \lim_{n\rightarrow+\infty}f_n(x)=f(x) $$
+$$ \Leftrightarrow \forall x\in E\; \forall\epsilon>0\; \exists n_0(x,\epsilon): \forall n\geq n_0\; |f_n(x)-f(x)|\leq\epsilon $$
+La convergenza puntuale:
+\begin{itemize}
+    \item \textbf{non} conserva la limitatezza
+    \item \textbf{non} conserva la continuità
+    \item \textbf{non} conserva l'integrabilità
+    \item \textbf{non} conserva la derivabilità
+\end{itemize}
+Lo studio della convergenza puntuale di $f_n(x)$ si riduce al calcolo del limite di una successione a valori reali (f(x)) dipendente da un parametro reale (x).
+
+
+\subsubsection{Convergenza uniforme}
+Sia $\{f_n\}$ una successione di funzioni $(D\subseteq\R)\rightarrow\R$, si dice che essa converge uniformemente a $f$ su $E\subseteq D$
+$$ \Leftrightarrow \sup_{x\in E}(d(f_n(x),f(x)))\rightarrow0 $$
+$$ \Leftrightarrow \forall\epsilon>0\;\exists n_0(\epsilon):\; \forall n\geq n_0\; \forall x\in E\; d(f_n(x),f(x))<\epsilon $$
+Come per le successioni a valori reali, esiste una condizione equivalente nota come \textbf{Cauchy-uniformità}:
+$$ \Leftrightarrow \forall\epsilon>0\;\exists n_0(\epsilon):\; \forall n,m\geq n_0\; \forall x\in E\; d(f_n(x),f_m(x))<\epsilon $$
+Se $f_n\rightarrow f$, allora:
+\begin{itemize}
+    \item $f_n$ limitata $\forall n\Rightarrow f$ limitata
+    \item $f_n$ continua $\forall n\Rightarrow f$ continua
+    \item $f_n\in R([a,b])$ $\forall n\Rightarrow f\in R([a,b])$ e $\int_a^b f_n(x)dx\rightarrow\int_a^bf(x)dx$ ((a,b) deve essere limitato)
+    \item \textbf{non} conserva la derivabilità 
+\end{itemize}
+Per la derivabilità vale però il seguente risultato:\\
+Sia $(a,b)\subseteq\R$ limitato, se
+\begin{itemize}
+    \item $f_n:(a,b)\rightarrow\R$ derivabile su $(a,b)$ $\forall n$
+    \item $\{f_n(c)\}\rightarrow l\in\R$, con $c\in(a,b)$
+    \item $f'_n$ converge uniformemente a $g(x)$ su $(a,b)$
+\end{itemize}
+allora $f_n$ converge uniformemente a f e $f'(x)=g(x)$.\\\\
+Per il \textbf{teorema del doppio limite}, data la successione $f_n:S\rightarrow\R$ tale che $\forall n\;\exists\lim_{x\rightarrow a}f_n(x)=l_n\in\R$ e $f_n\rightarrow f$ uniformemente, allora $\exists l\in\R:\; l=\lim_{n\rightarrow+\infty}l_n=\lim_{x\rightarrow a}f(x)$.\\
+Questo teorema può essere utilizzato per dimostrare la non convergenza uniforme di una successione.
+
+\subsubsection{Studio della convergenza}
+Il primo passaggio nello studio della convergenza uniforme di una successione di funzioni $f_n(x)$ è lo studio della sua convergenza puntuale. Una volta trovata una funzione $f(x)$: $f_n\rightarrow f$ puntualmente, si può proseguire a valutare l'eventuale convergenza uniforme, calcolando $sup_x(|f_n(x)-f(x)|)$. Spesso questo valore può essere calcolato esplicitamente, se necessario passando dallo studio della monotonia e di massimi e minimi, ma nella maggior parte dei casi è sufficiente dimostrarne o escluderne la convergenza a 0 attraverso a delle stime e al teorema del confronto.\\\\
+Alcune particolarità a cui prestare attenzione sono:
+\begin{itemize}
+    \item \textbf{gli intervalli di convergenza:}\\
+    Se la funzione non converge su un intervallo, può essere utile cercare il punto "responsabile" e riprovare su un intervallo che ne escluda un intorno.\\
+    Se la successione non converge "a causa" di un punto, non convergerà neanche sull'insieme a cui viene sottratto il punto stesso o un numero finito di punti. E' quindi necessario escluderne sempre un intorno.\\
+    La convergenza deve sempre essere studiata rispetto a un insieme.
+    \item \textbf{le stime:}\\
+    In moltissimi casi non è necessario calcolare esplicitamente il valore di $\sup(|f_n(x)-f(x)|)$, ma è sufficiente stimarlo per eccesso o per difetto, per poi utilizzare il teorema del confronto per calcolarne il limite.\\
+    Il valore che stiamo cercando sarà sempre positivo (c'è un valore assoluto!), quindi sarà quasi sempre sufficiente una sola stima (l'altra è 0 o $+\infty$).
+    \item \textbf{la monotonia:}\\
+    Lo studio della derivata prima permette di calcolare la posizione di massimi e minimi di una funzione. Una funzione limitata ammette sempre massimo assoluto su un compatto (teorema di Weierstrass), quindi sarà sufficiente dimostrare che $|f_n(x)-f(x)|\rightarrow0$ nel valore di x che la massimizza (massimizza la distanza, non $f(x)$ o $f_n(x)$) per dimostrare la convergenza di tutta la funzione.
+    \item \textbf{le proprietà della convergenza uniforme:}\\
+    La convergenza uniforme mantiene alcune caratteristiche della successione di funzioni, se queste non sono presenti nella funzione limite su un determinato intervallo, allora la convergenza non può essere uniforme.
+\end{itemize}
+
+
+
+
+\subsection{Serie}
+La serie $\sum f_k$ corrisponde alla successione $\{\sum_{k=0}^nf_k\}_{n\in\N}$, quindi le definizioni di convergenza puntuale, uniforme e di Cauchy-uniforme sono quelle presentate precedentemente.
+
+\subsubsection{Convergenza totale}
+Nel caso delle serie è possibile definire una condizione di convergenza più forte: la convergenza totale:
+$$\sum f_k\;conv\;totalmente\Leftrightarrow\sum\sup_{x\in E}||f_k(x)||<+\infty $$
+La convergenza totale implica la convergenza uniforme e assoluta.\\
+Per il \textbf{criterio di Weierstrass}, se $\exists \{a_k\}:\forall x\; |f_k(x)|\leq a_k\;e\;\sum a_k<+\infty\Rightarrow \sum f_k$ conv. totalmente.
+
+\subsubsection{Convergenza uniforme}
+Se $\sum f_k$ converge uniformemente, allora $f_k$ converge uniformemente a 0 (condizione necessaria, non sufficiente).\\\\
+Sia $f_k:(a,b]\rightarrow\R$, se:
+\begin{itemize}
+    \item $\sum f_k$ converge puntualmente
+    \item $\sum f_k(b)$ non converge
+\end{itemize}
+allora $\sum f_k$ non converge uniformemente.
+
+\subsubsection{Derivazione}
+Sia $f_k$ derivabile su $(a,b)\;\forall k$, se:
+\begin{itemize}
+    \item $\exists x_0\in(a,b)$ tale che $\sum f_k(x_0)$ converge
+    \item $\sum f_k'$ converge uniformemente su $(a,b)$
+\end{itemize}
+allora:
+\begin{itemize}
+    \item $\sum f_k$ converge puntualmente su $(a,b)$
+    \item $\sum f_k$ converge uniformemente su ogni $S\in(a,b)$ limitato
+    \item $(\sum f_k)'=\sum f_k'$
+\end{itemize}
+
+\subsubsection{Studio della convergenza}
+Lo studio della \textbf{convergenza puntuale} di una serie di funzioni si svolge considerando la variabile come un parametro reale e studiando la convergenza della serie numerica.\\\\
+Lo studio della \textbf{convergenza uniforme} di una serie di funzioni, nella maggior parte dei casi, si svolge trovando una stima del termine generale indipendente dalla variabile e applicando il criterio di Weierstrass. La non convergenza può essere dimostrata attraverso una stima divergente o la negazione di una delle condizioni necessarie (teorema del doppio limite, convergenza a 0 del termine generale...).\\
+Come nel caso delle successioni, può risultare utile trovare i valori "che causano" la non convergenza.\\
+Il \textbf{criterio di convergenza di Leibniz}, in particolare il risultato sulla velocità di convergenza, fornisce uno strumento utile per dimostrare la convergenza uniforme di serie di funzioni a segno alterno.\\
+In alcuni casi particolari si può studiare la convergenza su una successione di punti per dedurne il comportamento in $\R$.
+
+
+\subsubsection{Serie di potenze in $\R$}
+Si dice serie di potenze in x, centrata in $x_0$:
+$$ \sum a_k(x-x_0)^k $$
+Il dominio di una serie di potenze è sempre non nullo (per convenzione $0^0=1\Rightarrow$ la serie converge in $x=x_0$).\\
+Data una qualsiasi serie di potenze f e il suo dominio $D_f$, $\exists\;r>0$ tale che:
+$$ D_f\subseteq int D_f=B_r(x_0)\quad \Bar{D_f}=\Bar{B_r}(x_0) $$
+La serie converge totalmente su ogni compatto in $int D_f$.\\\\
+Il raggio di convergenza può essere calcolato come $r=\frac{1}{\gamma}$, dove:
+\begin{itemize}
+    \item $\gamma=\limsup_{k\rightarrow+\infty}|a_k|^{\frac{1}{k}}=\lim_{k\rightarrow+\infty}(\sup_{n>k}|a_n|^\frac{1}{n})$ (criterio della radice)
+    \item $\gamma=\lim_{k\rightarrow+\infty}\left| \frac{a_{k+1}}{a_k} \right|$
+\end{itemize}
+Sia $f=\sum a_k(x-x_0)^k$, allora:
+\begin{itemize}
+    \item $f(x)$ è continua
+    \item $f(x)\in R((-r,r))$ e $\int_0^xf(t)dt=\sum a_k\int_0^xt^kdt=\sum\frac{a_kx^{k+1}}{k+1}$
+    \item $f(x)$ è derivabile e ha come serie derivata $\sum ka_kx^{k-1}$\\
+    Inoltre, il raggio di convergenza della serie e della serie derivata coincidono
+\end{itemize}
+Per il \textbf{teorema di Abel}, se una serie di potenza ha raggio di convergenza $r\in(0,+\infty)$ e converge in $x=r$, allora converge uniformemente su $[-M,r]$ $\forall M:\;0<M<r$.\\
+Vale lo stesso risultato anche con il segno invertito, quindi se la serie converge in $x=\pm r$, allora converge uniformemente su $[-r,r]$.\\\\
+I polinomi di Taylor sono serie di potenze.\\\\
+Nel calcolare il valore di una serie di potenze è spesso utile utilizzare i risultati sulla derivazione e integrazione. Infatti il raggio di convergenza di una serie di potenze è uguale a quello della serie derivata e integrata, quindi è possibile calcolare il valore della serie derivata per poi integrarla e viceversa (le serie di potenze sono di classe $C^\infty$).\\\\
+Una serie di potenze deve sempre essere nella forma $\sum a_n[f(x)]^n$, se all'esponente si trova una potenza diversa dall'indice $n$, sarà necessario applicare cambi di variabili e trasformazioni algebriche per ricondursi alla forma canonica.\\\\
+Nel caso di cambi di variabile, è necessario ricondurre le condizioni di convergenza dalla variabile cambiata a quella originaria.\\\\
+Per calcolare la somma di una serie di potenze è necessario ricondursi a una serie notevole o a una serie di Taylor.
+
+\subsection{Spazi funzionali}
+
+
+\newpage
+\section{Equazioni differenziali ordinarie}
+Un'equazione differenziale è un equazione che ha come incognita una funzione e in cui compaiono le sue derivate.\\
+Un'equazione differenziale ordinaria è un equazione in cui la soluzione dipende da una singola variabile.\\
+L'ordine di derivazione massimo che compare nell'equazione è detto ordine dell'equazione.\\\\
+Un'equazione è detta in forma normale se si presenta nella forma:
+$$ y^{(k)}=f(x,y,y',...,y^{k-1}) $$
+E' sempre possibile possibile ricondurre un'equazione differenziale in forma normale passando per una rappresentazione vettoriale.\\\\
+Un'equazione differenziale accoppiata alle "condizioni iniziali" è detta Problema di Cauchy.\\
+Si dice soluzione (locale o in piccolo) del Pdc su un intervallo $(a,b)$ una funzione y che:
+\begin{itemize}
+    \item sia derivabile in $(a,b)$
+    \item $graf(y)\subset\Omega$
+    \item $x_0\in(a,b)$
+    \item soddisfi le condizioni del problema su $(a,b)$
+\end{itemize}
+Per il \textbf{teorema di regolarità}, la soluzione di un'equazione differenziale della forma $y'=f(x,y)$, dove $f$ è di classe $C^k$, è di classe $C^{k+1}$ sull'intervallo.
+
+\subsection{Esistenza e unicità}
+\subsubsection{Locale}
+Una prima condizione per l'esistenza e unicità della soluzione locale è data dal \textbf{criterio di Volterra}: una funzione $y(x)$ è soluzione del pdc associato a $f\in C^0$ se e solo se y è continua e:
+$$ y(x)=y_0+\int_{x_0}^xf(t,y(t))dt $$
+Una funzione $f:\R\times\R^n\rightarrow\R$ è detta lipschitziana localmente in y uniformemente rispetto a x in $U(x_0,y_0)$ se:
+\begin{itemize}
+    \item la funzione è limitata
+    \item $\forall x,\forall y,y_2\exists L>0:$ $||f(x,y_1)-f(x,y_2)||_2\leq L||y_1-y_2||_2$
+\end{itemize}
+Se $f\in C^1$, allora f è lipschitziana.\\
+Se $f\in C^0$ e $\exists\frac{\partial f}{\partial y}$ continua in un intorno di $(x_0,y_0)$.\\\\
+Per il \textbf{teorema di Picard-Lindelof}, il pdc associato a $f(...)$ continua e lipschitziana in un intorno ha un unica soluzione in quell'intorno.\\\\
+Siano $(y_1,I),(y_2,J)$ due soluzioni locali, si dice che $y_2$ è prolungamento di $y_1$ se $I\subset J$ e $y_2|_I=y_1$.\\
+Una soluzione locale è detta massimale se non ammette prolungamenti.\\
+La funzione a tratti definita da soluzioni locali su intervalli diversi è soluzione del pdc.
+
+\subsubsection{Globale}
+Sia $f:[a,b]\times\R^n\rightarrow\R$ continua e lipschitziana sull'intervallo, allora il pdc associato a f ha un'unica soluzione su $[a,b]$
+
+\subsection{Equazioni a variabili separabili}
+Un'equazione a variabili separabili è un'equazione del tipo:
+$$ y'=h(x)k(y) $$
+Le soluzioni del pdc associato possono essere trovate:
+\begin{itemize}
+    \item se $k(y_0)=0$, allora $y(x)=y_0$ è l'unica soluzione locale
+    \item se $k(y_0)\neq 0$, allora esiste un intorno in cui la funzione non si annulla, quindi:
+    $$ \int_{x_0}^x\frac{y'(s)}{k(y(s))}ds=\int_{x_0}^xh(x)ds\Rightarrow \int_{y_0}^x\frac{dt}{k(t)}=\int_{x_0}^xh(x)ds $$
+\end{itemize}
+Sia $y_1$ un valore che annulla $k(y)$, allora una soluzione non stazionaria non potrà mai incrociare la retta $y=y_1$.
+
+\subsection{Equazioni di Bernoulli}
+Un'equazione differenziale di Bernoulli è un equazione della forma:
+$$ y'=a(x)y+b(x)y^\alpha\quad \alpha\in(\R\setminus\{0,1\}) \quad a,b\;continue $$
+Possono essere ricondotte a lineari di primo ordine attraverso alla sostituzione:
+$$ z=y^{1-\alpha}\Rightarrow\frac{z'}{1-\alpha}+a(x)a+b(x)=0 $$
+Nel caso di un pdc, è necessario applicare la sostituzione anche alle condizioni iniziali.\\\\
+E' importante prestare attenzione alle ipotesi sotto le quali è valida la sostituzione. Dove vale la sostituzione, le due equazioni sono equivalenti, dove non vale non lo sono.\\
+Il dominio dell'equazione prima e dopo la sostituzione non è necessariamente lo stesso.\\\\
+In base al valore di $\alpha$ le equazioni di Bernoulli hanno caratteristiche particolari:
+\begin{itemize}
+    \item $\alpha<0$: il segno dell'equazione è costante e $y\neq0$
+    \item $0<\alpha<1$: la funzione non è Lipschitiziana in un intorno di $y=0$
+    \item $\alpha>0$: la funzione ha segno costante e $y=0\Rightarrow y'=0$
+\end{itemize}
+
+
+\subsection{Equazioni omogenee di primo ordine}
+Una funzione omogenea del primo ordine, nella forma:
+$$ y'=g\left(\frac{y}{x}\right) $$
+può essere riportata a una a variabili separabili con la sostituzione $z=\frac{y}{x}\Rightarrow z'=\frac{g(z)-z}{x}$
+
+
+\subsection{Equazioni lineari}
+Un'equazione differenziale lineare è un'equazione della forma:
+$$ \sum_i^na_i(x)y^{(i)}=b(x) $$
+Se il termine noto $b(x)$ è nullo, l'equazione è detta omogenea.\\
+Un'equazione differenziale lineare è detta in forma normale se è nella forma:
+$$ y^{(n)}+\sum_i^{n-1}\frac{a_i(x)}{a_n(x)}y^{(i)}=\frac{b(x)}{a_n(x)} $$
+Verranno trattati solo casi in forma normale e con coefficienti continui.\\\\
+
+\subsubsection{Di primo ordine}
+Un'equazione lineare del primo ordine, nella forma:
+$$ y'=p(x)y+q(x)\quad p,q\;continue$$
+ammette soluzione globale unica:
+$$ y(x)=e^{\int_{x_0}^xp(t)dt}\left\{ y_0+\int_{x_0}^xq(t)e^{-\int_{x_0}^tp(s)ds}dt \right\} $$
+
+\subsubsection{Equazioni di Eulero}
+Le equazioni di Eulero sono equazioni lineari di ordine k della forma:
+$$ \sum_i^k x^iy^{(i)} =b(x)$$
+si risolvono ponendo $x=e^t$ e $y_t=y(e^t)$
+
+\subsubsection{Di ordine superiore}
+Un'equazione lineare omogenea può essere rappresentata attraverso all'operatore lineare $\Lambda: C^n(I)\rightarrow C^0(I)$
+$$ \Lambda(y)=y^{(n)}+ \sum_I^{n-1}a_i(x)y^{(i)}$$
+Il nucleo di $\Lambda$ è lo spazio delle soluzioni dell'equazione omogenea associata.\\
+Una soluzione particolare di un equazione differenziale lineare, sommato al nucleo dell'omogenea associata genera lo spazio delle soluzioni.\\
+Per il \textbf{teorema fondamentale}, $ker(\Lambda)$ ha dimensione n (l'ordine massimo di derivazione).
+
+\subsubsection{Dipendenza lineare}
+Due funzioni sono dette linearmente indipendenti se:
+$$ \sum c_if_i(x)=0\;\forall x\Rightarrow c_i=0\;\forall i $$
+Date k funzioni k-1 volte derivabili in un punto, possiamo definire la matrice Wronskiana:
+$$W_{f_1,...,f_k}=\begin{psmallmatrix} f_1(x),...,f_k(x)\\f'_1(x),...,f'_n(x)\\...\;...\;...\\f_1^{k-1}(x),...,f_n^{k-1}(x) \end{psmallmatrix}$$
+Se $f_1,...,f_k$ sono linearmente dipendenti, allora $det(W_{f_1,...,f_k})=0$.\\\\
+Presi $y_1,...,y_n$ integrali di $\Lambda(y)=0$ e la loro matrice Wronskiana $W(x)$, questi sono linearmente dipendenti se e solo se $det(W(x))=0$ per qualche $x_0$ nell'intervallo.
+
+\subsubsection{Riduzione di grado, noto un integrale}
+
+
+\subsubsection{Equazioni a coefficienti costanti}
+Il caso più semplice di equazione lineare è quello in cui tutti i coefficienti sono costanti.\\\\
+Per ottenere tutte le possibili soluzioni di un'equazione lineare omogenea a coefficienti costanti di ordine n è sufficiente trovare n funzioni appartenenti a $ker(\Lambda(y))$. Considerando funzioni della forma $y(x)=e^{\lambda x}$, possiamo dire che esse saranno soluzioni $\Leftrightarrow\lambda$ è radice di:
+$$ P(\lambda)=\lambda^n+\sum_k^{n-1}a_k\lambda^k $$
+$P(\lambda)$ è detto polinomio caratteristico.\\\\
+Per il \textbf{teorema fondamentale dell'algebra} si possono presentare alcuni casi:
+\begin{itemize}
+    \item \textbf{P ha n radici distinte reali}: le n funzioni $y_i(x)=e^{\lambda_ix}$ sono linearmente indipendenti e generano $ker(\Lambda(x))$
+    
+    \item \textbf{P ha n radici distinte, alcune complesse}: P è a coefficienti reali, quindi se $z=a+bi$ è una sua radice, anche il suo coniugato sarà radice. Attraverso ad alcune combinazioni lineari, possiamo comporre funzioni reali che saranno soluzioni dell'equazione:
+    $$ cos(bx)=\frac{e^{ibx}+e^{-ibx}}{2} \quad\quad\quad sin(bx)=\frac{e^{ibx}-e^{-ibx}}{2i} $$
+    $$ e^{ax}cos(bx)=\frac{z+\Bar{z}}{2} \quad\quad\quad e^{ax}sin(bx)=\frac{z-\Bar{z}}{2i} $$
+    
+    \item \textbf{P ha n radici reali, alcune coincidenti}: sia $y_{1,0}(x)=e^{\alpha_1x}$ una soluzione, allora anche $y_{1,1}(x)=xe^{\alpha_1x}$ e $y_{1,m-1}(x)=x^{m-1}e^{\alpha_1x}$ (dove m è la molteplicità di m come radice del polinomio caratteristico) saranno soluzioni. In questo modo posso ottenere n funzioni linearmente indipendenti che fanno parte del nucleo.
+    
+    \item \textbf{P ha radici complesse e coincidenti}: unendo le due tecniche precedenti, si ottengono equazioni reali linearmente indipendenti della forma: $y_{1,i}(x)=x^ie^{a_1x}cos(bx)$ o $y_{1,i}(x)=x^ie^{a_1x}sin(bx)$ ($i<m$, con m molteplicità)
+\end{itemize}
+Per quanto riguarda equazioni non omogenee ($\Lambda(x)=b(x)$), è comunque necessario trovare un loro integrale particolare, oltre agli n della omogenea associata. Per fare questo si ricorre a dei casi standard:
+\begin{itemize}
+    \item se b è un polinomio di grado $H\geq0$ e $\lambda=0$ non è radice del polinomio caratteristico, allora tra le soluzioni c'è un polinomio di grado h.
+    
+    \item se b è come sopra, ma $\lambda=0$ è radice di molteplicità $r\geq1$, allora tra le soluzioni c'è un polinomio di grado $r+h$ della forma:
+    $$ y(x)=x^rQ(x)\quad degQ=h $$
+    
+    \item se $b(x)=e^{\mu x}$ e $\mu$ non è radice del polinomio caratteristico, allora tra le soluzioni c'è una funzione della forma:
+    $$ y(x)=ce^{\mu x} $$
+    
+    \item come sopra, ma $\mu$ è radice con molteplicità $r$, allora tra le soluzioni c'è una funzione del tipo:
+    $$y(x)= Cx^re^{\mu x} $$
+    
+    \item $b(x)=p(x)e^{\mu x}$, $p(x)$ polinomio di grado h, r molteplicità di $\mu$ come radice del p. caratteristico, allora è soluzione:
+    $$ y(x)=x^rQ(x)e^{\mu x} \quad degQ=h$$
+    
+    \item $b(x)=e^{\alpha x}[a*sin(\beta x)+b*cos(\beta x)]$, $\alpha\pm i\beta$ non è radice del p. caratteristico, allora è soluzione:
+    $$y(x)= e^{\alpha x}[c*sin(\beta x)+d*cos(\beta x)] $$
+    
+    \item come sopra, ma $\alpha\pm i\beta$ radici di molteplicità $r\geq1$, allora sarà soluzione:
+    $$y(x) x^re^{\alpha x}[c*sin(\beta x)+d*cos(\beta x)] $$
+    
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\Index
+\end{document}

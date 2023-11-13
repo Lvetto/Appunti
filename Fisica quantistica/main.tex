@@ -1,0 +1,600 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{physics}
+
+\input{../libs/packages.tex}
+
+\title{Fisica quantistica}
+\author{Luca Vettore}
+\date{May 2023}
+
+\begin{document}
+
+\input{../libs/clib.tex}
+
+\maketitle
+
+\section{Postulati}
+La meccanica quantistica si basa su 4 postulati da cui è possibile ricavare una formulazione completa della teoria:
+\begin{itemize}
+    \item Lo stato di un sistema è rappresentato da un vettore appartenente a uno spazio di Hilbert e per cui vale il principio di sovrapposizione
+
+    \item In seguito a una misura il sistema collassa in una delle componenti del suo vettore di stato con probabilità data dal modulo quadro del prodotto scalare tra il vettore prima e dopo la misura
+
+    \item Ogni osservabile fisica è associata ad un operatore Hermitiano e i possibili risultati di una misura formano una base ortonormale dello spazio di Hilbert
+
+    \item L'evoluzione temporale di un sistema è determinata da un operatore unitario chiamato operatore di evoluzione temporale
+    
+\end{itemize}
+
+\section{Notazione di Dirac}
+\subsection{Stati e ket}
+Lo stato di un sistema è rappresentato da un elemento (un "ket") di uno spazio vettoriale su campo complesso.\\
+Il vettore di stato generico è una combinazione lineare di elementi di una base dello spazio (principio di sovrapposizione) e viene rappresentato in notazione di Dirac come segue:
+$$ \ket{\psi} =  \sum c_i\ket{e_i} $$
+Per convenzione si impone la condizione $\sum \abs{c_i}^2=1$ in modo che la probabilità di trovare il sistema nello stato $\ket{e_i}$ dopo una misura sia data da:
+$$ P_i=\abs{c_i}^2 $$
+Questa è una probabilità intrinseca: lo stato fisico è formato da una sovrapposizione di stati tra loro esclusivi ed esaustivi e solamente dopo una misura il sistema si trova in uno di essi.
+
+\subsection{Prodotto scalare e bra}
+Sia $\ket{\phi}$ un generico ket. Definiamo un operatore $\Lambda: \mathds{H}\rightarrow\C$, è possibile rappresentare questo operatore come un vettore trasposto rispetto a $\ket{\phi}$: $\Lambda=\bra{\psi} \Rightarrow$ $\bra{\psi}\ket{\phi}=c\in\C$.\\
+Definendo una relazione biunivoca tra $\ket{\phi}$ (ket) e $\bra{\phi}$ (bra) è possibile rappresentare il prodotto scalare come segue:
+$$ \bra{\phi}=(\ket{\phi})^* \;\; \text{(trasposto coniugato)} \qquad \ket{\phi}\cdot\ket{\psi}=(\ket{\phi}^*)\ket{\psi} = \bra{\phi}\ket{\psi} $$
+Il prodotto scalare (interno) ha le seguenti proprietà:
+\begin{itemize}
+    \item $\bra{\phi}\ket{\psi}=(\bra{\psi}\ket{\phi})^*$
+    \item $\bra{\phi}\ket{\phi}\in\R$ e $\bra{\phi}\ket{\phi}\geq0$
+    \item $\ket{\psi}=a\ket{a}+b\ket{b}\Rightarrow\bra{\phi}\ket{\psi}=a\bra{\phi}\ket{a} + b \bra{\phi}\ket{b}$
+    \item $\bra{\psi}\ket{\psi}=|\ket{\psi}|^2$
+\end{itemize}
+
+\subsection{Casi discreto e continuo}
+Lo spazio di Hilbert che rappresenta gli stati del sistema può avere dimensione finita o infinita. Le proprietà presentate fin'ora sono vere in generale, ma vi sono delle differenze tra i due casi:
+\subsubsection{Caso discreto}
+Nel caso discreto, data una base $\ket{e_i}$ vale:
+$$ \bra{\psi}\ket{\phi}=\sum (c^{\psi*}_i)c^\phi_i$$
+La condizione di ortonormalità si scrive:
+$$ \bra{e_i}\ket{e_j}=\delta_{ij} $$
+dove $\delta_{ij}$ è il delta di Kronecker ($\delta_{i j}\neq0\Leftrightarrow i=j$).\\
+La relazione di completezza diventa:
+$$ \mathds{I} = \sum\ket{e_i}\bra{e_i} $$
+Gli operatori sono definiti dal prodotto esterno:
+$\hat{O}=\ket{o}\bra{o}$
+
+\subsubsection{Caso continuo}
+Nel caso continuo il prodotto scalare vale:
+$$ \bra{\psi}\ket{\phi}=\int dx\,\phi(x)^*\psi(x) $$
+La condizione di ortonormalità si scrive:
+$$\bra{x}\ket{x'}=\delta(x-x')$$
+dove $\delta(x)$ è la delta di Dirac ($\delta(x)\neq0\Leftrightarrow x=0$).\\
+La relazione di completezza diventa:
+$$ \mathds{I}=\int dx\,\ket{x}\bra{x} $$
+Gli operatori sono definiti dal loro sviluppo di Taylor: $\hat{O}(x)=\sum \frac{O_i}{i!}\hat{x}^i$
+
+\newpage
+
+\section{Operatori e osservabili}
+La meccanica quantistica fa uso di operatori lineari descritti attraverso alla loro azione su una base dello spazio di Hilbert. Gli operatori lineari possono essere rappresentati da matrici:
+$$ \hat{A}=\sum_{ij}\ket{e_i}A_{ij}\bra{e_j}$$
+dove $A_{ij}=\bra{e_i}A\ket{e_j}$ sono gli elementi di matrice di A.\\\\
+I possibili risultati di una misura sono autostati di un operatore, risulta quindi naturale associare ogni osservabile a un operatore. Supponiamo di voler calcolare il risultato medio della misura di un'osservabile O (con autovalori $\lambda_i$) su uno stato $\ket{\psi}$, da quanto detto in precedenza:
+$$ <O>=\sum_i \lambda_i P^{\psi}_i = \sum_i \lambda_i |\bra{e_i}\ket{\psi}|^2  $$
+dove $\ket{e_i}$ è un elemento di una base dello spazio di Hilbert.\\
+Definendo l'operatore $\hat{O}=\sum_i \lambda_i\ket{e_i}\bra{e_i}$ si ottiene:
+$$ <O>=\bra{\psi}\hat{O}\ket{\psi} \qquad \hat{O}\ket{e_i}=\lambda_i\ket{e_i}$$
+In questo modo si ottiene una relazione biunivoca tra i possibili risultati della misura (quindi l'osservabile) e un operatore.\\
+La matrice ottenuta è diagonale nella base $\ket{e_i}$ e ha tutti autovalori reali, essa è quindi simmetrica e a coefficienti reali in tutte le altre basi.
+
+\subsection{Operatori aggiunti e autoaggiunti}
+Dato un operatore $\hat{A}$, si definisce il suo operatore aggiunto $\hat{A}^\dagger$:
+$$ \hat{A}\ket{\psi}=\ket{\psi'} \qquad \bra{\psi}\hat{A}^\dagger=\bra{\psi'} $$
+Per gli elementi di matrice vale la relazione:
+$$ \left(\hat{A}^\dagger\right)_{ij} = \hat{A}_{ji}^*$$
+Un operatore che è anche il suo stesso aggiunto è detto autoaggiunto o Hermitiano.\\\\
+Sia $\hat{B}$ un operatore simmetrico a coefficienti reali, allora $\hat{B}=\hat{B}^\dagger$. Quindi tutti (e soli) gli operatori associati a un'osservabile sono Hermitiani.
+
+\subsection{Operatori di proiezione}
+Dato uno stato $\ket{\phi}$ definiamo l'operatore $\Pi_\phi=\ket{\phi}\bra{\phi}$. Applicando l'operatore appena definito a un generico stato $\ket{\psi}$ si ottiene:
+$$ \Pi_\phi\ket{\psi}=\ket{\phi}\cdot \bra{\phi}\ket{\psi} $$
+Abbiamo detto che a seguito di una misura di un osservabile un sistema collassa in un autostato dell'operatore ad essa associato. Chiamando $\ket{\phi}$ tale autostato, $\Pi_\phi$ è quindi l'operatore che trasforma lo stato $\ket{\psi}$ precedente alla misura nello stato $\ket{\phi}$ successivo, a meno di una costante di normalizzazione (data dalla proiezione ortogonale di $\psi$ su $\phi$).\\
+Notiamo inoltre che la probabilità di ottenere lo stato $\ket{\phi}$ misurando $\ket{\psi}$ è data da:
+$$ P^\psi_\phi=|\bra{\phi}\ket{\psi}|^2=\bra{\phi}\ket{\psi}\bra{\psi}\ket{\phi}= \bra{\psi}\Pi_\phi\ket{\psi}$$
+Allo stesso modo è possibile definire l'operatore di proiezione nello stato non-$\ket{\psi}$ come:
+$$\Pi_{\Bar{\psi}}=\mathds{I}-\Pi_\psi$$
+
+\subsection{Operatori unitari}
+Un operatore $\hat{U}$ è detto unitario se:
+$$ \hat{U}\hat{U}^\dagger=\mathds{I} $$
+Gli operatori unitari applicati ai vettori mantengono il prodotto scalare:
+$$ \bra{\phi'}\ket{\psi'}=\bra{\phi}\hat{U}^\dagger\hat{U}\ket{\psi}=\bra{\phi}\ket{\psi} $$
+Moltiplicati per un operatore Hermitiano mantengono lo spettro di autostati.\\\\
+Definiamo un operatore $\hat{U}=\sum\ket{e_i}\bra{e'_i}$, dove $\ket{e_i},\ket{e_i'}$ sono due basi dello stesso spazio di Hilbert. Questo operatore è detto operatore di cambio di base.\\\\
+Un operatore unitario può essere sempre scritto come esponenziale di un operatore Hermitiano, dove l'esponenziale di un operatore è definito attraverso al suo sviluppo di Taylor. Questa proprietà è molto utile in alcune dimostrazioni.
+
+\subsection{Osservabili compatibili e incompatibili}
+Due osservabili sono dette compatibili se gli operatori associati hanno lo stesso spettro di autostati.\\\\
+Date due osservabili $A,B$, supponiamo di voler misurare $A$. Se le due sono compatibili dopo la misura il sistema si troverà in un autostato di $A$, che è anche autostato di $B$, quindi entrambe le osservabili assumono valore ben definito allo stesso tempo.\\
+Se le due non fossero state compatibili, a seguito della misura di A il sistema si sarebbe trovato in una sovrapposizione di autostati di B. Misurata poi anche B, lo stato risultante conterrebbe nuovamente diversi autostati di A, ripristinando la sovrapposizione di valori dell'osservabile ("rigenerazione").\\\\
+Definiamo commutatore di due operatori come:
+$$ [A,B]=AB-BA $$
+Risulta possibile dimostrare che due osservabili sono compatibili se e solo se il commutatore degli operatori associati è nullo.\\\\
+Per il commutatore valgono le seguenti proprietà:
+\begin{itemize}
+    \item $[A,BC]=B[A,C]+[A,B]C$
+    \item $[AB,C]=A[B,C]+[A,C]B$
+    \item $[A,B]=-[B,A]$
+    \item  $[A,B+C]=[A,B]+[A,C]$
+    \item  $[A\cdot\alpha,B\cdot\beta]=\alpha\beta[A,B] \quad \alpha,\beta\in\C$
+\end{itemize}
+
+\newpage
+\section{Indeterminazione e informazione}
+
+\subsection{L'indeterminazione quantistica}
+Definiamo l'indeterminazione di un'osservabile come la sua deviazione standard:
+$$\Delta^2A_\psi=\bra{\psi}\hat{A}^2\ket{\psi}-(\bra{\psi}\hat{A}\ket{\psi})^2=\sum_i\lambda_i^2P_i-\left(\sum_i\lambda_iP_i\right)^2$$
+L'indeterminazione di un osservabile è nulla se e solo se il sistema si trova in un autostato dell'operatore associato.\\\\
+Per due generiche osservabili A,B vale:
+$$ \Delta^2A_\psi\Delta^2B_\psi\geq\frac{1}{4}|\bra{\psi}[A,B]\ket{\psi}|^2 $$
+Come già detto in precedenza, questa incertezza dipende dal principio di sovrapposizione ed è quindi intrinseca al sistema, non può essere ridotta con misure più precise o metodi statistici.
+
+\subsection{L'informazione quantistica}
+Supponiamo ora di avere a disposizione infinite copie dello stesso sistema quantistico. Ripetendo la misura di un osservabile quantistica ci aspettiamo di ottenere risultati diversi, ognuno con una certa probabilità.\\\\
+Esprimiamo lo stato generico $\ket{\psi}$ in una base di autovalori di una generica osservabile $\hat{O}$:
+$$\ket{\psi}=\sum_i^No_i\ket{o_i} \qquad P^\psi_i=|o_i|^2$$
+Effettuare infinite misure su infinite copie identiche di $\ket{\psi}$ ci permette di determinare tutti i $P_i^\psi$ e quindi i moduli dei coefficienti $o_i$.\\\\
+Se ora ripetiamo il procedimento per un'altra osservabile $\hat{O}'$ si presentano due casi:
+\begin{itemize}
+    \item $[\hat{O},\hat{O}']=0$: gli autostati sono gli stessi, quindi anche i coefficienti e di conseguenza le probabilità. Non otteniamo nessuna nuova informazione sul sistema.
+
+    \item $[\hat{O},\hat{O}']\neq0$: gli autostati sono diversi, quindi le rappresentazioni di $\ket{\psi}$ nella base di autostati di $\hat{O}$ e $\hat{O}'$ sono diverse e di conseguenza le probabilità. Otteniamo una distribuzione di risultati diversa che non è influenzata dalla costante di normalizzazione (in caso $\ket{\psi}$ non sia correttamente normalizzato) e dalla fase globale ($\ket{\psi}$ è un vettore, così come $\ket{o_i}$ e $\ket{o_i}'$. Se ruotiamo tutti i vettori dello stesso angolo i risultati sono gli stessi). La distribuzione è però influenzata dalla diversa scomposizione di $\ket{\psi}$ nelle due basi e quindi dalle fasi relative dei coefficienti.
+\end{itemize}
+
+\subsection{La matrice densità}
+Dato un generico stato $\ket{\psi}$ o un insieme di stati $\ket{\psi_i}$ (con $\ket{\psi}=\sum_i\ket{\psi_i}$), si definisce la matrice densità come:
+$$ \rho_\psi=\ket{\psi}\bra{\psi}=\sum_i\ket{\psi_i}\bra{\psi_i} $$
+L'operatore $\rho$ è Hermitiano e permette di calcolare facilmente il valore medio di un operatore nello stato $\ket{\psi}$:
+$$<A>=Tr(A\rho)=\sum_i\bra{e_i}A\rho\ket{e_i} $$
+dove $\ket{e_i}$ sono gli elementi di una base generica.\\
+$Tr(A)$ è detta traccia dell'operatore $A$ ed è indipendente dalla base scelta.\\\\
+Se $\ket{\psi}$ è sovrapposizione di stati non ortogonali, allora è detto miscela statistica di stati. In questo caso l'informazione su $\ket{\psi}$ è incompleta e vi è un incertezza statistica al di fuori di quella imposta dal principio di indeterminazione. Il formalismo della matrice densità permette di distinguere uno stato puro (sovrapposizione di stati ortogonali) da una miscela statistica (sovrapposizione di stati non ortogonali) attraverso alla seguente proprietà:
+$$ Tr(\rho^2) \begin{cases}
+    =1\;\text{stato puro}\\
+    <1\;\text{miscela statistica}
+\end{cases} $$
+
+\newpage
+\section{Posizione e impulso}
+
+\subsection{Operatore posizione}
+Possiamo definire l'osservabile posizione attraverso all'operatore associato:
+$$\hat{x}\ket{x}=x\ket{x}$$
+dove $\ket{x}$ sono gli autostati di $\hat{x}$ e $x$ gli autovalori.\\\\
+Definiamo la funzione d'onda di un sistema come la proiezione di uno stato lungo il vettore $\ket{x}$:
+$\psi(x)=\bra{x}\ket{\psi}$
+$\psi(x)$ rappresenta un'ampiezza di probabilità ($\neq$ probabilità, $\psi(x)\in\C$).\\
+La posizione è una variabile continua, la probabilità che un sistema si trovi nell'intervallo $[x,x+\Delta x]$ è quindi data da:
+$$ P_{[x,x+\Delta x]}=\int_x^{x+\Delta x}\bra{x}\ket{\psi}\,dx'=\int_x^{x+\Delta x}\psi(x')\,dx'$$
+La posizione può rappresentare una coordinata cartesiana o una coordinata generalizzata.
+
+\subsection{Operatore impulso}
+Il teorema di Noether prevede che ad ogni simmetria di un sistema lungo una soluzione delle equazioni del moto sia associata una variabile del moto che si conserva. Sfruttando questo risultato possiamo definire l'impulso come la quantità conservata in un sistema sotto traslazione. Per fare ciò è prima necessario definire un operatore che effettui una traslazione su un sistema quantistico.\\\\
+L'operatore traslazione avrà l'effetto:
+$$ \hat{T}\ket{x}=\ket{x-\delta} $$
+L'operatore sarà inoltre unitario (la traslazione di un vettore è equivalente a una traslazione degli assi, cioè un cambio di base), da cui:
+$$ \bra{x}\hat{T}=\bra{x+\delta} \quad \Rightarrow \quad 
+\bra{x}\hat{T}\ket{\psi}=\bra{x+\delta}\ket{\psi}=\psi(x+\delta)$$
+Come già visto, possiamo riscrivere un operatore unitario come esponenziale di un operatore hermitiano: $\hat{T}=e^{i\hat{k}\delta}$. Sviluppando con Taylor $\psi(x+\delta)$ e considerando una traslazione infinitesima (i conti sono omessi per semplicità) otteniamo:
+$$ \bra{x}\hat{k}\ket{\psi}=-i\frac{d}{dx}\psi(x) $$
+che è l'elemento di matrice dell'operatore hermitiano $\hat{k}$ detto generatore delle traslazioni.\\\\
+Con un procedimento simile è possibile dimostrare che il sistema è invariante per traslazioni se un qualsiasi operatore di evoluzione temporale preserva gli autostati del generatore delle traslazioni. L'operatore associato all'impulso (quantità conservata sotto traslazione) è quindi un multiplo di $\hat{k}$.\\\\
+Per analogia con il caso classico deve esistere una costante di proporzionalità tra $\hat{k}$ e l'impulso $\hat{p}$ che deve avere le dimensioni di una potenza per tempo:
+$$ \hat{p}=\hbar\hat{k} $$
+dove $\hbar$ è detta costante di planck.
+
+\subsection{Commutatore e parentesi di Poisson}
+Nel caso della meccanica classica è possibile descrivere i cambi di variabile attraverso al formalismo delle trasformazioni canoniche e le parentesi di Poisson.  Per posizione e impulso vale:
+$$\{p,q\}=-1$$
+Nel caso quantistico è possibile seguire il procedimento usato per definire la costante del moto per una qualsiasi trasformazione unitaria. Si può dimostrare la relazione:
+$$[p,q]=-i\hbar$$
+\\Il passaggio dalla meccanica classica a quella quantistica consiste quindi nella sostituzione delle parentesi di Poisson con il commutatore canonico.\\\\
+Una conseguenza della relazione appena presentata è il principio di indeterminazione di Heisemberg:
+$$ \Delta^2p\Delta^2q\geq\frac{\hbar^2}{4} $$
+
+\subsection{Basi delle posizioni e dell'impulso}
+Gli operatori posizione e impulso non commutano, quindi non ammettono la stessa base diagonalizzante.
+
+\subsubsection{Base delle coordinate}
+Consideriamo la base delle coordinate (base che diagonalizza l'operatore posizione). 
+\\Possiamo costruire esplicitamente gli elementi di matrice (generalizzata) dei due operatori partendo dalla loro azione su uno stato generico:
+$$ \bra{q}\hat{q}\ket{\psi}=q\bra{q}\ket{\psi}=q\psi(q) $$
+$$ \bra{q}\hat{p}\ket{\psi}=-i\hbar\frac{d}{dq}\bra{q}\ket{\psi}=-i\hbar\frac{d}{dq}\psi(q) $$
+In particolare per gli autostati di $\hat{q}$ vale:
+$$ \hat{q}\ket{q}=q\delta(q-q')\ket{q'} $$
+$$ \hat{p}\ket{q}=-i\hbar\frac{d}{dq}\delta(q-q')\ket{q'} $$
+dove $\delta(q-q')$ viene dall'ortonormalità degli autostati.\\
+Gli autovalori di $\hat{k}$ ($\propto\hat{p}$) nella base delle coordinate si trovano partendo dalla condizione $\hat{p}\ket{k}=\hbar k\ket{k}$:
+$$ \bra{q}\hat{p}\ket{k}=\hbar k \bra{q}\ket{k}=\hbar k\,k(q) $$
+$$ -i\hbar\frac{d}{dq}k(q)=\hbar k\,k(q) $$
+$$\Rightarrow k(q)=\bra{k}\ket{q}=e^{ikq}*C_{norm}$$
+Imponendo la condizione di ortonormalità $\bra{k'}\ket{k}=\delta(k-k')$ si ricava:
+$$ |C_{norm}|=\frac{1}{2\pi}\Rightarrow\ket{k}=\frac{e^{ikq}}{\sqrt{2\pi}}\ket{q} $$
+$$ \Rightarrow \ket{p}=\frac{1}{\sqrt{\hbar}}\ket{k}= \frac{e^{ikq}}{\sqrt{2\pi\hbar}}\ket{q}$$
+
+\subsubsection{Base dell'impulso}
+Invertendo la relazione precedente possiamo scrivere gli autostati della posizione nella base dell'impulso (o di $\hat{k}$):
+$$ \ket{q}=\frac{e^{-ikq}}{\sqrt{2\pi}}\ket{k} $$
+Dato uno stato generico $\ket{\psi}$:
+$$ \bra{k}\ket{\psi}=\psi(k)=\int\frac{e^{-ikq}}{\sqrt{2\pi}}\psi(q) $$
+$$ \bra{q}\ket{\psi}=\psi(q)=\int\frac{e^{ikq}}{\sqrt{2\pi}}\psi(k) $$
+quindi $\psi(q)$ è la trasformata di Fourier di $\psi(k)$ e viceversa. Posizione e impulso non sono tra loro indipendenti. In effetti è lo stesso vettore di stato a definire la probabilità di osservare il sistema in un autostato della posizione o dell'impulso.\\\\
+Supponiamo di conoscere con precisione infinita la posizione (o l'impulso), la funzione d'onda (ampiezza di probabilità) sarebbe quindi una delta di Dirac centrata sul valore. La trasformata di Fourier della delta di Dirac è l'identità (una funzione costante), non avremmo quindi alcuna informazione sul valore dell'impulso (o della posizione). Questo risultato può essere ottenuto anche dal principio di indetetrminazione ponendo una delle incertezze uguale a 0.\\\\
+Possiamo scrivere gli elementi di matrice di $\hat{p},\hat{q}$ come:
+$$ \bra{k}\hat{p}\ket{\psi}=\hbar k\psi(k) $$
+$$ \bra{k}\hat{q}\ket{\psi}=i\frac{d}{dk}\psi(k) $$
+L'azione di $\hat{p},\hat{q}$ sugli autostati di $\hat{k}$ diventa quindi:
+$$ \hat{p}\ket{k}=\hbar k\delta(k-k')\ket{k} $$
+$$ \hat{q}\ket{k}=i\frac{d}{dk}\delta(k-k')\ket{k'} $$
+
+\newpage
+\section{Evoluzione temporale}
+
+\subsection{Operatore di evoluzione temporale}
+In analogia con la meccanica classica, una delle ipotesi della meccanica quantistica è che l'evoluzione temporale sia reversibile, quindi rappresentata da una traslazione temporale, cioè un operatore unitario.\\\\
+Seguendo un procedimento analogo a quello per le traslazioni spaziali, esprimiamo l'operatore di evoluzione temporale come esponenziale di un operatore hermitiano $S(t_2,t_1)=e^{i\hat{O_h}(t2,t1)}$ e consideriamo una traslazione infinitesima, sviluppando con Taylor al primo ordine:
+$$ (t_2-t_1=\epsilon\rightarrow0)\quad S(t1+\epsilon, t1)=\mathbf{I}+i\epsilon\pdv{}{t}O_h(t1,t2)|_{t_1=t_2} $$
+$$\mathds{H}(t)=\pdv{}{t}O_h(t_2,t_1)|_{t_1=t_2}\quad\Rightarrow\quad\mathbf{I}+i\epsilon\mathds{H}(t)$$
+Come già visto per il generatore delle traslazioni spaziale vale:
+$$\frac{d\mathds{H}}{dt}=0\qquad[\mathds{H}, S(t_2,t_1)]=0$$
+Quindi gli autovalori di $\mathds{H}$ sono conservati da $S(t_2,t_1)$:
+$$ \bra{E}[\mathds{H}, S]\ket{E'}=(E-E')\bra{E}S\ket{E'}=0 $$
+dove $\mathds{H}\ket{E}=E\ket{E}$.\\\\
+In meccanica classica la generalizzazione del teorema di Noether implica che la costante del moto associata all'invarianza per traslazioni spaziali sia l'hamiltoniana ($H(p, q)$). Ipotizziamo quindi una relazione analoga a quella dell'operatore impulso (sostituita la dipendenza dalle variabili $p,q$ con quella dagli operatori $\hat{p},\hat{q}$):
+$$ H(\hat{p},\hat{q})=-\hbar\mathds{H} $$
+Da cui:
+$$ S(t+\epsilon, t)=\mathbf{I}-\frac{i}{\hbar}\epsilon \,H $$
+
+\subsection{Schrodinger v Heisenberg}
+Le quantità misurabili sono effettivamente gli elementi di matrice degli operatori associati alle osservabili. Ipotizziamo quindi che siano gli operatori a evolvere nel tempo e gli stati rimangano costanti. Per gli elementi di matrice di un generico operatore A scriviamo:
+$$ A_{\psi\phi}(t)=\bra{\psi(t)}A\ket{\phi(t)}=\bra{\psi(t_0)}S^{-1}(t,t_0)AS(t,t_0)\ket{\phi(t_0)} $$
+Notiamo che è equivalente considerare stati che evolvono nel tempo attraverso all'operatore di evoluzione temporale o operatori che variano secondo alla trasformazione unitaria associata a S.\\\\
+Il primo approccio (stati che variano) è chiamato approccio alla Schrodinger ed è solitamente indicato dal pedice $_S$ di fianco alle grandezze utilizzate.\\
+Il secondo (operatori che variano) è chiamato approccio alla Heisenberg ed è indicato dal pedice $_S$.\\\\
+Con notazione alla Schrodinger:
+$$ \hat{A}_S(t)=\hat{A}_S(t_0) \qquad \ket{\psi_S(t)}=S(t,t_0)\ket{\psi_S(t_0)} $$
+Con notazione alla Heisenberg:
+$$ \hat{A}_H(t)=S^{-1}(t,t_0)\hat{A}_HS(t,t_0) \qquad \ket{\psi_H(t)}=\ket{\psi_H(t_0)} $$
+Nei paragrafi seguenti i pedici sono spesso omessi poiché si utilizza esclusivamente una delle due convenzioni.
+
+\subsection{Equazione di Schrodinger per gli stati}
+Scrivendo una traslazione temporale infinitesima in termini delle grandezze definite in paragrafo precedenza si ricava l'equazione di Schrodinger per gli stati:
+$$ i\hbar\frac{d}{dt}\ket{\psi}=H(t)\ket{\psi} $$
+Risolvendo l'equazione differenziale è possibile ricavare lo stato $\ket{\psi}$ $\forall t$.\\\\
+Ponendo $H=\frac{\hat{p}}{2m}+V(\hat{q)}$ e proiettando sulla base delle coordinate si ottiene:
+$$ i\hbar\pdv{\psi(q,t)}{t}=-\frac{\hbar^2}{2m}\pdv[2]{\psi(q,t)}{q}+V(q)\psi(q,t)$$
+
+\subsection{Equazione di Schrodinger per l'evoluzione temporale}
+L'equazione di Schrodinger può essere riscritta per trovare $S(t,t_0)$:
+$$ i\hbar\pdv{}{t} S(t,t_0)=H(t)S(t,t_0) $$
+che va unita alla condizione al contorno:
+$$ S(t_0,t_0)=\mathbf{I} $$
+Consideriamo tre casi di difficoltà crescente:
+\begin{itemize}
+    \item $\frac{dH}{dt}=0\Rightarrow S(t,t_0)=e^{\frac{1}{\hbar i}(t-t_0)H}$
+    \item $\frac{dH}{dt}\neq0,\;[H(t),H(t')]=0\Rightarrow S(t,t_0)=e^{\frac{1}{i\hbar}\int_{t_0}^tH(t')dt'}$
+    \item $\frac{dH}{dt}\neq0, [H(t),H(t')]\neq0\Rightarrow S(t,t_0)=\mathcal{T}e^{\frac{1}{i\hbar}\int_{t_0}^tH(t')dt'}=\mathcal{T}[e^{\frac{1}{i\hbar}\int_0^tH(t')dt'}, e^{-\frac{1}{i\hbar}\int_0^{t_0}H(t')dt'}]$\\
+    Dove $\mathcal{T}[A(t_1),B(t_2)]=\begin{cases}A(t_1)B(t_2) \;\text{se $t_1>t_2$}\\ B(t_2)A(t_1) \;\text{se $t_2>t_1$} \end{cases}$ è detto prodotto cronologico
+\end{itemize}
+Questi risultati sono da considerarsi formali, infatti dipendono dall'hamiltoniana che è un operatore e risultano quindi difficili da usare.
+
+\subsubsection{Stati stazionari}
+Nel caso di hamiltoniane indipendenti dal tempo è possibile risolvere in modo più semplice l'equazione di Schrodinger nella base degli autostati dell'energia ($=$ hamiltoniana $\Leftarrow$ teorema di Jacobi per $\frac{dH}{dt}=0$). Infatti sfruttando le ipotesi $[H(t_1),H(t_2)]=0$ e $[S,H]=0$ si ottiene che l'operatore di evoluzione temporale è diagonale in questa base.\\\\
+Nella base di autostati dell'energia:
+$$ H\ket{n}=E_n\ket{n}\Rightarrow S(t,t_0)=\sum\ket{m}\bra{m}S(t,t_0)\ket{n}\bra{n}=\sum e^{\frac{1}{i\hbar}(t-t_0)E_n}\ket{n}\bra{n} $$
+Applicato allo stato generico $\ket{\psi}$:
+$$ \ket{\psi(t)}=S(t,t_0)\ket{\psi(t_0)}=\sum e^{\frac{1}{i\hbar}(t-t_0)E_n}\ket{n}\bra{n}\ket{\psi(t_0)}=\sum\ket{n}\bra{n}\ket{\psi(t)}=\sum\psi_n(t)\ket{n} $$
+dove:
+$$ \psi_n(t)=\bra{n}\ket{\psi(t)}=e^{\frac{1}{i\hbar}(t-t_0)}\psi_n(t_0) $$
+La probabilità di osservare un sistema in un autostato dell'energia vale:
+$$ P_n^\psi(t)=|\bra{n}\ket{\psi(t)}|^2=|e^{\frac{1}{i\hbar}(t-t_0)E_n}|^2|\bra{n}\ket{\psi(t_0)}|^2=|\bra{n}\ket{\psi(t_0)}|^2 $$
+ed è quindi indipendente dal tempo, per questo motivo gli autostati dell'energia sono chiamati stati stazionari.
+
+\subsection{Equazione di Heisenberg}
+In notazione di Heisenberg gli operatori evolvono attraverso trasformazioni unitarie. Le trasformazioni unitarie hanno la proprietà di conservare lo spettro di autovalori:
+$$ \hat{A}_H(t)\ket{n(t)} = \lambda_n\ket{n(t)} \quad \text{e} \quad \hat{A}(t)=S^{-1}(t,t_0)\hat{A}(t_0)S(t,t_0)$$
+$$\Rightarrow S^{-1}A)t_0)S=\lambda_n\ket{n(t)}$$
+$$\Rightarrow A(t_0)S\ket{n(t)}=\lambda_nS\ket{n(t)}$$
+$$ \ket{n(t_0)}=S\ket{n(t)}\Rightarrow\ket{n(t)}=S^{-1}\ket{n(t_0)} $$
+che ci permette di esprimere il generico autostato ad un tempo t generico.\\
+Scrivendo l'ampiezza di probabilità di misurare $\psi$ in n:
+$$ P^\psi_n=\bra{n_H(t)}\ket{\psi_H}=\bra{n_H(t_0)}S(t,t_0)\ket{psi_H}=\bra{n_S}S(t,t_0)\ket{\psi_S(t_0)} $$
+e notiamo nuovamente che le due formulazioni sono equivalenti.\\\\
+Sfruttando quanto detto possiamo ricavare l'equazione di Heisenberg partendo da quella di Schrodinger:
+$$ \frac{d}{dt}A_H(t)=\frac{1}{i\hbar}[A_h(t),H_H(t)]+\pdv{A_H(t)}{t} $$
+dove $H_H(t)=S(t,t_0)H_S(t)S(t,t_0)$.\\
+Applicando questo risultato all'operatore  $H_H(t)$ si ottiene:
+$$\frac{d}{dt}H_H(t)=\pdv{H_H(t)}{t}$$
+quindi la dipendenza dell'hamiltoniana alla heisenberg (e alla schrodinger) dal tempo è puramente parametrica (se H cambia, deve avere una dipendenza esplicita dal parametro t nella sua espressione).\\\\
+Passando per lo sviluppo di Taylor si possono dimostrare due utilissime relazioni:
+$$ [\hat{q},f(\hat{p})]=i\hbar\pdv{f(\hat{p})}{\hat{p}} $$
+$$ [\hat{p},f(\hat{q})]=-i\hbar\pdv{f(\hat{q})}{\hat{q}} $$
+Combinate all'equazione di Heisenberg, per un hamiltoniana della forma $H=\frac{\hat{p}^2}{2m}+V(\hat{q})$ danno:
+$$\frac{d\hat{q}_H}{dt}=\pdv{H}{\hat{p}}=\frac{\hat{p}_H}{m}$$
+$$\frac{d\hat{p}_H}{dt}=-\pdv{H}{\hat{q}}=-\pdv{V(\hat{q})}{\hat{q}}$$
+che sono identiche alle soluzioni del caso classico.
+
+\newpage
+\section{Meccanica unidimensionale}
+Quanto detto fin'ora è sufficiente per affrontare alcuni semplici problemi unidimensionali. In questa sezione saranno analizzati alcuni problemi con hamiltoniana della forma:
+$$\hat{H}=\frac{\hat{p}^2}{2m}+V(x)$$
+Dove abbiamo sostituito $q$ con la coordinata cartesiana $x$.\\
+Le soluzioni presentate in seguito possono essere utilizzate per approssimare molti problemi di meccanica unidimensionale, in modo da ottenere informazioni qualitative sui moti anche nel caso in cui l'equazione di Schrodinger risulti difficile da integrare.
+
+\subsection{Particella libera}
+Il primo problema che affrontiamo è quello di una particella libera (=in assenza di forze/potenziale).\\
+L'hamiltoniana della particella libera vale:
+$$ \hat{H}=\frac{\hat{p}^2}{2m} $$
+da cui $[H,p]=0$.\\
+Studiamo lo spettro di $H$:
+$$ H\ket{k}=\frac{\hat{p}^2}{2m}\ket{k}=E_k\ket{k}$$
+$$ \Rightarrow E_k=\frac{\hbar^2k^2}{2m} $$
+da cui si nota che ad ogni autovalore di k corrispondono due autovalori di H.\\
+Nella base delle posizioni:
+$$ \bra{x}\frac{\hat{p}^2}{2m}\ket{k}=\bra{x}E_k\ket{k}=E_k\psi_k(x) $$
+$$ =\frac{1}{2m}\left( -i\hbar\pdv{}{x} \right)^2\psi_k(x)=-\frac{\hbar^2}{2m}\pdv{^2}{x^2}\psi_k(x) $$
+$$\Rightarrow-\pdv{^2}{x^2}\psi_k(x)=k^2\psi_k(x)$$
+$$\Rightarrow\psi_k(x)=\frac{1}{\sqrt{2\pi}}e^{ikx}$$
+H è indipendente dal tempo, applicando quanto detto per gli stati stazionari:
+$$S(t,t_0)=e^{\frac{E_k}{i\hbar}\Delta t}$$
+$$\Rightarrow \bra{x}\ket{k,t}=\bra{x}\ket{k(t)}=\bra{x}S(t,t_0)\ket{k,t_0}$$
+$$=\psi_k(x,t)=\frac{1}{\sqrt{2\pi}}e^{i\left(kx-w_k\Delta t \right)}$$
+ponendo $w_k=\frac{E_k}{\hbar}=\frac{\hbar k^2}{2m}$.\\\\
+Gli autostati dell'hamiltoniana di una particella libera evolvono quindi come onde piane.\\\\
+La dipendenza dal tempo degli operatori alla Heisenberg $\hat{p}_H,\hat{x}_H$ coincide con le leggi del moto classiche:
+$$ \hat{p}_H(t)=\hat{p}_S $$
+$$ \hat{x}_H(t)=\hat{x}_S+\frac{\hat{p}_S}{m}\Delta t $$
+possiamo notare che l'operatore posizione non commuta con se stesso a tempi diversi:
+$$ [\hat{x}_H(t_0),\hat{x}_H(t)]=[\hat{x}_s,\hat{x}_s+\frac{\hat{p}_s}{m}\Delta t]=\frac{i\hbar}{m}\Delta t $$
+Applicando il principio di indeterminazione si ottiene:
+$$ \Delta^2x(t_0)\Delta^2x(t)\geq\frac{\hbar^2}{4m^2}\Delta t^2 $$
+e quindi anche in assenza di forze l'indeterminazione su misure successive della posizione aumenta nel tempo.
+
+\subsubsection{Pacchetti di onde}
+Se una particella libera si trova in un autostato di $\hat{H}$, allora si trova in un autostato di $\hat{p}$ e vale $\Delta^2p=0$ da cui $\Delta^2x\rightarrow+\infty$. Nella pratica questa situazione non è realizzabile perché le misure reali sono fatte con risoluzione finita su particelle localizzate in una regione di spazio. Lo stato realistico è quindi una sovrapposizione di autostati di $\hat{H}$:
+$$ \psi(x,t)=\bra{x}\ket{\psi, t}=\int dk \frac{1}{\sqrt{2\pi}}e^{i(kx-w_k\Delta t)}\psi(k,t_0) $$
+Ogni componente del pacchetto si muove con impulso $k$, quindi con velocità (di fase)
+$$ v_k=\frac{k}{m} $$
+Dalle leggi del moto trovate nel paragrafo precedente (unite alla relazione $<\hat{A}>=\bra{\psi}\hat{A}\ket{\psi}$) si trova che la velocità di gruppo vale:
+$$ v_g=\frac{d}{dt}<\hat{x}>=\frac{\hbar k_0}{m} $$
+Oltre a traslare, il pacchetto si allarga:
+$$ \Delta^2p(t)=\Delta^2p(t_0) $$ 
+$$\Delta^2x(t)=\Delta^2x(t_0)+\frac{t^2}{m^2}\Delta^2p+\frac{t}{m}(\Delta x\Delta p+\Delta p\Delta x)$$
+dove abbiamo definito $\Delta x=\hat{x}-<\hat{x}>$ e $\Delta p=\hat{p}-<\hat{p}>$.
+\\\\
+Ripercorrendo i passaggi della dimostrazione del pricipio di indeterminazione possiamo costruire il pacchetto d'onde con indeterminazione minima ($\Delta^2x\Delta^2p=\frac{\hbar^2}{4}$) ottenendo:
+$$ \psi(x)=N\cdot e^{i\frac{p_0x}{\hbar}-\frac{\lambda}{\hbar}(x-x_0)^2} $$
+con $x_0,p_0$ valori medi di $x,p$, $\lambda$ parametro reale e $|N|=\left( \frac{\lambda}{\pi\hbar} \right)^{\frac{1}{4}}$.\\
+Valgono inoltre le relazioni:
+$$ \Delta^2p=\frac{\hbar\lambda}{2} \qquad \Delta^2x=\frac{\hbar}{2\lambda} \qquad \lambda=\frac{\hbar}{2(\Delta^2x)} $$
+Il pacchetto d'onda ottenuto è quindi una gaussiana centrata sul valore medio di x. Si può inoltre scrivere la funzione d'onda dell'impulso $\psi(k)$ come trasformata di Fourier di $\psi(x)$, ottenendo nuovamente una gaussiana, questa volta centrata sul valore medio di p.
+
+\subsection{Buca di potenziale}
+Consideriamo un potenziale della forma:
+$$V(x)=\begin{cases}
+    0\;se\;|x|<a\\
+    V_0\;se\;|x|>a
+\end{cases}$$
+Chiamiamo I la regione $|x|<a$ e II la regione $|x|>a$. L'hamoltoniana vale:
+$$ H=\begin{cases}
+    \frac{\hat{p}^2}{2m}\quad\text{su I}\\
+    \frac{\hat{p}^2}{2m}+V_0\quad\text{su II}\\
+\end{cases} $$
+L'equazione agli autovalori $H\ket{\psi_E}=E\ket{\psi_E}$ diventa:
+$$ -\frac{\hbar^2}{2m}\pdv{^2}{x^2}\psi(x)=\begin{cases}
+    E\psi(x)\quad\text{su I}\\
+    (E-V_0)\psi(x)\quad\text{su II}\\
+\end{cases} $$
+Su entrambe le regioni la soluzione è esponenziale:
+$$ \psi(x)=\begin{cases}
+    A'e^{ik_nx}+B'e^{-ik_nx}=A\cdot sin(k_nx)+B\cdot cos(k_nx)\quad\text{Su I}\\
+    Ne^{\pm k'|x|}\quad\text{Su II}
+\end{cases} $$
+con $k'=\sqrt{\frac{2m}{\hbar}(V_0-E)}$. Nel limite $V_0\rightarrow+\infty$ $k'$ è reale, quindi solo la soluzione con il $-$ è normalizzabile e quella positiva va scartata. In questo caso $\psi(x)$ è identicamente nulla sulla regione II.\\
+La condizione di continuità $\psi_I(x)=0$ implica:
+$$ B=0\;e\; k_n=\frac{2n\pi}{2a} \quad\text{oppure}\quad A=0\;e\; k_n=\frac{(2n+1)\pi}{2a}$$
+che combinate danno:
+$$ \psi_I(x)=\begin{cases}
+    A\cdot sin(k_nx)\quad\text{n pari}\\
+    B\cdot cos(k_nx)\quad\text{n dispari}
+\end{cases} $$
+con $k_n=\frac{n\pi}{2a}=\frac{n\pi}{L}$ e $E_n=\frac{(\hbar n\pi)^2}{8ma^2}=\frac{(\hbar n\pi)^2}{2mL^2}$. Dalla condizione di normalizzazione:
+$$ A=B=\frac{1}{\sqrt{a}} $$
+
+
+
+
+
+
+\subsection{Gradino di potenziale}
+Consideriamo una particella quantistica soggetta a un potenziale a gradino unidimensionale. Il potenziale è definito come:
+$$
+V(x) = 
+\begin{cases}
+0, & \text{per } x < 0 \\
+V_0, & \text{per } x \geq 0
+\end{cases}
+$$
+Studiamo come di consueto gli autostati dell'hamiltoniana nella base delle coordinate e per $E>V_0$ otteniamo:
+$$
+\psi(x) = 
+\begin{cases}
+Ae^{ikx} + Be^{-ikx} & \text{per } x < 0 \\
+Ce^{ik'x} + De^{-ik'x} & \text{per } x \geq 0
+\end{cases}
+$$
+Dove:
+$$
+k = \frac{{\sqrt{{2m(E - V_0)}}}}{{\hbar}} \qquad k' = \frac{{\sqrt{{2mE}}}}{{\hbar}}
+$$
+Imponendo che la funzione sia continua con derivata continua:
+$$\begin{cases}
+    A + B = C + D\\
+ik(A - B) = ik'(C - D)
+\end{cases}$$
+che unita alla condizione di normalizzazione fissa 3 parametri lasciandone libero uno.\\
+Ponendo $D=0$:
+$$\begin{cases}
+    B=\frac{k-k'}{k+k'}A\\
+    C=\frac{2k}{k+k'}A
+\end{cases}$$
+Posto invece $A=0$:
+$$\begin{cases}
+    B=C\frac{2k'}{k+k'}\\
+    D=C\frac{k'-k}{k+k'}
+\end{cases}$$
+Nel caso $E<V_0$:
+$$
+\psi(x) = 
+\begin{cases}
+Ae^{ikx} + Be^{-ikx} & \text{per } x < 0 \\
+Ce^{-\beta x} & \text{per } x \geq 0
+\end{cases}
+$$
+con:
+$$\beta=\frac{\sqrt{2m(V_0-E)}}{\hbar}\in\R$$
+e la continuità impone:
+$$\begin{cases}
+    A + B = C + D\\
+ik(A - B) = -\beta C
+\end{cases}$$
+
+
+
+
+
+
+
+\subsection{Barriera di potenziale}
+Consideriamo una particella quantistica che si muove in presenza di una barriera di potenziale unidimensionale. Il potenziale è definito come:
+$$
+V(x) = 
+\begin{cases}
+0, & \text{per } x < 0 \text{ e } x > L \\
+V_0, & \text{per } 0 \leq x \leq L
+\end{cases}
+$$
+Che da una funzione d'onda della forma:
+$$
+\Psi(x) = 
+\begin{cases}
+Ae^{ikx} + Be^{-ikx}, & \text{per } x < 0 \\
+Ce^{ik'x} + De^{-ik'x}, & \text{per } 0 \leq x \leq L \\
+Fe^{ikx} + Ge^{-ikx}, & \text{per } x > L
+\end{cases}
+$$
+dove:
+$$k = \frac{{\sqrt{{2m(E - V_0)}}}}{{\hbar}} \qquad k' = \frac{{\sqrt{{2mE}}}}{{\hbar}}$$
+Imponendo la continuità della funzione e della sua derivata:
+$$\begin{cases}
+    A + B = C + D\\
+    ik(A - B) = k'(C - D)\\
+    C e^{ik'L} + D e^{-ik'L} = F e^{ikL} + G e^{-ikL}\\
+    ik' (C e^{ik'L} - D e^{-ik'L}) = ik (F e^{ikL} - G e^{-ikL})\\
+\end{cases}$$
+Da queste condizioni si possono ricavare i coefficienti prima (o dopo) l'attraversamento della barriera dalla matrice di trasferimento:
+$$ \begin{psmallmatrix}A\\B\end{psmallmatrix}=T\begin{psmallmatrix}F\\G\end{psmallmatrix} \qquad T=(...) $$
+[vedi pag 133, fisica quantistica stefano forte]
+
+
+
+%\subsection{Corrente di probabilità}
+%\subsection{Studio qualitativo dei problemi unidimensionali}
+
+\subsection{Oscillatore armomico}
+L'oscillatore armonico è un modello molto utile, perchè permette di studiare il comportamento di un sistema nell'intorno di un ounto di equilibrio stabile.\\\\
+L'oscillatore armonico quantistico è descritto dall'Hamiltoniana:
+$$ H=\frac{p^2}{2m}+\frac{1}{2}m\omega^2x^2 $$
+Si può dimostrare che questa Hamiltoniana ha autovalori positivi e discreti. Per procedere nello studio del suo spettro conviene definire gli operatori di distruzione e creazione:
+$$ a=\sqrt{\frac{m\omega}{2\hbar}}\left( x+i\frac{p}{m\omega} \right) \qquad a^\dagger=\sqrt{\frac{m\omega}{2\hbar}}\left( x-i\frac{p}{m\omega} \right)$$
+che sono uno l'aggiunto dell'altro.\\
+Definendo l'operatore numero come:
+$$ N=a^\dagger a=\frac{m\omega}{2\hbar}\left( x^2+\frac{p^2}{m^2\omega^2} \right) + i\frac{[x,p]}{2\hbar} $$
+possiamo riscrivere l'hamiltoniana:
+$$ H=\hbar\omega(N+\frac{1}{2}) $$
+Possiamo ora studiare lo spettro di $N$ e ricavarne quello di $H$.\\\\
+Lo spettro di N ha le seguenti proprietà:
+\begin{itemize}
+    \item sia $\ket{n}$ autostato di N, allora anche $a^\dagger\ket{n}$ e $a\ket{n}$ sono autostati
+    \item l'autovalore di $\ket{n}$ differisce da quelli di $a^\dagger\ket{n}$ e $a\ket{n}$ di un unità:
+    $$ Na^\dagger\ket{n}=(\lambda_n + 1)a^\dagger\ket{n} \qquad Na\ket{n}=(\lambda_n - 1)a\ket{n}$$
+    \item gli autovalori sono tutti non negativi
+    \item esiste un autostato $\ket{0}$ che viene 'annichilito' dall'operatore distruzione:
+    $$ a\ket{0} = 0 $$
+\end{itemize}
+Da queste proprietà si ottiene che gli autovalori sono numeri interi non negativi e gli autostati si ricavano dalla relazione:
+$$ \ket{n}=c_n(a^\dagger)^n\ket{0} $$
+con $c_n$ costante di normalizzazione.\\\\
+Gli autovalori dell'Hamiltoniana sono quindi dati da:
+$$ E_n = \hbar\omega\left( n+\frac{1}{2} \right) \quad n\in(\N\cup \{0\}) $$
+Per determinare gli autostati è sufficiente conoscere lo stato fondamentale e sfruttare quanto detto sull'operatore numero. Nella base delle coordinate:
+$$ \psi_0(x)= \left( \frac{m\omega}{\pi\hbar} \right)^{\frac{1}{4}}exp\left( \frac{-x^2m\omega}{2\hbar} \right)$$
+$$ \psi_n(x)=c\cdot a^\dagger\psi_{n-1}(x) = c\cdot (a^\dagger)^n\psi_0(x) $$
+con $c$ costante di normalizzazione.\\
+L'autofunzione n-esima può essere riscritta come:
+$$ \psi_n(x)=\psi_0(x)H_n(x) $$
+dove $H_n$ è l'n-esimo polinomio di Hermite.\\\\
+In un autostato $\ket{n}$ dell'Hamiltoniana valgono le seguenti relazioni:
+$$ \bra{n}x\ket{n}=0 \qquad \bra{n}p\ket{n}=0 $$
+$$ \bra{n}x^2\ket{n}=\frac{\hbar}{m\omega}\left( n+\frac{1}{2} \right) \qquad \bra{n}p^2\ket{n}=\hbar m\omega\left( n+\frac{1}{2} \right)$$
+
+\newpage
+\section{Appendice}
+In questa sezione sono riportati alcuni risultati matematici utili nello studio della meccanica quantistica.
+
+\subsection{Trasformata di Fourier}
+Per trasferire le autofunzioni tra base delle coordinate e base dell'impulso (e viceversa) si può usare la trasformata di Fourier.\\\\
+Ricordando che:
+$$ \bra{x}\ket{k}=\frac{1}{\sqrt{2\pi}}e^{ikx}\Rightarrow \bra{k}\ket{x}=\frac{1}{\sqrt{2\pi}}e^{-ikx} $$
+si ottiene:
+$$ \psi(k)=\int dx\bra{k}\ket{x}\bra{x}\ket{k}=\int dx \frac{1}{\sqrt{2\pi}}e^{-ikx}\psi(x)=\mathcal{F}[\psi(x)]$$
+$$ \psi(x)=\int dk\bra{x}\ket{k}\bra{k}\ket{x}=\int dx \frac{1}{\sqrt{2\pi}}e^{ikx}\psi(k)=\mathcal{F}^{-1}[\psi(k)]$$
+In generale il calcolo delle trasformate di funzioni esponenziali (es. gaussiane) o riscrivibili come combinazioni di funzioni esponenziali (es. sinusoidi) non risulta difficile, ma può essere utile conoscere qualche risultato:
+\begin{itemize}
+    \item $f(x)= 1 \Rightarrow\mathcal{F}[f(x)]= \delta(x)$
+    \item $f(x)=\delta(x)\Rightarrow\mathcal{F}[f(x)]=1$
+    \item $f(x)= \theta(x) \Rightarrow\mathcal{F}[f(x)]= \pi\delta(x)-\frac{i}{x}$
+    \item $f(x)= e^{-\alpha x} \Rightarrow\mathcal{F}[f(x)]= \frac{1}{\alpha+ix}$
+    \item $f(x)= e^{\alpha x} \Rightarrow\mathcal{F}[f(x)]= \frac{1}{\alpha-ix}$
+    \item $f(x)= e^{-ax^2} \Rightarrow\mathcal{F}[f(x)]= \sqrt{\frac{\pi}{a}}e^{-\frac{x^2}{4a}}$
+    \item $f(x)= e^{i\omega x} \Rightarrow\mathcal{F}[f(x)]= \delta(x-\omega)$
+    \item $f(x)= \sin(\omega x) \Rightarrow\mathcal{F}[f(x)]= \frac{1}{2i}(\delta(x-\omega)-\delta(x+\omega))$
+    \item $f(x)= \cos(\omega x) \Rightarrow\mathcal{F}[f(x)]= \frac{1}{2}(\delta(x-\omega)+\delta(x+\omega))$
+    
+\end{itemize}
+
+
+
+
+
+\subsection{Polinomi di Hermite}
+Per calcolare le autofunzioni di un oscillatore armonico, può essere utile conoscere alcuni polinomi di Hermite, di seguito sono elencati i primi 10:\\\\
+$H_0(x) = 1$\\
+$H_1(x) = 2x$\\
+$H_2(x) = 4x^2 - 2$\\
+$H_3(x) = 8x^3 - 12x$\\
+$H_4(x) = 16x^4 - 48x^2 + 12$\\
+$H_5(x) = 32x^5 - 160x^3 + 120x$\\
+$H_6(x) = 64x^6 - 480x^4 + 720x^2 - 120$\\
+$H_7(x) = 128x^7 - 1344x^5 + 3360x^3 - 1680x$\\
+$H_8(x) = 256x^8 - 3584x^6 + 13440x^4 - 13440x^2 + 1680$\\
+$H_9(x) = 512x^9 - 9216x^7 + 48384x^5 - 80640x^3 + 30240x$\\
+$H_{10}(x) = 1024x^{10} - 23040x^8 + 161280x^6 - 403200x^4 + 302400x^2 - 30240$\\
+
+
+
+
+
+
+\Index
+
+\end{document}
