@@ -96,12 +96,95 @@ Combinando le leggi di Boyle-Mariotte, Charles e Gay-Lussac, possiamo derivare l
 Combinando queste relazioni, otteniamo che $ PV \propto T $. Ulteriori osservazioni sperimentali ci portano a esprimere tale risultato come:
 $$PV=nRT$$
 dove $n$ rappresenta il numero di moli e $R$ è la costante dei gas perfetti. Questa relazione è nota come legge di stato dei gas perfetti.\\\\
-La costante dei gas perfetti $ R $può essere espressa in diverse unità. In termini di energia, quando si utilizza il Joule come unità di energia, il valore di $ R $ è approssimativamente $ 8.314 \, \text{J/(mol·K)} $. Se invece si utilizza la Caloria il valore di $ R $ è circa $ 1.987 \, \text{cal/(mol·K)} $. Questi valori riflettono le diverse scale energetiche e sono utili a seconda del contesto dell'analisi termodinamica.\\\\
+La costante dei gas perfetti $ R $ può essere espressa in diverse unità. In termini di energia, quando si utilizza il Joule come unità di energia, il valore di $ R $ è approssimativamente $ 8.314 \, \text{J/(mol·K)} $. Se invece si utilizza la Caloria il valore di $ R $ è circa $ 1.987 \, \text{cal/(mol·K)} $. Questi valori riflettono le diverse scale energetiche e sono utili a seconda del contesto dell'analisi termodinamica.
 
-\newpage
-\section{Sezione di prova}
-Equazione di prova:
-$$\alpha \frac{\varepsilon}{\epsilon}$$
+\subsubsection{Teoria cinetica}
+Possiamo studiare il comportamento di un gas ideale analiticamente, partendo dalla sua struttura microscopica e ricavandone importanti relazioni sulle grandezze macroscopiche.\\\\
+Consideriamo la singola particella del gas in esame, essa sarà caratterizzata da una velocità $v_i=\begin{bsmallmatrix} v_i^x\\v_i^y\\v_i^z  \end{bsmallmatrix}$e avrà una quantità di moto $q_i=m\cdot v_i$.\\
+Durante un urto con la parete del contenitore (per semplicità consideriamo un contenitore cubico di lato $l$, ma un analisi più dettagliata permette di estendere questi risultati a contenitori di forma arbitraria), la particella scambia una quantità di moto pari a $\Delta q_i^j=2m\cdot v_i^j$.\\
+Il tempo tra due urti successivi con le pareti (ignorando gli urti interni, ma anche qua un'analisi più dettagliata permette di generalizzare il risultato) è dato da $\Delta\tau_i^j=\frac{2l}{v_i^j}$.\\
+Combinando i due risultati precedenti possiamo calcolare la forza media e di conseguenza la pressione applicata sulla parete $j$ come:
+$$ P_i^j=\frac{F_i^j}{l^2}=\frac{m(v_i^j)^2}{l^3} $$
+Introducendo la densità del gas: $ \rho=\frac{Nm}{l^3} $ (dove $N$ è il numero di particelle)\\
+e la velocità quadratica media: $<v_j^2>=\frac{\sum_i(v_i^j)^2}{N}$
+possiamo riscrivere la pressione come:
+$$ P^j=\rho<v_j^2>$$
+Imponendo l'isotropia del gas e definendo $v_{qm}=\sqrt{\sum_j<v_j^2>}$ si ottiene:
+$$ P_j=P_k\Rightarrow<v_j^2>=\frac{1}{3}v^2_{qm} $$
+$$ \Rightarrow P=P_j=\frac{1}{3}\rho v^2_{qm} $$
+Assumendo che le particelle siano identiche e che l'energia delle particelle sia esclusivamente cinetica, l'energia interna del gas vale:
+$$ U = \frac{Nm}{2}\frac{\sum_i v^2_{qm}}{N} $$
+Usando la relazione appena trovata per la pressione, si può ricavare $v^2_{qm}=\frac{3P}{\rho}$, imponendo la legge di stato del gas ideale $PV=nRT$ è possibile riscrivere l'energia interna come:
+$$ U=\frac{3}{2}nRT $$
+Dall'equazione di stato e dalla definizione trovata per la pressione, si può ricavare la definizione cinetica di temperatura:
+$$ T = \frac{\mathcal{M} v^2_{qm}}{3R} $$
+dove $\mathcal{M}$ è la massa molare del gas.
+
+\subsubsection{Distribuzione delle velocità}
+Studiamo ora la distribuzione delle velocità all'interno del gas. Questo studio ci permetterà poi di dimostrare il teorema dell'equipartizione dell'energia ed estendere i risultati della sezione precedente a gas pluriatomici.\\\\
+Consideriamo un contenitore cilindrico di gas (come di consueto, la scelta è fatta per semplificare i conti, ma i risultati hanno validità generale). Per un volume infinitesimo di gas compreso tra la quota $z$ e $z+dz$ la condizione di equilibrio meccanico risulta:
+$$ PA=(p+dp)A+dm\;g = (P+dp)\rho Adzg $$
+$$ \Rightarrow Pa-Pa = Adp+\rho Adzg$$
+$$ \Rightarrow dp = -\rho dzg $$
+La densità vale $ \rho=\frac{n\mathcal{M}}{nRT} $, quindi:
+$$ \frac{dp}{P} = -\frac{\mathcal{M}}{RT}gdz $$
+$$\Rightarrow \int_{P_0}^P\frac{dp}{P}=-\int_0^z\frac{\mathcal{M}}{RT}gdz  $$
+$$\Rightarrow \log\left(\frac{P}{P_0}\right)=-\frac{\mathcal{M}gz}{RT} $$
+da cui si ricava l'equazione barometrica:
+$$P(z)=P_0\exp\left(-\frac{\mathcal{M}gz}{RT}\right)=P_0\exp\left(-\frac{mgdz}{k_bT}\right)$$
+Abbiamo già dimostrato che vale $\rho\propto P$, quindi:
+$$ \rho(z)=\rho_0\exp\left(-\frac{mgdz}{k_bT}\right)$$
+Le particelle alla quota $z$ saranno quelle che inizialmente avevano energia cinetica pari al potenziale gravitazionale a tale quota: $T=\frac{m}{2}v_z^2=mgz$. Sostituendo questa relazione nell'equazione barometrica otteniamo:
+$$ \rho(v_z)=\rho_0\exp\left(-\frac{mv_z^2}{2k_bT}\right) $$
+Definiamo una funzione $f$ che rappresenta la probabilità di una particella di trovarsi alla quota $z$: $$f(z)dz=\frac{dN(z)}{N_{tot}}\propto\rho(z)dz$$
+$$\Rightarrow f(v_z)dv_z\propto\rho(v_z)dv_z $$
+$$\Rightarrow f(v_z)=f_0\exp\left(-\frac{mv_z^2}{2k_bT}\right) $$
+per un certo $f_0$.\\
+Il valore di $f_0$ può essere trovato imponendo la condizione di normalizzazione della distribuzione di probabilità:
+$$ \int_\R f(v_z)dv_z=1\Rightarrow f_0=\sqrt{\frac{m}{2\pi k_bT}} $$
+Le distribuzioni di probabilità per le componenti della velocità devono essere indipendenti. Inoltre, il gas è isotropo per ipotesi. Combinando queste due condizioni, possiamo trovare la distribuzione della velocità (come vettore). Osserviamo che questa deve dipendere solamente dal modulo, quindi possiamo scrivere:
+$$ f(v)=\left(\frac{m}{2\pi k_bT}\right)^{\frac{3}{2}}4\pi v^2\exp\left(-\frac{mv^2}{2k_bT}\right) $$
+che è una gaussiana centrata in $v_p=\sqrt{\frac{2RT}{\mathcal{M}}}$.\\\\
+Un procedimento simile può essere seguito per ricavare la distribuzione delle energie cinetiche, da cui segue che:
+$$ \bar{E_i}=\frac{1}{2}k_bT $$
+Questo ci permette di generalizzare il risultato trovato per l'energia interna di un gas monoatomico, a un gas formato da particelle con $f$ gradi di libertà:
+$$ U = \frac{f}{2}nRT $$
+Per un gas monoatomico $f=3$, per un gas biatomico $f=5$, per gas formati da più di due atomi $f=6$.
+
+
+\subsection{Equilibrio}
+Un sistema è detto in equilibrio termodinamico se rispetta 3 condizioni:
+\begin{itemize}
+    \item \textit{Equilibrio meccanico:} tutte le forze che agiscono sul sistema si equilibrano
+    \item \textit{Equilibrio termico:} la temperatura del sistema è uniforme
+    \item \textit{Equilibrio chimico:} la composizione del sistema rimane costante
+\end{itemize}
+Un sistema in equilibrio termodinamico può essere descritto da una funzione di stato:
+$$ f(X_1,...,X_n) = 0 $$
+nel caso di un gas perfetto questa è data dall'equazione di Clapeyron in forma implicita:
+$$ PV-nRT=0 $$
+
+
+\subsection{Trasformazioni}
+Quando un sistema passa dallo stato $A$ allo stato $B$ si dice che subisce una trasformazione, indicata come $A\rightarrow B$. Questa trasformazione può essere classificata in diversi modi in base alle sue caratteristiche:
+\begin{itemize}
+    \item \textit{Trasformazione quasi-statica:} una trasformazione in cui il sistema passa esclusivamente per stati di equilibrio. Se la trasformazione viene fermata prima di essere completata, il sistema rimane nello stato che ha raggiunto.
+    \item \textit{Trasformazione reversibile:} una trasformazione quasi-statica la cui inversa è quasi-statica. Questa trasformazione non provoca modificazioni nell'ambiente esterno al sistema.
+    \item \textit{Trasformazione spontanea:} una trasformazione che avviene su un sistema isolato in assenza di interventi esterni. Un esempio è il passaggio di calore tra un corpo più caldo e uno più freddo.
+    \item \textit{Trasformazione irreversibile:} una trasformazione che porta un sistema tra due stati di equilibrio, ma non passa per ulteriori stati di equilibrio.
+    \item \textit{Trasformazione lontana dall'equilibrio:} una trasformazione che avviene in un sistema non isolato e non chiuso.
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
