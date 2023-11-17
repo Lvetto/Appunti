@@ -20,6 +20,7 @@ Lo scopo di questo documento è quello di fornire un percorso alternativo per lo
 
 
 \section{La temperatura}
+\subsection{Definizione e proprietà}
 Un sistema è detto chiuso quando è in grado di scambiare energia, ma non materia con l'ambiente esterno. Mettendo a contatto due sistemi chiusi, questi potranno solamente scambiare energia sotto forma di lavoro o calore.\\
 Consideriamo due sistemi chiusi che non possono scambiare lavoro (ad esempio contenitori diatermani con pareti rigide). Mettendo a contatto i due sistemi, si osservano comunque trasformazioni fisiche (cambiamenti nelle grandezze che li descrivono, ad es volume o pressione). Se non avvengono trasformazioni, allora i due sistemi sono detti in equilibrio termico.\\\\
 Introduciamo ora il principio 0 della termodinamica:
@@ -174,6 +175,152 @@ Quando un sistema passa dallo stato $A$ allo stato $B$ si dice che subisce una t
     \item \textit{Trasformazione irreversibile:} una trasformazione che porta un sistema tra due stati di equilibrio, ma non passa per ulteriori stati di equilibrio.
     \item \textit{Trasformazione lontana dall'equilibrio:} una trasformazione che avviene in un sistema non isolato e non chiuso.
 \end{itemize}
+
+
+
+\subsection{Lavoro e calore}
+
+\subsubsection{Trasformazioni di un gas}
+Un sistema termodinamico può scambiare energia sotto forma di lavoro. In questi appunti viene usata la seguente convenzione sul segno:
+\begin{itemize}
+    \item $L>0$: il sistema compie lavoro
+    \item $L<0$: viene compiuto lavoro sul sistema
+\end{itemize}
+Un gas (ideale) può compiere o subire lavoro attraverso ad espansioni o compressioni quasi-statiche. In questo caso la forza a compiere lavoro è quella dovuta alla pressione e vale:
+$$ \delta L=pdV $$
+Il differenziale di lavoro non è necessariamente esatto, poichè la quantità di lavoro compiuto dipende dalla trasformazione eseguita.\\\\
+Un gas può compiere lavoro anche subendo trasformazioni irreversibili, in tal caso però non è possibile definire lo stato del gas durante la trasformazione (non essendo stati di equilibrio non è detto che le grandezze che lo caratterizzano siano uniformi). In questo caso è possibile usare il lavoro compiuto dall'ambiente esterno per calcolare quello compiuto dal gas. La relazione che si ottiene in questo caso è identica a quella ottenuta per trasformazioni reversibili (sostituendo la pressione del gas con quella dell'ambiente esterno), ma è importante notare che il procedimento seguito è differente.\\\\
+La quantità di lavoro totale compiuta dal gas passando dallo stato $A$ allo stato $B$ è data dall'integrale del differenziale appena ottenuto:
+$$ L_{AB} = \int_{A}^{B}\delta L=\int_{A}^{B}pdV$$
+e possiamo notare che non dipende esclusivamente dagli stati iniziale e finale, ma è necessario considerare la trasformazione eseguita.\\\\
+Il lavoro compiuto in una trasformazione reversibile risulta sempre maggiore o uguale a quello compiuto in una trasformazione irreversibile. Infatti, per eseguire una trasformazione reversibile è necessario far variare pressione e volume con continuità tra i valori nei due stati, mentre per una trasformazione irreversibile il lavoro è calcolato a partire dalla pressione esterna che è di norma costante. Questo risultato verrà poi formalizzato introducendo il secondo principio della termodinamica e il concetto di entropia.
+
+\subsubsection{Primo principio e relazione lavoro-calore}
+Consideriamo ora un sistema termodinamico chiuso su cui viene compiuto del lavoro. Dal teroema dell'energia cinetica:
+$$ \Delta T = L_{int} + L_{est} $$
+dove $T$ è lenergia cinetica, mentre $L_{int}$ e $L_{est}$ sono rispettivamente i lavori dovuti a forze interne ed esterne.\\\\
+Le forze interne sono solitamente di tipo conservativo (forze elettromagnetiche e di coesione), possiamo quindi associarvi un potenziale che risulta essere una funzione di stato:
+$L_{int}=-\Delta \mathcal{U} $
+Se il sistema si trova in quiete macrofisica, possiamo definire la sua energia cinetica come somma delle energie cinetiche delle sue componenti e scrivere la sua energia interna come:
+$$ U=\mathcal{U} +\mathcal{T}  $$
+$U$ risulta quindi essere una funzione di stato (dipende solo dallo stato del sistema e non da come questo è stato raggiunto). Possiamo quindi scrivere la relazione:
+$$ L_{est} = \Delta U $$
+Se anche le forze esterne al sistema sono di natura conservativa, possiamo definire un altro potenziale $W$ e riformulare la relazione precedente come:
+$$ L_{est}=-\Delta W\Rightarrow \Delta(U+W)=0 $$
+Introduciamo ora forze esterne di tipo non conservativo, come ad esempio attriti. Consideriamo un esperimento noto come mulinello di Joule. Un contenitore con un rivestimento adiatermano (calorimetro) è riempito di acqua in equilibrio termico con l'ambiente esterno. Nel volume d'acqua è immerso un mulinello a palette (un dispositivo in grado di ruotare e trasferire energia al sistema attraverso ad attriti). Il mulinello è collegato a una massa in moto per effetto della gravità. Una volta fermata la massa, si osserva un aumento di temperatura del sistema. Rimuovendo il rivestimento adiatermano e lasciando raggiungere l'equilibrio termico al sistema, si osserva una diminuzione della temperatura fino al valore iniziale. Essendo l'energia interna una funzione di stato deve valere:
+$$ \Delta U = \Delta U_1+\Delta U_2 = 0\Rightarrow\Delta U_2<0 $$
+dove $\Delta U_1$ indica la variazione di energia interna nella prima parte dell'esperimento (massa in moto) e $\Delta U_2$ nella seconda (raggiungimento equilibrio). Se provassimo ad applicare la relazione ottenuta per forze conservative otterremmo:
+$$ L_{est} = L_{est}^1+L_{est}^2\neq0\Rightarrow\Delta W\neq0\Rightarrow\Delta(U+W)\neq0 $$
+Questo è dovuto al fatto che nella seconda parte dell'esperimento è avvenuto uno scambio di energia senza che venisse compiuto lavoro. Per ripristinare il bilancio energetico, è necessario considerare il calore come una qualche forma di lavoro. Oltre al lavoro coordinato compiuto dalla massa, possiamo introdurre un lavoro caotico legato alla diminuzione di energia cinetica delle particelle del sistema durante il raggiungimento dell'equilibrio termico. In questo modo possiamo riscrivere:
+$$ L_{est} = L_{co}+L_{ca} $$
+e dovrà esistere una relazione del tipo
+$$ L_{ca} = f(Q) $$
+che Joule dimostrò sperimentalmente essere di tipo lineare: $L_ca\propto Q$. Esprimendo il calore in joule, la costante di proporzionalità sparisce (vale 1). Possiamo quindi scrivere:
+$$ L_{co}+L_{ca}=\Delta U $$
+$$\Rightarrow L_{co}+Q=\Delta U \quad\text{(Q espresso in joule)} $$
+Considerando stati di equilibrio termodinamico, il sistema deve essere anche in equilibrio meccanico, quindi $L=-L_{co}$ e possiamo enunciare il primo principio della termodinamica:
+\begin{center}
+    \textit{Per un sistema in quiete macrofisica, la quantità di calore scambiata con l'ambiente esterno è pari alla somma del lavoro compiuto e della variazione della sua energia interna}
+\end{center}
+Che può essere espresso in formule come:
+$$ Q=L+\Delta U $$
+$$ \delta Q=\delta L + dU $$
+Questo risultato ha validità generale, ma è particolarmente utile nello studio dei gas e delle loro trasformazioni. Per un gas ideale normalmente conosciamo l'espressione analitica della sua energia interna e per trasformazioni quasi statiche anche il differenziale di lavoro, possiamo quindi usare il primo principio per legare la quantità di calore che scambia con la variazione delle grandezze che lo descrivono.
+
+
+\subsubsection{Calori specifichi}
+Il calore specifico è definito come la quantità di calore che occore fornire a un sistema per aumentarne la temperatura di un grado. Nel caso di un gas (ideale), questa quantità dipende dalla particolare trasformazione seguita. Possiamo però definire dei calori specifichi medi validi per alcune trasformazioni (che mantengono costante una delle grandezze).\\
+Per un gas risulta più comodo definire i calori specifici molari, cioè la quantità di calore da fornire a una mole di gas oer aumentarne la temperatura di un grado. Calcolare il calore specifico (per unità di massa) partendo da quello molare è poi molto semplice, è sufficiente dividerlo per la massa di una mole di gas.
+
+
+\newpage
+\section{Macchine termiche}
+\subsection{Introduzione e definizioni}
+Nella sezione precedente abbiamo visto che esiste una relazione che lega calore e lavoro. Entrambi sono forme di trasferimento di energia, deve quindi essere possibile convertire uno nell'altro.\\\\
+L'approccio più semplice consisterebbe nello sfruttare un'espansione isoterma ($\Delta U=0$) per convertire tutto il calore fornito in lavoro, ma così facendo per continuare a estrarre lavoro dovremmo aumentare sempre di più il volume del gas e risulterebbe scomodo da mettere in pratica.\\\\
+Le macchine termiche sfruttano un ciclo termodinamico in cui il gas viene riportato allo stato iniziale dopo aver convertito calore in lavoro.
+\im{0.5}{"ims/ciclo"}
+Consideriamo un ciclo generico, in cui il gas passa ciclicamente tra 3 stati $A,B,C$. Scegliamo per semplicità gli stati $B,C$ in modo da essere rispettivamente quelli in cui il gas raggiunge la temperatura più alta e più bassa. Durante la trasformazione $A\rightarrow B$, la temperatura aumenta, supponiamo che aumentino anche pressione e volume (scelta arbitraria, il ragionamento funzione anche scambiando le caratteristiche dei 3 stati). Per questa trasformazione avremo $\Delta U_1>0$ e $L_1>0$, quindi il gas dovra assorbire un calore $Q_1>0$ (dal primo principio $Q=\Delta U + L$). Lo stato $B$ avrà temperatura, volume e pressione minori, quindi $\Delta U_2<0$ e $L<0$, scambierà quindi un calore $Q_2<0$. Per riportare il gas allo stato originale, il gas dovrà scambiare $L_3<0$ e aumentare la sua energia interna (la temperatura è magiore di quella minima), quindi $\Delta U >0$. Non possiamo quindi dire nulla a priori sul segno del calore. Se ora applichiamo il primo principio all'intero ciclo:
+$$ L = Q - \Delta U = Q = Q_{assorbito} - |Q_{ceduto}| $$
+Assumendo che il gas abbia compiuto un lavoro totale positivo:
+$$ L = Q_{assorbito} - |Q_{ceduto}| > 0\Rightarrow L < Q_{abs}$$
+Vedremo in seguito come questo fatto abbia validità generale. Non è possibile convertire totalmente il calore in lavoro in maniera ciclica.\\\\
+Il rendimento di una macchina termica è definito come rapporto tra il lavoro compiuto e il calore assorbito:
+$$ \eta=\frac{L}{Q_{abs}} $$
+Una macchina frigorifera usa un ciclo termodinamico per trasferire calore da una sorgente calda a una fredda, usando un lavoro esterno. Il coefficiente di prestazione di una macchina frigorifera è definito come:
+$$ \eta_f = \frac{Q_f}{|L|} $$
+
+\subsection{Primo teorema di Carnot}
+\im{0.5}{ims/Carnot}
+Il ciclo di Carnot è composto da due trasformazioni isoterme e due adiabatiche. Chiamando $Q_c$ il calore scambiato con la sorgente calda (l'isoterma a temperatura maggiore) e $Q_f$ quello scambiato con la sorgente fredda (l'isoterma a temperatura minore), dal primo principio otteniamo:
+$$ L = Q_c - |Q_f| $$
+$$ \Rightarrow \eta = 1 - \frac{|Q_f|}{Q_c} $$
+Il ciclo scambia calore solo durante le due isoterme e in particolare vale:
+$$ Q_c=L_{ab} \qquad Q_f=L_{CD}$$
+Risolvendo gli integrali per i lavori delle due isoterme e ricavando le grandezze negli stati applicando l'equazione di Poisson alle adiabatiche (molto più semplice di quello che sembra), otteniamo:
+$$ \frac{|Q_f|}{Q_c} = \frac{T_f}{T_c} $$
+e quindi il rendimento vale:
+$$ \eta = 1 - \frac{T_f}{T_c} $$
+che è l'enunciato del primo teorema di Carnot.\\\\
+Le trasformazioni usate da un ciclo di Carnot sono reversibili, è quindi possibile invertire il ciclo per ottenere una macchina frigorifera con coefficiente di prestazione:
+$$ \eta_f = \frac{T_c}{T_c-T_f} $$
+Il ciclo di Carnot frigorifero può anche essere usato come pompa di calore, per fornire calore a una sorgente calda estraendolo da una fredda, usando lavoro. Questo ciclo è identico a quello frigorifero, ma cambia lo scopo per cui viene usato. Il coefficiente di prestazione sarà quindi definito come:
+$$ \eta_{pc} = \frac{|Q_c|}{|L|} $$
+e vale:
+$$ \eta_{pc} = \frac{T_c}{T_c-T_f} $$
+
+\subsection{Secondo teorema di Carnot}
+Nell'introduzione di questa sezione abbiamo parlato di come sia impossibile trasformare tutto il calore in lavoro senza modificare il sistema o l'ambiente. Questa affermazione può essere formalizzata attraverso al secondo principio della termodinamica. Questo principio può essere formulato in modi diversi. Di seguito sono riportati gli enunciati di Clausius e di Kelvin-Planck.
+\begin{center}
+    Clausius: \textit{Non è possibile realizzare un processo il cui unico risultato sia il trasferimento di calore da un corpo freddo ad uno più caldo}
+\end{center}
+
+\begin{center}
+    Kelvin-Planck: \textit{Non è possibile realizzare un processo il cui unico risultato sia quello di assorbire calore da un'unica sorgente e trasformarlo integralmente in lavoro}
+\end{center}
+Supponiamo esista una macchina termica $G$ con rendimento maggiore a quello di un ciclo di Carnot $C$ tra le stesse sorgenti. La macchina $G$ è quindi in grado di compiere la stessa quantità di lavoro assorbendo meno calore:
+$$ \eta_G=\frac{L}{Q_1'}>\eta_C=\frac{L}{Q_1} \Rightarrow Q_1'<Q_1$$
+Supponiamo ora di invertire $C$ per ottenere una macchina frigorifera che richiede lavoro $L$ per assorbire calore $|Q_2|$ dalla sorgente fredda e fornire calore $-Q_1$ alla sorgente calda. Combiniamo le due macchine in modo da alimentare $C^{-1}$ con il lavoro prodotto da $G$. La macchina che otteniamo non richiede lavoro esterno (i due lavori sono uguali per costruzione) e scambia con le due sorgenti $T_1$ (calda) e $T_2$ (fredda) i calori:
+$$ Q_1 - Q_1' < 0 \quad\text{con $T_1$} $$
+$$ |Q_2|-|Q_2'| > 0 \quad\text{con $T_2$} $$
+Senza richiedere lavoro estrae quindi calore dalla sorgente fredda per fornirlo a quella calda, violando l'enunciato di Clausius del secondo principio. Deve quindi necessariamente essere:
+$$  \eta_G\leq\eta_C $$
+per qualsiasi macchina termica $G$. Un analogo ragionamento ci permette di mostrare che l'uguaglianza vale per qualsiasi $G$ reversibile.
+
+\subsection{Entropia?}
+
+
+
+
+\section{I princìpi della termodinamica}
+
+\subsection{Principio zero}
+\begin{center}
+    \textit{Se un sistema A è in equilibrio termico con un sistema B, e B è in equilibrio termico con un sistema C, allora A è in equilibrio termico con C}
+\end{center}
+Questo principio permette di definire il concetto di temperatura, come indicatore universale di equilibrio termico.
+
+\subsection{Primo principio}
+\begin{center}
+    \textit{Per un sistema termoodinamico in quiete macrofisica la quantità di calore scambiata con l'esterno è pari alla somma del lavoro compiuto e della variazione di energia interna}
+\end{center}
+Che può essere espresso in formule come:
+$$ Q=L+\Delta U $$
+o in forma differenziale:
+$$ \delta Q=\delta L + dU $$
+Questo principio implica che l'energia di un sistema debba essere conservata. In effetti può essere ricavato partendo dal teorema dell'energia cinetica (altra legge di conservazione, vedi sezione dedicata ai gas) e da alcune osservazioni sperimentali.\\\\
+Un altro modo per arrivare a questo principio è partire osservando sperimentalmente che nonostante il lavoro e il calore scambiati nel passaggio da uno stato $A$ a uno stato $B$ dipendano dalla trasformazione eseguita, la quantità $(Q-L)_{A\rightarrow B}$ dipende solo dai due stati. Possiamo quindi scrivere:
+$$ (Q-L)_{AB} = f(A, B) $$
+Considerando una trasformazione reversibile possiamo ottenere che:
+$$ f(A,B)=-f(B,A) $$
+Prendendo un terzo stato $O$, semplici passaggi algebrici mostrano che:
+$$ f(A,B)=f(O,B)-f(O, A) $$
+Fissando lo stato di riferimento $O$ e definendo $f(O,X)=U(X)$ otteniamo:
+$$ f(A,B)=(Q-L)_{AB}=U(B)-U(A)=\Delta U_{AB} $$
+dove $U(X)$ è definita a meno di una costante arbitraria $U(O)$.
+
+
+
 
 
 
