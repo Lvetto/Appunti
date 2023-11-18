@@ -292,6 +292,7 @@ per qualsiasi macchina termica $G$. Un analogo ragionamento ci permette di mostr
 
 
 
+\newpage
 \section{I princìpi della termodinamica}
 
 \subsection{Principio zero}
@@ -306,7 +307,7 @@ Questo principio permette di definire il concetto di temperatura, come indicator
 \end{center}
 Che può essere espresso in formule come:
 $$ Q=L+\Delta U $$
-o in forma differenziale:
+o in forma differenziale ($U$ deve essere differenziabile, poichè $dU$ è scritto come differenziale esatto):
 $$ \delta Q=\delta L + dU $$
 Questo principio implica che l'energia di un sistema debba essere conservata. In effetti può essere ricavato partendo dal teorema dell'energia cinetica (altra legge di conservazione, vedi sezione dedicata ai gas) e da alcune osservazioni sperimentali.\\\\
 Un altro modo per arrivare a questo principio è partire osservando sperimentalmente che nonostante il lavoro e il calore scambiati nel passaggio da uno stato $A$ a uno stato $B$ dipendano dalla trasformazione eseguita, la quantità $(Q-L)_{A\rightarrow B}$ dipende solo dai due stati. Possiamo quindi scrivere:
@@ -320,11 +321,80 @@ $$ f(A,B)=(Q-L)_{AB}=U(B)-U(A)=\Delta U_{AB} $$
 dove $U(X)$ è definita a meno di una costante arbitraria $U(O)$.
 
 
+\subsection{Secondo principio}
+Kelvin-Planck:
+\begin{center}
+     \textit{Non è possibile realizzare un processo il cui unico risultato sia quello di assorbire calore da un'unica sorgente e trasformarlo integralmente in lavoro}
+\end{center}
+Clausius:
+\begin{center}
+     \textit{Non è possibile realizzare un processo il cui unico risultato sia il trasferimento di calore da un corpo freddo ad uno più caldo}
+\end{center}
+Entropia (1):
+\begin{center}
+     \textit{L'entropia di un sistema isolato può solo aumentare o al più rimanere costante}
+\end{center}
+Entropia (2):
+\begin{center}
+     \textit{Durante una qualsiasi trasformazione spontanea di un sistema termodinamico, l'entropia non può diminuire}
+\end{center}
+Entropia (3):
+\begin{center}
+     \textit{Durante una qualsiasi trasformazione di un sistema termodinamico, la somma dell'entropia del sistema e delle sue sorgenti non può diminuire}
+\end{center}
+Questi 5 enunciati del secondo principio sono equivalenti (verrà dimostrato in seguito). Il secondo principio esrpime la tendenza dell'energia a disperdersi e dei sistemi a tendere verso stati con maggior grado di disordine (vedi sezione sull'entropia). Risulta molto importante nello studio del rendimento delle macchine termiche (perché esiste un limite sul rendimento massimo), spiega la direzionalità di alcuni fenomeni (il calore passa da un corpo caldo a uno freddo, alcuni processi avvengono spontaneamente e altri no) e ci aiuta a capire perché il tempo ha la sua direzione.\\\\
+I 3 enunciati riguardanti l'entropia sono chiaramente equivalenti, dimostriamo quindi l'equivalenza tra i primi due enunciati e poi di uno di questi con uno di quelli riguardanti l'entropia. Il procedimento che seguiamo consiste nel mostrare che la violazione di un enunciato porta alla violazione di un altro.
+\begin{itemize}
+    \item Supponiamo che possa esistere una macchina termica in grado di convertire tutto il calore assorbito in lavoro (violando dell'enunciato di Kelvin-Planck), producendo una quantità di lavoro $L$. Colleghiamo questa macchina ad una macchina frigorifera che opera tra le stesse due sorgenti e che richiede una quantità di lavoro pari a $L$ per operare. Otteniamo così una macchina frigorifera che trasferisce calore dalla sorgente fredda a quella calda senza utilizzare lavoro, violando l'enunciato di Clausius.
+    \item Supponiamo ora che esista una macchina frigorifera in grado di trasferire una quantità di calore $Q_2$ da una sorgente fredda a una calda senza richiedere lavoro (violando l'enunciato di Clausius). Introduciamo una macchina termica che opera tra le stesse due sorgenti, assorbendo un calore $Q_1$, producendo un lavoro $L$ e cedendo un calore $Q_2$ alla sorgente fredda. In questo modo abbiamo costruito una macchina termica che trasforma tutto il calore in lavoro, violando l'enunciato di Kelvin-Planck.
+    \item Supponiamo esista una macchina frigorifera in grado di trasferire calore da una sorgente fredda a una calda spontaneamente (senza richiedere lavoro, violando quindi l'enunciato di Clausius). La variazione di entropia totale vale quindi:
+    $$ \Delta S_{tot} = \Delta S_{s_f} + \Delta S_{s_c} = Q\left( \frac{1}{T_c} - \frac{1}{T_f} \right) $$
+    ma $T_f<t_c$, quindi:
+    $$ \Delta S_{tot} = Q\left( \frac{1}{T_c} - \frac{1}{T_f} \right) < 0 $$
+    che viola gli enunciati riguardanti l'entropia. Un ragionamento analogo vale per l'implicazione inversa.
+\end{itemize}
+
+\subsection{Terzo principio}
+Nerst:
+\begin{center}
+    \textit{Non è possivile per qualsiasi processo, anche idealizzato, ridurre l'entropia di un sistema al suo valore allo zero assoluto tramite un numero finito di trasformazioni termodinamiche}
+\end{center}
+Nerst-Simon:
+\begin{center}
+    \textit{Tutti i processi che si verificano in un sistema condensato in prossimità dello zero assoluto avvengono a entropia costante}
+\end{center}
+Planck:
+\begin{center}
+    \textit{Per ogni sistema in equilibrio termodinamico, l'entropia divenra nulla quando la temperatura raggiunge lo zero assoluto:}
+    $$ \lim_{T\rightarrow0}S=0 $$
+\end{center}
+Questo principio ci permette di definire uno stato di riferimento per il calcolo dell'entropia, assicurandosi che il valore di entropia in questo stato sia lo stesso per tutti i sistemi che consideriamo. Se ad esempio volessi studiare la variazione di entropia di un sistema che subisce un cambiamento di fase, questo principio mi permette di fissare $S=0$ per entrambe le fasi del sistema a $T=0K$.\\\\
+Leggendo attentamente l'enunciato di Planck, possiamo notare che l'entropia si annulla a $T=0K$ solo per sistemi in equilibrio termodinamico. Esistono infatti dei sistemi che hanno un entropia residua allo zero assoluto. Nel formalismo della meccanica statistica di Boltzmann, questi sistemi presentano ancora gradi di libertà liberi (ad esempio possono avere molecole che possono disporsi in modi diversi, permettendo diverse configurazioni del sistema e quindi entropia non nulla).
 
 
 
-
-
+\newpage
+\section{L'entropia}
+\subsection{Definizione e prime proprietà}
+\im{0.5}{ims/entropia1}
+Consideriamo una macchina termica $M$ che scambia un calore $Q_0$ con una sorgente $T_0$ e $Q_k$ con delle sorgenti $T_k$ con $T_0\leq T_k\;\forall k$. Consideriamo ora delle macchine di Carnot $C_k$ che operano tra le sorgenti $T_0$ e $T_k$, scambiando un calore $Q_{0,k}$ con la prima e $-Q_k$ con la seconda. Le sorgenti $T_k$ scambiano un calore $Q_{k,tot}=Q_k-Q_k=0$. Possiamo quindi considerare il sistema come un unica macchina termica che scambia calore solo con la sorgente $T_0$. Questa macchina termica dovrà richiedere lavoro per funzionare (enunciato di Kelvin-Planck del secondo principio) e cedere calore alla sorgente $T_0$. Dovrà quindi essere:
+$$ Q=Q_0+\sum_{k=1}^{N}Q_{0,k}\leq0 $$
+Abbiamo già mostrato che per la macchina di Carnot vale:
+$$ \frac{|Q_f|}{Q_c} = \frac{T_f}{T_c} \Rightarrow |Q_f| = \frac{Q_c}{T_c}T_f $$
+che in questo caso implica:
+$$ Q_{0,k}=T_0\frac{|-Q_k|}{T_k}=T_0\frac{Q_k}{T_k} $$
+quindi:
+$$ Q_0+\sum_{k=1}^{N}T_0\frac{Q_k}{T_k}\leq0$$
+$$ \Rightarrow\sum_{k=0}^{N}\frac{Q_k}{T_k}\leq0 $$
+Per una macchina reversibile è possibile anche invertire il procedimento e ottenere il risultato opposto, quindi:
+$$ \sum_{k=0}^{N}\frac{Q_k}{T_k}=0\quad\text{(reversibile)} $$
+Aumentando il numero di macchine all'infinito possiamo riscrivere:
+$$ \oint\frac{\delta Q}{T}\leq 0 $$
+che è nota come disuguaglianza di Clausius e si applica a qualsiasi ciclo termodinamico.\\\\
+Consideriamo ora un generico ciclo termodinamico reversibile. Scegliamo due punti $A,B$ del ciclo e dividiamolo in due trasformazioni $A\rightarrow B$ e $B\rightarrow A$. Il ciclo è reversibile per costruzione, quindi l'integrale di Clausius vale:
+$$ \oint\frac{\delta Q}{T} = \int_{A\rightarrow B}\frac{\delta Q}{T}+\int_{B\rightarrow A}\frac{\delta Q}{T} $$
+$$ \Rightarrow \int_{A\rightarrow B}\frac{\delta Q}{T} = -\int_{B\rightarrow A}\frac{\delta Q}{T} = \int_{(A\rightarrow B)'}\frac{\delta Q}{T}$$
+L'integrale di $\frac{\delta Q}{T}$ ha quindi lo stesso valore lungo qualsiasi trasformazione che collega due punti.
 
 
 
