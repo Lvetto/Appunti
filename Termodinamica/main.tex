@@ -394,10 +394,81 @@ che è nota come disuguaglianza di Clausius e si applica a qualsiasi ciclo termo
 Consideriamo ora un generico ciclo termodinamico reversibile. Scegliamo due punti $A,B$ del ciclo e dividiamolo in due trasformazioni $A\rightarrow B$ e $B\rightarrow A$. Il ciclo è reversibile per costruzione, quindi l'integrale di Clausius vale:
 $$ \oint\frac{\delta Q}{T} = \int_{A\rightarrow B}\frac{\delta Q}{T}+\int_{B\rightarrow A}\frac{\delta Q}{T} $$
 $$ \Rightarrow \int_{A\rightarrow B}\frac{\delta Q}{T} = -\int_{B\rightarrow A}\frac{\delta Q}{T} = \int_{(A\rightarrow B)'}\frac{\delta Q}{T}$$
-L'integrale di $\frac{\delta Q}{T}$ ha quindi lo stesso valore lungo qualsiasi trasformazione che collega due punti.
+L'integrale di $\frac{\delta Q}{T}$ ha quindi lo stesso valore lungo qualsiasi trasformazione che collega due punti. Definiamo quindi l'entropia come:
+$$dS=\frac{\delta Q}{T} \qquad S(A)=\int_{O}^{A}ds$$
+Notiamo che $S(A)$ è definita a meno di una costante additiva che conincide con l'entropia in uno stato di riferimento $O$. Nella maggior parte dei casi questo non è un problema, perché si ha a che fare con variazioni di entropia, ma è comunque possibile risolvere la questione grazie al terzo principio, ponendo $S(O)=0$ scegliendo come riferimento lo stato del sistema in esame allo 0 assoluto.\\\\
+Applicando il primo principio ad un sistema formato da più parti, risulta immediatamente che il calore scambiato dal sistema deve essere uguale alla somma (prestando attenzione ai segni) dei calori scambiati dalle parti e di conseguenza l'entropia deve essere additiva:
+$$ S(A) = \sum_kS(A_k) \quad\text{con}\quad A=\bigcup_k A_k $$
+Consideriamo un ciclo termodinamico composto da una trasformazione irreversibile e una reversibile tra gli stati $A,B$. Applicando la disuguaglianza di Clausius:
+$$ \oint\frac{\delta Q}{T}=\left(\int_{A}^{B}\frac{\delta Q}{T}\right)_{irrev}+\left(\int_{B}^{A}\frac{\delta Q}{T}\right)_{rev} < 0$$
+$$ \Rightarrow \left(\int_{A}^{B}\frac{\delta Q}{T}\right)_{irrev} < q -\left(\int_{B}^{A}\frac{\delta Q}{T}\right)_{rev}=\left(\int_{A}^{B}\frac{\delta Q}{T}\right)_{rev} $$
+$$ \Delta S_{A\rightarrow B} > \left(\int_{A}^{B}\frac{\delta Q}{T}\right)_{irrev} $$
+La differenza di entropia tra gli stati è maggiore del valore dell'integrale di Clausius per la trasformazione irreversibile ($\neq$ variazione di entropia, perché la trasformazione non è reversibile, quindi non vale il risultato trovato prima). Possiamo generalizzare il risultato, facendolo valere sia per trasformazioni reversibili che irreversibili, come:
+$$ \Delta S_{A,B} \geq \int_{A}^{B}\frac{\delta Q}{T} $$
+Considerando un sistema isolato $\delta Q=0$, quindi:
+$$ \Delta S\geq 0 $$
+per qualsiasi trasformazione, che è uno degli enunciati del secondo principio. Visto che l'universo termodinamico deve necessariamente essere un sistema isolato, per qualsiasi trasformazione la sua entropia non può diminuire. E' possibile ridurre l'entropia di un sistema (scambio di calore con $\delta Q<0$), ma nel farlo l'entropia dell'ambiente aumenta e quindi quella dell'universo al più rimane costante ($S_{universo}=S_{sistema}+S_{ambiente}$). Abbiamo già mostrato come questo vincolo risulta equivalente agli enunciati di Clausius e Kelvin-Planck del secondo principio.
 
 
+\subsection{Processi spontanei}
+Il risultato appena ottenuto ha conseguenze molto importanti in termodinamica e per la fisica in generale. A titolo d'esempio vediamo ora come questo sia sufficiente a spiegare perché il calore passa da un corpo caldo a uno freddo. Un ragionamento analogo può essere seguito per scoprire se un qualsiasi fenomeno risulta spontaneo (e quindi irreversibile).\\\\
+Consideriamo un sistema isolato formato da due corpi $A,B$ a contatto e alle temperature $T_a>T_b$. Essi scambieranno calore fino a raggiungere la temperatura $T_eq$ ($T_a>T_eq>T_b$). Supponiamo per semplicità che i due corpi abbiano la stessa massa e stesso calore specifico. La loro variazione di entropia sarà data da:
+$$ \Delta S_a =\int_{T_a}^{T_{eq}}\frac{\delta Q}{T}=\int_{T_a}^{T_{eq}}\frac{mcdT}{T}=mc\ln\frac{T_{eq}}{T_a}<0 $$
+$$ \Delta S_b = (...) = mc\ln\frac{T_{eq}}{T_b}>0 $$
+La temperatura di equilibrio vale $T_{eq}=\frac{T_a+T_b}{2}$, quindi:
+$$ \Delta S_{universo} = \Delta S_a + \Delta S_b = mc \ln\left( \frac{T_{eq}^2}{T_aT_b} \right) = mc \ln\left( \frac{(T_a+T_b)^2}{4T_aT_b} \right) > 0 $$
+quindi il processo è spontaneo.
 
+
+\subsection{Lavoro}
+Consideriamo una generica macchina termica che scambia calore $Q_c$ con la sorgente $T_c$ e $Q_f$ con la sorgente $T_f$ ($T_f<T_c$), per produrre un lavoro $L=Q_c-|Q_f|$ (primo principio con $\Delta U=0$ perché la macchina è ciclica). La variazione d'entropia della macchina è nulla (essendo ciclica riporta il fluido allo stato iniziale e l'entropia è funzione di stato), ma per l'ambiente (formato dalle due sorgenti) vale:
+$$ \Delta S_U=\Delta S_M+\Delta S_c+\Delta S_f = \Delta S_c+\Delta S_f \geq0 \quad\text{(dal secondo principio)}$$
+$$ \Delta S_c = \frac{-Q_c}{T_c}\leq 0 $$
+$$ \Delta S_f = \frac{|Q_f|}{T_f}\geq 0 $$
+$$\Rightarrow \frac{-Q_c}{T_c}+\frac{|Q_f|}{T_f}\geq 0 $$
+$$\Rightarrow \frac{|Q_f|}{T_f}\geq \frac{Q_c}{T_c} $$
+$$\Rightarrow \frac{|Q_f|}{Q_c}\geq \frac{T_f}{T_c} $$
+Il rendimento della macchina varrà quindi:
+$$ \eta=1-\frac{|Q_f|}{Q_c}\leq 1-\frac{T_f}{T_c}=\eta_{Carnot} $$
+che è l'enunciato del secondo teorema di Carnot. Questo risultato non è sorprendente perché abbiamo già dimostrato il teorema di Carnot partendo da un altro enunciato del secondo principio, ma mette in evidenza come l'entropia impone direttamente un limite sulla quantità di calore che è possibile trasformare in lavoro ordinato.\\\\
+Possiamo mettere ancora più in evidenza tale legame, trovando una relazione tra lavoro prodotto e variazione di entropia. Il rendimento di una macchina termica vale:
+$$ \eta = \frac{L}{Q_c} = 1 - \frac{|Q_f|}{Q_c} $$
+La variazione di entropia di una sorgente:
+$$ \Delta S_k = \frac{Q_k}{T_k} $$
+$$ \Rightarrow Q_k = \Delta S_k T_k  $$
+quindi:
+$$ \eta = 1 - \frac{T_f|\Delta S_f|}{T_c|\Delta S_c|} = \frac{T_cQ_c-T_f|Q_f|}{T_cQ_c} = \frac{Q_c}{L} $$
+$$ L = \eta Q_c = \frac{T_cQ_c-T_f|Q_f|}{T_cQ_c} T_cQ_c = T_cQ_c-T_f|Q_f| $$
+Per una macchina reversibile
+$$\Delta S_U = \Delta S_c+\Delta S_f =0\Rightarrow \Delta S_c = -\Delta S_f = \Delta S$$
+quindi:
+$$ L = \Delta S(T_c-T_f) = \Delta S\Delta T $$
+Consideriamo due macchine termiche reversibili. La prima opera tra $T_a$ e $T_0$, assorbendo calore $Q$, cedendo calore $Q_0$ e producendo lavoro $L$. Nel secondo caso la sorgente $T_a$ è messa in contatto con $T_b$ e la macchina opera tra $T_b$ e $T_0$, assorbendo $Q$, cedendo $Q_0'$ e producendo $L'$. I lavori prodotti dalle macchine valgono:
+$$ L = Q\left( 1-\frac{T_0}{T_a} \right) \quad L' = Q\left( 1-\frac{T_0}{T_b} \right) $$
+dove $T_b<T_a$. Il passaggio spontaneo (irreversibile) di calore, ha ridotto la quantità di calore trasformabile in lavoro di:
+$$ \Delta_E = L-L' = T_0\left( -\frac{Q}{T_a}+\frac{Q}{T_b} \right) = T_0\Delta S_{tot} $$
+Questo risultato ha validità generale. Un processo irreversibile rende inutilizzabile una quantità di energia pari al prodotto tra la variazione di entropia e la temperatura più bassa a cui agisce.
+
+
+\subsection{Microstati e disordine}
+Abbiamo tutti sentito ripetere mille volte che l'entropia è il grado di disordine di un sistema, ma cosa significa a livello pratico? Nella formulazione di Boltzmann, l'entropia è legata alla probabilità termodinamica associata a un particolare stato di un sistema. La probabilità termodinamica vedremo che descrive il numero di modi in cui è possibile ottenere uno stato macroscopico e quindi descrive in qualche modo il disordine del sistema.\\\\
+Supponiamo di avere un contenitore, diviso in due parti e riempito con $N$ particelle libere di muoversi in modo casuale. In quanti modi possiamo dividere le $N$ particelle in modo da averne $n$ in una delle due sezioni del contenitore? Usando il calcolo combinatorio si ottiene che il numero di configurazioni che danno lo stato cercato è pari a:
+$$ W = \frac{N!}{n!(N-n)!} = \binom{N}{n} $$
+$W$ assume valore massimo per $n=\frac{N}{2}$ (assumendo $N$ pari).\\
+Per un gran numero di particelle la distribuzione è asintotica a una gaussiana centrata in $\frac{N}{2}$ con $\sigma=\frac{\sqrt{N}}{2}$, moltiplicata per $2^n$ che è il numero totale di configurazioni possibili.\\\\
+Lo stato più probabile è quindi quello in cui le particelle sono distribuite uniformemente nel contenitore, che è esattamente quello che ci aspettiamo per un gas.\\\\
+Le configurazioni che abbiamo contato sono dette microstati e $W$ è detta probabilità termodinamica. Lo stato di equilibrio di un sistema sarà quello con maggior numero di microstati e quindi con probabilità termodinamica più alta.\\\\
+Boltzmann dimostrò che esiste un legame del tipo $S=S(W)$ tra entropia e probabilità termodinamica. Consideriamo due sistemi in equilibrio. Sappiamo che l'entropia è additiva quindi:
+$$ S = S_1+S_2 $$
+Ma per le probabilità deve valere:
+$$ W = W_1W_2 $$
+Quindi:
+$$ S = S(W) = S(W_1W_2) = S(W_1) + S(W_2) $$
+Quindi $S$ deve avere la proprietà $S(xy) = S(x) + S(y)$. Sviluppando al primo ordine con Taylor per $y=1\epsilon$ otteniamo che:
+$$ S(1)=0 \quad S(x) = C\ln(x) $$
+Studiando ora la variazione di entropia di un espansione libera (processo per cui sappiamo calcolare sia $\Delta S$ che $W$), otteniamo che $C=k_b$ e quindi:
+$$ S = k_b\ln W $$
+che è nota come equazione di Boltzmann.
 
 
 
