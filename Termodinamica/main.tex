@@ -533,6 +533,63 @@ Postulato IV:
 \end{center}
 
 
+\subsection{Processi virtuali ed equilibrio}
+Supponiamo di avere un sistema isolato, non vincolato, in equilibrio e che un qualche processo porti il sistema temporaneamente fuori dal suo stato di equilibrio. Introduciamo ora un vincolo per dividere il sistema in sottosistemi. La rimozione dei vincoli riporterebbe il sistema all'equilibrio, con una variazione di entropia positiva:
+$$ \Delta S = S_{eq} - \sum_j S_j = S_{eq} - S_{vin} > 0 $$
+I sottosistemi ottenuti raggiungeranno uno stato in cui $S_j$ è massima rispetto a $U_j$. La variazione totale di entropia, per un processo infinitesimo deve quindi essere nulla:
+$$ \delta S = \sum_j \delta S_j = 0$$
+Un tale processo è detto virtuale e risulta utile nello studio dell'equilibrio dei sistemi termodinamici. Di seguito vedremo alcune applicazioni di questo principio.
+
+\subsubsection{L'equilibrio termico}
+Consideriamo un sistema isolato in equilibrio e un processo virtuale caratterizzato da una variazione di energia interna $dU$. Dividiamo il sistema in due sottosistemi, essi avranno una differenza di $U$ rispetto al sistema iniziale pari a:
+$$ dU_1 = dU \qquad dU_2 = - dU $$
+e introducendo la stazionarietà rispetto a $S$ (la condizione vista al paragrafo precedente) dovrà valere:
+$$ \delta S = dS_1 + dS_2 = 0 $$
+Sappiamo inoltre che:
+$$ T_k = \pd{U_k}{S_k} \Rightarrow dS_k = \frac{dU_k}{T_k} $$
+che insieme alle condizioni già ottenute ci da:
+$$ \left( \frac{1}{T_1} - \frac{1}{T_2} \right)dU = 0 $$
+$$ \Rightarrow T_1 = T_2 $$
+Questo procedimento può essere generalizzato a un qualsiasi numero di sottosistemi. I sottosistemi si trovano in equilibrio termico quando $T_j=T_i$, quindi $T_j$ è indicatore di equilibrio termico che è la definizione che abbiamo dato di temperatura (fisica). Lo stesso ragionamento può essere usato per ottenere il principio 0 della termodinamica.
+
+\subsubsection{L'equilibrio meccanico}
+Ripetiamo il procedimento usato sopra, ma stavolta applichiamo un processo virtuale a cui è associata una variazione di volume $dV$ oltre a $dU$. Dall'equazione fondamentale e dalla definizione di pressione (forza termodinamica associata a variazioni di volume) termodinamica otteniamo:
+$$ dS = \frac{1}{T}dU +\frac{P}{T}dV $$
+Dividiamo il sistema in due sottosistemi con $dV=dV_1=-dV_2$ e $dU=dU_1=-dU_2$ e imponiamo ancora $dS=dS_1+dS_2=0$, otteniamo:
+$$ \left( \frac{1}{T_1} - \frac{1}{T_2} \right)dU + \left( \frac{P_1}{T_1} - \frac{P_2}{T_2} \right)dV = 0 $$
+$$ \Rightarrow T_1=T_2 \qquad P_1 = P_2 $$
+La pressione termodinamica è quindi indice di equilibrio meccanico, che è la definizione di pressione (fisica).
+
+\subsection{Trasformate di Legendre e potenziali}
+\subsubsection{La trasformata di Legendre}
+Data una funzione generica $f(x)$, consideriamo la sua retta tangente in un punto. La retta tangente incontrerà l'asse delle ordinate in un punto $(o,\phi)$, formando con l'orizzontale un angolo $\theta$. Dalle proprietà della derivata:
+$$ y = \tan(\theta) \Rightarrow y =  \frac{f(x)-\phi}{x} $$
+$$ \Rightarrow \phi = f(x) - xy $$
+Possiamo quindi vedere $\phi(y)$ (abbiamo definito $y$ a partire da $x$, ma la relazione può essere invertita) come una nuova funzione, detta trasformata di Legendre di $f$ e indicata anche con $f[y]$.\\\\
+Derivando ora sia la funzione di partenza, che quella che abbiamo ottenuto:
+$$ \frac{df}{dx} = y \qquad \frac{d\phi}{dy} = -x $$
+e per le derivate seconde:
+$$ \frac{d^2f}{dx^2}=\frac{dy}{dx} \qquad \frac{d^2\phi}{dy^2}=-\frac{dx}{dy} $$
+che (con un grosso abuso di notazione, o un calcolo più raffinato che non riportiamo) implica:
+$$ \frac{d^2f[y]}{dy^2} = -\left( \frac{d^2f(x)}{dx^2} \right) $$
+da cui è evidente che la concavità di $f[x]$ è opposta a quella di $f(x)$.\\\\
+La trasformata di Legendre si può trovare per funzioni in più variabili con un ragionamento simile (considerando [iper]piani tangenti al posto della retta). La trasformata di Legendre permette di sostituire la dipendenza da una variabile, con la dipendenza dalla sua coniugata ed è possibile eseguirla rispetto a qualsiasi numero di variabili. Sia $f(x_1,...,x_n)$, la sua trasformata di Legendre rispetto a $y_a,...,y_b$ è:
+$$ f[x_1,...,y_a,...,y_b,...,x_n] = f(x_1,...,x_n) - \sum_{j\in(a,b)} y_jx_j $$
+con differenziale:
+$$ d\phi = \sum_{i\notin(a,b)} y_idx_i - \sum_{j\in(a,b)} x_jdy_j $$
+(Molto più o meno. La costruzione data non è una definizione e questi risultati non sono totalmente corretti, ma sono quelli che usa il libro dell'Olivares. Nella trasformata andrebbe preso un $\sup$ rispetto alle $x_i$ e nel differenziale andrebbero fatte le sostituzioni $y_i\rightarrow\pd{\phi}{x_i}$ e $x_j\rightarrow\pd{\phi}{x_j}$, ma per quello che ci dobbiamo fare dovrebbero andare bene così)
+
+\subsubsection{L'entalpia}
+L'entalpia è la trasformata di Legendre di $U(S,V,\{n_i\})$ rispetto a $P$, variabile coniugata a $V$. Vale quindi:
+$$ U[P] = U+PV=H(S,P,\{n_i\}) $$
+e
+$$ dH = dU+pdV+Vdp=TdS+VdP+\sum_i\mu_idn_i $$
+dove $\mu_i$ sono i potenziali chimici della specie i-esima ($\mu_i=\pd{U}{n_i}$).\\\\
+Dal differenziale che abbiamo calcolato, risulta evidente l'utilità dell'entalpia nello studio di sistemi chiusi a pressione e entropia costante (ad es: processi reversibili nell'ambiente ad 1 atm).
+
+\subsubsection{L'energia libera di Helmholtz}
+
+
 
 
 
