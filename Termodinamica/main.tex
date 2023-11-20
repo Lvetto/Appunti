@@ -476,6 +476,72 @@ che è nota come equazione di Boltzmann.
 
 
 
+\newpage
+\section{L'approccio assiomatico}
+
+\subsection{Introduzione}
+Partendo da alcuni postulati fondamentali è possibile ricostruire e generalizzare tutti i risultati ottenuti in precedenza ed estenderli a qualsiasi sistema fisico. Per farlo è necessario usare un approccio molto più formale e astratto, partendo da grandezze estensive come l'entropia e l'energia interna di un sistema, per poi ricondurle a grandezze fisicamente osservabili e più facilmente misurabili.
+
+
+\subsection{Postulati e conseguenze}
+
+Postulato I:
+\begin{center}
+    \textit{Esistono stati particolari (detti stati di equilibrio), che a livello macroscopico sono interamente descritti dalla loro energia interna e da un numero finito di parametri (detti variabili di stato) $\{ X_1,...,X_n \}$}
+\end{center}
+Questo postulato ci permette di definire gli stati di equilibrio e l'energia interna di un sistema. I parametri citati nel postulato sono di solito il volume e il numero di moli dei componenti del sistema, si tratta quindi di parametri estensivi. Partendo da questo postulato è anche possibile definire i concetti di lavoro e calore (seguendo un ragionamento simile a quello usato per arrivare al primo principio partendo dalle leggi di conservazione), come forme di trasferimento di energia e arrivare all'equazione di bilancio:
+$$ dU = \delta Q -\delta L $$
+che coincide con la forma differenziale del primo principio. Notiamo che l'unico differenziale esatto che compare è quello dell'energia interna.\\\\
+Postulato II:
+\begin{center}
+    \textit{Esiste una funzione S (detta entropia) definita per tutti gli stati do equilibrio, dotata della seguente proprietà: in un sistema composito, isolato e in assenza di vincoli, il valore assunto dai parametri è quello che massimizza l'entropia rispetto ai valori che può assumere in tutti gli stati di equilibrio vincolato}
+\end{center}
+Risulta evidente la similitudine tra questa definizione di entropia e quella data da Boltzmann per la meccanica statistica. Non avendo ancora collegato la grandezza appena definita a qualcosa di fisico o misurabile, è necessario introdurre un altro postulato che ci permetta di definirne alcune proprietà.\\\\
+Postulato III:
+\begin{center}
+    \textit{L'entropia in un sistema composito è additiva rispetto ai sottosistemi che lo compongono e risulta una funzione omogenea di primo ordine rispetto ai parametri estensivi. La funzione entropia è inoltre continua, differenziabile e monotona crescente rispetto all'energia interna}
+\end{center}
+Questo postulato ci permette di scrivere la relazione:
+$$ S = S(U, X_1, ..., X_n) $$
+nota come equazione fondamentale. Sappiamo inoltre che vale la relazione di omogeneità rispetto ai parametri:
+$$ S(\lambda U, \lambda X_1, ..., \lambda X_n) = \lambda S(U, X_1, ..., X_n) $$
+Il postulato II ci permette di dire che, dato un sistema composito separato da vincoli, dove $S_j$ è l'entropia della componente j-esima, vale:
+$$ S_{tot}\geq \sum_jS_j $$
+Rimossi quindi i vincoli, l'entropia del sistema nello stato di equilibrio dovrà crescere o rimanere al più costante, che è uno degli enunciati del secondo principio.\\
+Le proprietà di continuità, differenziabilità e monotonia rispetto a $U$ ci permettono, attraverso al teorema della funzione inversa, di esprimere l'energia interna come funzione dell'entropia:
+$$ U = U(S, X_1, ..., X_n) $$
+passando quindi da quella nota come rappresentazione dell'entropia, alla rappresentazione dell'energia.\\\\
+Le equazioni fondamentali appena presentate contengono tutte le informazioni sull'evoluzione delle grandezze termodinamiche che caratterizzano un sistema, tuttavia non è sempre possibile esprimerle in forma analitica.\\\\
+Differenziando l'equazione fondamentale nella rappresentazione dell'energia otteniamo:
+$$ dU = \pd{U}{S}dS+\pd{U}{X_1}dX_1+...+\pd{U}{X_n}X_n $$
+da cui possiamo definire la temperatura termodinamica:
+$$ T(S, X_1, ..., X_n) = \pd{U}{S} $$
+e le forze termodinamiche:
+$$ P_i(S, X_1, ..., X_n) = \pd{U}{X_i} $$ 
+Nonostante siano stati usati gli stessi simboli solitamente usati per temperatura (fisica) e forze meccaniche (o pressione $\propto$ forze), il collegamento tra i due concetti verrà dimostrato in seguito.
+Queste equazioni sono note come equazioni di stato termodinamiche.\\\\
+Possiamo usare questi risultati per riscrivere l'equazione di bilancio come:
+$$ dU=Tds+\sum_iP_idX_i $$
+da cui otteniamo le relazioni:
+$$ \delta Q = Tds \qquad \delta L = \sum_iP_idX_i $$
+che sono generalizzazione di risultati che avamo già ottenuto, almeno per i gas (perfetti).\\\\
+Per riottenere una formulazione della termodinamica equivalente a quella ricavata in precedenza, rimane da descrivere il comportamento dell'entropia per $T\rightarrow0$. Il terzo principio coincide sostanzialmente con il quarto postulato.\\\\
+Postulato IV:
+\begin{center}
+    \textit{L'entropia di un sistema in equilibrio termodinamico si annulla nello stato in cui
+    $$ T = \pd{U}{s}=0 $$}
+\end{center}
+
+
+
+
+
+
+
+
+
+
+
 \Index
 
 \end{document}
