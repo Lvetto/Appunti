@@ -233,6 +233,43 @@ Il calore specifico è definito come la quantità di calore che occore fornire a
 Per un gas risulta più comodo definire i calori specifici molari, cioè la quantità di calore da fornire a una mole di gas oer aumentarne la temperatura di un grado. Calcolare il calore specifico (per unità di massa) partendo da quello molare è poi molto semplice, è sufficiente dividerlo per la massa di una mole di gas.
 
 
+\subsection{I gas reali}
+\subsubsection{Isoterme di Andrews}
+Consideriamo un sistema formato da un contenitore chiuso da un pistone, contenente un liquido e il suo vapore. Una particella di liquido potrà raggiungere un'energia cinetica tale da superare le forze di coesione e uscire nello spazio esterno, evaporando. Se il sistema è in equilibrio termoodinamico a determinate temperature si raggiunge uno stato di equilibrio dove sono presenti sia liquido che vapore.\\\\
+Comprimendo il pistone in modo da eseguire una trasformazione isoterma reversibile, si osserva che oltre ad un certo punto la pressione non varia, ma parte delle molecole di vapore rientrano a far parte del liquido. L'isoterma nel piano di Clapeyron avrà quindi andamento orizzontale. La pressione corrispondente a questa condizione è detta tensione di vapore saturo e l'isoterma risulta essere anche isobara.\\\\
+Diminuendo ulteriormente il volume, si raggiunge una condizione in cui tutto il vapore sarà rientrato a far parte del liquido. Questo punto è detto punto di tutto liquido. In questa condizione una piccola variazione di volume, provoca un forte aumento della pressione.\\\\
+Allo stesso modo, è possibile eseguire un'espansione isoterma fino a raggiungere una condizione in cui tutto il liquido è evaporato e diventato vapore. Questo punto è detto punto di rugiada e continuando l'espansione il sistema tornerà a comportarsi come un gas.\\\\
+Aumentando la temperatura delle isoterme, la distanza tra punto di tutto liquido e punto di rugiada diminuisce, fino a diventare un solo punto ($=$ flesso a tangente orizzontale), detto punto critico. Aumentando il volume oltre questo punto, il sistema si comporta come un gas.\\\\
+Tracciando diverse isoterme, è possibile trovare una regione del piano di Clapeyron in cui sono presenti sia liquido che vapore, oltre a regioni dove sono presenti solo liquido, vaopore o gas. La regione dove sono presenti sia liquido che vapore è nota come campana di Andrews.\\\\
+Queste curve isoterme (trovate sperimentalmente) sono chiamate isoterme di Andrews e non sono presenti nel modello dei gas perfetti.
+
+\subsubsection{Calore latente}
+Abbiamo visto come esiste una condizione in cui un liquido diventa interamente vapore, mantenendo la stessa temperatura e pressione. Per il passaggio di fase è necessario che il sistema assorba calore, ma dove finisce se non c'è aumento di temperatura?\\\\
+Introduciamo le grandezze specifiche (per unità di massa):
+$$ v_k(T) = \frac{V_k(T)}{m_k} \qquad u_k(T) = \frac{U_k(T)}{m_k} $$
+Aumentando il volume di una quantità $dV$, una quantità di massa $dm$ passera da stato liquido a vapore e quindi:
+$$ dV=\left( v_2(T)-v_1(T) \right) dm $$
+$$ dU = \left( u_2(T) - u_1(T) \right)dm $$
+Introducendo il calore latente, definito come:
+$$ \lambda = \frac{\delta Q}{dm} $$
+e applicando il primo principio, otteniamo:
+$$ \delta Q = dU+pdV \Rightarrow \lambda = \left( u_2(T)-u_1(T) \right) + p\left( v_2(T)-v_1(T) \right) $$
+Il calore applicato al sistema andrà quindi ad agire contro i legami molecolari, per far passare la massa da una fase all'altra, caratterizzare da diversa energia interna (specifica) e volume (specifico).
+
+\subsubsection{L'equazione di van der Waals}
+Per meglio approssimare il comportamento di un gas nelle condizioni descritte sopra, possiamo introdurre alcune modifiche all'equazione di stato dei gas perfetti.\\\\
+Le particelle di gas non hanno dimensione nulla, ma occuperanno un certo volume, quindi possiamo applicare una correzione e trovare un volume equivalente di gas reale $V_{id}$ che tenga conto di questo effetto e scrivere:
+$$ V_{id} = V-nb $$
+Introduciamo ora un potenziale che descrive le forze di interazione tra le particelle del gas. Questo potenziale è noto come potenziale di Lennard-Jones:
+$$ U(r) = \epsilon\left( \left( \frac{r_0}{r} \right)^{12} -2 \left( \frac{r_0}{r} \right)^6 \right) $$
+Questo potenziale è repulsivo per piccole distanze, attrattivo da un certo punto in poi e per distanze grandi va rapidamente a 0.\\\\
+La forza sentita da una particella sarà proporzionale alla densità del gas. Il numero di particelle che contribuisce alla pressione del gas, inoltre, è anch'esso proporzionale alla pressione. Il termine di correzione da applicare a $P_{id}$ sarà quindi proporzionale al quadrato della pressione e $\rho^2\propto\frac{n^2}{V^2}$, da cui:
+$$ P_{id} = P+\frac{n^2a}{V^2} $$
+L'equazione di stato potrà quindi essere scritta come:
+$$ \left( P+\frac{n^2a}{V^2} \right)\left( V-nb \right) = nRT$$
+
+
+
 \newpage
 \section{Macchine termiche}
 \subsection{Introduzione e definizioni}
@@ -286,10 +323,6 @@ $$ |Q_2|-|Q_2'| > 0 \quad\text{con $T_2$} $$
 Senza richiedere lavoro estrae quindi calore dalla sorgente fredda per fornirlo a quella calda, violando l'enunciato di Clausius del secondo principio. Deve quindi necessariamente essere:
 $$  \eta_G\leq\eta_C $$
 per qualsiasi macchina termica $G$. Un analogo ragionamento ci permette di mostrare che l'uguaglianza vale per qualsiasi $G$ reversibile.
-
-\subsection{Entropia?}
-
-
 
 
 \newpage
@@ -588,9 +621,34 @@ dove $\mu_i$ sono i potenziali chimici della specie i-esima ($\mu_i=\pd{U}{n_i}$
 Dal differenziale che abbiamo calcolato, risulta evidente l'utilità dell'entalpia nello studio di sistemi chiusi a pressione e entropia costante (ad es: processi reversibili nell'ambiente ad 1 atm).
 
 \subsubsection{L'energia libera di Helmholtz}
+L'energia libera di Helmholtz è la trasformata di Legendre di $U$ rispetto alla temperatura, coniugata dell'entropia:
+$$ U[T] = U-TS = F(T,V,\{n_i\}) $$
+$$ dF = dU-TdS-Sdt = -pdV-SdT+\sum_i\mu_idn_i$$
+Questo potenziale termodinamico è quindi utile nello studio di sistemi chiusi a temperatura costante.
+
+\subsubsection{L'energia libera di Gibbs}
+L'energia libera di Gibbs è la trasformata di Legendre di $U$ rispetto a $T$, coniugata a $S$, e a $P$, coniugata a $V$:
+$$ U[T,P] = U-TS+PV = G(T,P,\{n_i\}) $$
+$$ dG = dU-TdS-SdT +dV+VdP = -SdT + VdP+\sum_i\mu_idn_i $$
+e risulta quindi utile nello studio di sistemi chiusi in equilibrio termico e meccanico.
+
+\subsubsection{Il potenziale gran-canonico}
+Il potenziale gran-canonico è la trasformata di Legendre di $U$ rispetto a $T$, coniugata a $S$, e $\mu_i$, coniugati a $n_i$:
+$$ U[T,\{\mu_i\}]=U-TS-\sum_i\mu_in_i=\Omega(T,V,\{\mu_i\}) $$
+$$ d\Omega = dU-TdS-SdT-\sum_i\mu_idn_i-\sum_in_id\mu_i = -SdT-pdV-\sum_in_id\mu_i $$
+e risulta utile per sistemi aperti in equilibrio termico e chimico.
 
 
-
+\subsection{Criteri di stabilità}
+Il secondo postulato richiede che per avere uno stato di equilibrio l'entropia debba assumere il suo valore massimo. Questa condizione si traduce nella concavità di $S(U,V,n)$, quindi:
+$$ \pd{^2S}{U^2}\leq0 \qquad \pd{^2S}{V^2}\leq0 $$
+a cui dobbiamo aggiungere:
+$$ |Hess(S)| \geq 0 $$
+Nella rappresentazione dell'energia, invece, la condizione diventa:
+$$ \pd{^2U}{S^2}\geq0 \qquad \pd{^2U}{V^2}\geq0 $$
+e:
+$$ |Hess(U)|\geq0 $$
+Possiamo estendere queste condizioni ai potenziali termodinamici attraverso alle proprietà della trasformata di Legendre. La derivata di $U(x)$ ha infatti segno opposto rispetto a quella di $U[y]$.
 
 
 
@@ -600,5 +658,4 @@ Dal differenziale che abbiamo calcolato, risulta evidente l'utilità dell'entalp
 
 
 \Index
-
 \end{document}
