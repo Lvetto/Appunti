@@ -316,9 +316,64 @@ Quest'ultimo valore è importante perché è il valore corrispondente di una ten
 Una grandezza che può assumere un numero infinito di valori è detto analogico, mentre se il suo valore cambia in modo discreto è detto digitale.
 
 \section{Analisi nel dominio della frequenza}
-Un segnale può essere espresso 
+\subsection{Serie di Fourier}
+Un segnale periodico può essere scomposto in armoniche (multipli interi della frequenza fondamentale) ed espresso come serie di Fuorier (sotto ipotesi abbastanza deboli e facilmente verificate per segnali elettrici realistici):
+$$ x(t) = \frac{1}{2}a_0+\sum_{k=1}^{+\infty}(a_k\cos(2k\pi f_0t)+ b_k\sin(2k\pi f_0t)) $$
+I coefficienti della serie si possono trovare con i seguenti integrali:
+$$ a_k = \frac{T}{2}\int_{-\frac{T}{2}}^{\frac{T}{2}}x(t)\cos(2k\pi f_0t)dt $$
+$$ b_k = \frac{T}{2}\int_{-\frac{T}{2}}^{\frac{T}{2}}x(t)\sin(2k\pi f_0t)dt $$
+Lo stesso segnale può essere scomposto su una base di esponenziali complessi, ottenendo una forma più compatta della serie di Fourier:
+$$ x(t) = \sum_{K=-\infty}^{\infty}c_ke^{j2k\pi f_0t} $$
+dove abbiamo usato $j$ per indicare l'unità immaginaria, per distinguerla dal simbolo usato per la corrente. I coefficienti di Fourier in questa base sono dati da:
+$$ c_k=\bar{c}_{-k}=\frac{a_k-jb_k}{2}=\frac{1}{T}\int_{\frac{T}{2}}^{\frac{T}{2}}x(t)e^{-j2k\pi f_0t}dt $$
+
+\subsection{Trasformata di Fourier}
+Possiamo estendere i risultati precedenti a segnali non periodici, considerandoli segnali periodici nel limite $T\rightarrow+\infty$ e $f_0\rightarrow0$. Possiamo scrivere quindi:
+$$ x(t) = \int_{+\infty}^{-\infty}X(f)e^{j2\pi ft}df $$
+La funzione $X(f)$ è detta trasformata di Fourier di $x(t)$. Invertendo la relazione precedente:
+$$ X(f)=\int_{+\infty}^{-\infty}x(t)e^{-j2\pi ft}dt $$
+L'operatore che associa a una funzione la sua trasformata di Fourier è di solito rappresentato con $\mathcal{F} $ e il suo inverso (antitrasformata di Fourier) con $\mathcal{F}^{-1}$.\\\\
+Per funzioni continue è possibile passare da funzione a trasformata e viceversa attraverso ai due operatori:
+$$ \mathcal{F}^{-1}\mathcal{F}x(t) = x(t) $$
+mentre per funzioni discontinue si avranno problemi nei punti di discontinuità (solitamente l'inversa assumerà un valore intermedio tra i limiti destro e sinistro).\\\\
+Le proprietà fondamentali della trasformata di Fourier sono le seguenti:
+\begin{itemize}
+    \item Linearità: 
+    $$\mathcal{F}\{a x(t) + b g(t)\} = a \mathcal{F}\{x(t)\} + b \mathcal{F}\{g(t)\}$$
+    con $a,b$ costanti.
+    
+    \item Traslazione nel tempo:
+    $$ \mathcal{F}\{f(t - t_0)\} = e^{-j 2 \pi f t_0} \mathcal{F}\{x(t)\} $$
+
+    \item Traslazione in frequenza:
+    $$ \mathcal{F}\{e^{j 2 \pi f_0 t} x(t)\} = F(f - f_0) $$
+
+    \item Cambio di scala:
+    $$ \mathcal{F}\{f(at)\} = \frac{1}{|a|} F\left(\frac{f}{a}\right) $$
+    con $a\neq0$ costante.
+
+    \item Moltiplicazione:
+    $$ \mathcal{F}\{x(t) \cdot g(t)\} = \mathcal{F}\{x(t)\} * \mathcal{F}\{g(t)\} $$
+    dove $*$ indica l'operazione di convolluzione.
+
+    \item Convolluzione:
+    $$ \mathcal{F}\{x(t) * g(t)\} = \mathcal{F}\{x(t)\} \cdot \mathcal{F}\{g(t)\} $$
+
+    \item Derivazione:
+    $$ \mathcal{F}\{f'(t)\} = (j 2 \pi f) X(f) $$
+
+    \item Integrazione:
+    $$ \mathcal{F}\{\int x(t)\} = \frac{1}{i 2 \pi t}X(f) $$
+
+    \item Parità:\\
+    $x(t)$ reale pari $\leftrightarrow$ $X(f)$ reale pari\\
+    $x(t)$ reale dispari $\leftrightarrow$ $X(f)$ immaginaria dispari
 
 
+
+
+
+\end{itemize}
 
 
 
