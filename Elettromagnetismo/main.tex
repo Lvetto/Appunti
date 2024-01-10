@@ -1,0 +1,275 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\input{../libs/packages.tex}
+
+\title{Elettromagnetismo}
+\author{Luca Vettore}
+\date{Gennaio 2024}
+
+\begin{document}
+
+\input{../libs/clib.tex}
+
+\maketitle
+
+\section*{Elettrostatica}
+\addcontentsline{toc}{section}{Elettrostatica} % Aggiunge al sommario se necessario
+
+
+
+
+\subsection*{$\bullet$ Forza di Coulomb}
+
+Due particelle puntiformi dotate di carica \(q_1\) e \(q_2\), rispettivamente, esercitano l'una sull'altra una forza nota come forza di Coulomb che vale:
+\[
+F_{12} = \frac{1}{4\pi\varepsilon_0}\frac{q_1q_2}{|r_1-r_2|^2}(r_1-r_2)
+\]
+
+Questa forza è diretta lungo la congiungente tra le due particelle, è proporzionale al prodotto delle cariche e decresce come \(\frac{1}{r^2}\) all'infinito.\\
+
+Per la forza di Coulomb vale il principio di sovrapposizione (linearità), cioè l'effetto generato da un sistema di \(N\) cariche è pari alla somma degli effetti delle singole cariche.
+
+\subsection*{$\bullet$ Campo elettrico}
+
+\( F_{12} \propto \frac{q_1q_2}{r^2} \), risulta quindi naturale definire un campo vettoriale che descriva la forza per unità di carica. Questo operatore è il campo elettrico e per una carica puntiforme vale:
+\[
+E = \lim_{q_2 \to 0} \frac{F_{12}}{q_2} = \frac{1}{4\pi\varepsilon_0} \frac{q_1}{r^2} \hat{r}
+\]
+
+Data una distribuzione di carica \( \rho(\mathbf{r}) \), il contributo di un volumetto \( \mathrm{d}V \) posto in \( \mathbf{r} \) al campo elettrico vale:
+\[
+\mathrm{d}E = \frac{1}{4\pi\varepsilon_0} \frac{\rho}{|\mathbf{r}|^3} \mathbf{r} \mathrm{d}V
+\]
+
+Distribuzioni superficiali (\( \sigma \)) o lineari (\( \lambda \)) sono facilmente descrivibili come particolari distribuzioni volumetriche (\( \rho \)) e la formula per \( \mathrm{d}E \) è quindi facilmente ricavabile.
+
+Il campo elettrico è locale, il suo effetto dipende esclusivamente dal suo valore in un punto e non da come è stato generato.
+
+Le linee di campo di \( \mathbf{E} \) sono sempre tangenti alla traiettoria di una particella carica al suo interno. Esse non si incrociano mai, inoltre escono dalle cariche positive (locali sorgenti) e si chiudono sulle cariche negative (o all'infinito).
+
+
+
+
+
+
+
+\subsection*{$\bullet$ Potenziale}
+
+\[
+\oint \mathbf{E} \cdot \mathrm{d}\mathbf{l} = 0 \quad \text{per ogni curva chiusa. Il campo elettrico è conservativo, possiamo quindi costruire un potenziale (scalare) t.c.:}
+\]
+\[
+-\int_{A}^{B} \mathbf{E} \cdot \mathrm{d}\mathbf{l} = V(B) - V(A) \quad \text{oppure} \quad \mathbf{E} = -\nabla V
+\]
+\[
+\text{(per evitare ambiguità con il volume, a volte il potenziale sarà indicato con } \Phi \text{ invece che con } V)
+\]
+
+Il potenziale dovuto a una carica puntiforme vale:
+\[
+V = \frac{1}{4\pi\varepsilon_0} \frac{q}{|\mathbf{r}|}
+\]
+
+e per una distribuzione \( \rho(\mathbf{r}) \) di carica:
+\[
+\mathrm{d}V = \frac{1}{4\pi\varepsilon_0} \frac{\rho}{|\mathbf{r}|} \mathrm{d}V
+\]
+
+Le superfici equipotenziali sono descritte dall'equazione \( \Phi(\mathbf{r}) = k \)
+
+Per un potenziale generato da una conica puntiforme, queste possono essere delle sfere concentriche.
+
+Dalla relazione \( \Phi = -\int \mathbf{E} \cdot \mathrm{d}\mathbf{l} \) si nota che le superfici equipotenziali sono sempre perpendicolari al campo elettrico.
+
+
+
+
+
+
+
+
+
+\subsection*{$\bullet$ Energia potenziale}
+
+Da quanto detto sopra, si può ricavare immediatamente la descrizione dell'energia potenziale elettrica. Vale ovviamente \( U = qV \), che per il campo generato da una carica puntiforme \( q \), vale:
+\[
+U = \frac{1}{4\pi\varepsilon_0} \frac{q_1q_2}{r}
+\]
+
+Anche per l'energia potenziale vale il principio di sovrapposizione. In particolare per un sistema di cariche puntiformi:
+\[
+U = \frac{1}{2} \sum_{i} \sum_{j \neq i} U_{ij} = \frac{1}{2} \sum_{i} \sum_{j \neq i} \frac{1}{4\pi\varepsilon_0} \frac{q_i q_j}{r_{ij}}
+\]
+
+che coincide con il lavoro necessario ad assemblare il sistema spostando le cariche dall'infinito.
+
+Il lavoro necessario a spostare una particella carica soggetta a un campo elettrico non dipende dal percorso scelto e vale:
+\[
+W = \int_{A}^{B} \mathbf{E} \cdot \mathrm{d}\mathbf{l} = -q \Delta V
+\]
+(dove \( \int_{A}^{B} \) è una qualsiasi curva che collega \( A \) e \( B \))
+
+
+
+\subsection*{$\bullet$ Teorema di Gauss}
+
+Il flusso di un generico campo vettoriale attraverso una superficie è definito come:
+\[
+\Phi(\mathbf{V}) = \oint_S \mathbf{V} \cdot d\mathbf{S} = \int_V (\nabla \cdot \mathbf{V}) dV
+\]
+(dove \( d\mathbf{S} \) rappresenta il differenziale dell'elemento di superficie \( S \))
+
+Per il campo elettrostatico si dimostra che vale la relazione:
+\[
+\Phi(\mathbf{E}) = \oint_S \mathbf{E} \cdot d\mathbf{S} = \frac{Q}{\varepsilon_0}
+\]
+(dove \( Q \) è la carica totale all'interno di \( S \))
+
+Definendo la divergenza del campo come \( \text{div}(\mathbf{E}) = \nabla \cdot \mathbf{E} \) e il limite
+\[
+\text{quando } V \to 0 \text{ si ottiene la forma differenziale del teorema:}
+\]
+\[
+\nabla \cdot \mathbf{E} = \frac{\rho}{\varepsilon_0}
+\]
+(dove \( \rho \) è la densità di carica)
+
+
+
+\subsection*{Elettrostatica nei conduttori}
+
+I materiali conduttori sono caratterizzati da un alto numero di cariche mobili. Quando un conduttore è posto in un campo elettrostatico, queste cariche si spostano velocemente fino a raggiungere una condizione di equilibrio. La carica totale nel conduttore rimane nulla, ma si possono creare regioni con cariche positivamente o negativamente cariche.
+
+In condizioni di equilibrio, il campo all'interno del materiale deve essere nullo (le cariche fermi). Per il teorema di Gauss è quindi nullo anche la distribuzione volumetrica \( \rho \).
+
+Le cariche si distribuiscono sulla superficie del conduttore. La componente del campo parallela alla superficie deve essere nulla per la condizione di equilibrio e la superficie è quindi equipotenziale.
+
+Il campo è quindi perpendicolare alla superficie e per il teorema di Gauss vale:
+\[
+E = E_n = \frac{\sigma}{\varepsilon_0}
+\]
+
+Introducendo cavità all'interno del conduttore, la situazione non cambia, la superficie interna è anch'essa equipotenziale e ha carica nulla.
+
+Le linee del campo elettrostatico non entrano all'interno dei conduttori.
+
+Il campo elettrico risulta discontinuo nel passaggio attraverso una superficie carica, la discontinuità riguarda solo la componente perpendicolare alla superficie. Per una superficie carica sottile:
+\[
+\Delta E_n = 0
+\]
+\[
+\Delta E_\perp = \frac{\sigma}{\varepsilon_0}
+\]
+
+
+
+\subsection*{Equazioni di Poisson e Laplace}
+
+Per il teorema di Gauss: \( \nabla \cdot \mathbf{E} = \frac{\rho}{\varepsilon_0} \)
+
+Per la conservatività di \( \mathbf{E} \): \( \mathbf{E} = -\nabla V \)
+
+Combinando le due equazioni, si ottiene l'equazione di Poisson:
+\[
+\nabla^2 V = -\frac{\rho}{\varepsilon_0}
+\]
+che in assenza di cariche si riduce all'equazione di Laplace: \( \nabla^2 V = 0 \)
+
+L'operatore \( \nabla^2 \) è detto Laplaciano.
+
+Il laplaciano è lineare: \( \nabla^2(A+B) = \nabla^2A + \nabla^2B \)
+
+Si può dimostrare che le equazioni di Poisson e Laplace hanno soluzioni e la soluzione è unica (poste opportune condizioni al contorno).
+
+Una possibile scelta di condizioni al contorno è quella di assegnare un valore al potenziale di tutte le superfici (aumente all'infinito) dei conduttori.
+
+Alcuni problemi che trascurano i conduttori possono essere risolti trovando una soluzione dell'equazione di Poisson per le cariche libere, a cui si può sommare una soluzione dell'equazione di Laplace per imporre le condizioni al contorno. In molti casi questo procedimento equivale all'uso dell'astrazione di un conduttore con una carica immaginaria che renda equipotenziale la superficie metallica che coincide con quella del conduttore. Questo metodo viene chiamato metodo delle cariche immaginarie.
+
+
+\section*{Capacità}
+
+Abbiamo visto che sulla superficie di un conduttore sottoposto a un campo elettrico può comparire una distribuzione di carica. Moltiplicando la densità di carica per una costante equivalente la carica totale sarà moltiplicata per la stessa costante:
+\[
+Q = \int \sigma dS \rightarrow k \int \sigma dS = kQ
+\]
+
+Si può mostrare che questo vale anche per il potenziale. Il rapporto tra carica e potenziale rimane quindi costante e dipende solo dalla geometria del conduttore. Introduciamo quindi la Capacità:
+\[
+C = \frac{Q}{V} \quad \text{dove} \quad Q = CV
+\]
+
+Consideriamo ora due piani paralleli a una distanza \( d \) piccola. Questo sistema è detto condensatore (capacitor) piano. Lontano dai bordi (l'approccio è \( d \)):
+\[
+\sigma \rightarrow \frac{Q}{S}, \quad E = \frac{\sigma}{\varepsilon_0}, \quad V = Ed, \quad E = -\nabla V \rightarrow E = \text{costante}
+\]
+\[
+C = \frac{Q}{V} = \frac{\sigma S}{Ed} = \frac{\sigma S}{\sigma/\varepsilon_0 \cdot d} = \varepsilon_0 \frac{S}{d}
+\]
+
+Per un condensatore piano, la capacità dipende solo dall'area \( S \) e dalla distanza tra i piani (armature). Questa espressione ignora gli effetti del bordo.
+
+Considerando un sistema di \( N \) conduttori, ognuno con un potenziale \( V_i \), possiamo mettere cariche su ciascuno. La carica su ogni conduttore sarà determinata dalle capacità e i potenziali saranno determinati dai coefficienti di capacità. È un fatto possibile (sperimentalmente provato) e un problema in \textit{n} variabili, che si risolve con un sistema di equazioni lineari. Introducendo una matrice di capacità per ogni coppia di conduttori, possiamo quindi trovare una funzione lineare che, per ogni coppia, determina il rapporto tra la carica indotta su un conduttore e il potenziale di un altro. Questo è importante perché ci dà la possibilità di calcolare la capacità tra gli stessi conduttori e tra conduttori diversi:
+\[
+\begin{pmatrix}
+Q_1 \\
+Q_2 \\
+\vdots \\
+Q_N
+\end{pmatrix}
+=
+\begin{pmatrix}
+C_{11} & C_{12} & \cdots & C_{1N} \\
+C_{21} & C_{22} & \cdots & C_{2N} \\
+\vdots & \vdots & \ddots & \vdots \\
+C_{N1} & C_{N2} & \cdots & C_{NN} 
+\end{pmatrix}
+\begin{pmatrix}
+V_1 \\
+V_2 \\
+\vdots \\
+V_N
+\end{pmatrix}
+\]
+\[
+Q_i = C_{i1}V_1 + C_{i2}V_2 + \cdots + C_{iN}V_N
+\]
+\[
+V = C^{-1}Q \quad \text{dove} \quad A = C^{-1}
+\]
+
+
+
+\section*{Dipoli}
+
+Consideriamo due cariche \( q \) e \( -q \) equidistanti da una distanza \( d \). Il particolare sistema di queste differenze sarà simmetrico per punti antitroni rispetto al centro. Dipenderà quindi solo dalla distanza dal centro del sistema e dall'angolo rispetto alla congiungente. Questo potenziale può essere facilmente calcolato come somma dei contributi delle due cariche, ma risulta utile approssimarlo nei limiti per distanze grandi rispetto a \( d \) indicando con \( \mathbf{p} = q\mathbf{d} \) il vettore che ha come modulo la distanza tra le cariche, diretto da \( -q \) a \( q \) con la posizione relativa al centro del sistema otteniamo:
+\[
+(\mathbf{p} \cdot \hat{r}) V = \frac{1}{4\pi\varepsilon_0} \frac{p \cos(\theta)}{r^2} \quad (|r| >> d)
+\]
+Da questa espressione è immediato ricavare il campo elettrico in coordinate sferiche:
+\[
+\mathbf{E} = \frac{1}{4\pi\varepsilon_0} \left[ \frac{2p \cos(\theta)}{r^3} \hat{r} + \frac{p \sin(\theta)}{r^3} \hat{\theta} \right]
+\]
+
+Se sul dipolo agisce un campo elettrico uniforme, le due cariche sentono una forza uguale in modulo, ma di verso opposto. La forza totale è quindi nulla. Il dipolo risente invece di un momento meccanico:
+\[
+\mathbf{\tau} = \mathbf{p} \times \mathbf{E}
+\]
+che tende ad allinearlo al campo elettrico.
+
+Possiamo associare un'energia potenziale a questo momento che varia
+\[
+U(\theta) = -\mathbf{p} \cdot \mathbf{E} \quad (\text{scelgendo la costante in modo che } U(\pi) = pE)
+\]
+Se il campo non è uniforme, le particelle risentono di forze diverse e la forza totale non sarà necessariamente nulla. Nel limite \( d << r \) si dimostra:
+\[
+\mathbf{F} = (\mathbf{p} \cdot \nabla) \mathbf{E}
+\]
+e la forza è quindi proporzionale al gradiente del campo.
+
+
+
+
+\newpage
+\Index
+\end{document}

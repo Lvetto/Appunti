@@ -19,12 +19,12 @@
 L’elettronica è la disciplina scientifico-tecnologica che si occupa della
 generazione, del trasporto, del controllo e della raccolta di particelle
 subatomiche dotate di massa e di carica elettrica (come, ad esempio, gli
-elettroni).\\\\
+elettroni).\\
 Gli elettroni sono adatti ad essere impiegati nei sistemi per l’elaborazione, la
-trasmissione e l’archiviazione delle informazioni.\\\\
+trasmissione e l’archiviazione delle informazioni.\\
 È possibile far muovere un elevato numero di elettroni a grande velocità e
 impiegando un ridotta quantità di energia, perché la massa delle particelle è
-piccola.\\\\
+piccola.\\
 L’elettronica permette di realizzare sistemi di acquisizione, elaborazione, controllo
 e memorizzazione molto complessi, efficienti e veloci.
 
@@ -49,19 +49,19 @@ Candela & cd & Intensità luminosa \\
 Combinando le unità fondamentali, è possibile definire delle unità derivate. In elettronica sono utili le seguenti:
 
 \begin{center}
-\begin{tabular}{|c|c|p{6cm}|}
+\begin{tabular}{|c|c|p{6cm}|c|}
 \hline
-\textbf{Unità di misura} & \textbf{Simbolo} & \textbf{Grandezza misurata} \\
+\textbf{Unità di misura} & \textbf{Simbolo} & \textbf{Grandezza misurata} & \textbf{Definizione}\\
 \hline
-Volt & V & Tensione elettrica \\
-Ohm & $\Omega$ & Resistenza elettrica \\
-Watt & W & Potenza elettrica \\
-Farad & F & Capacità elettrica \\
-Hertz & Hz & Frequenza \\
-Henry & H & Induttanza \\
-Coulomb & C & Carica elettrica \\
-Tesla & T & Induzione magnetica \\
-Siemens & S & Conduttanza elettrica \\
+Volt & V & Tensione elettrica & $J/(A\cdot s)$\\
+Ohm & $\Omega$ & Resistenza elettrica & $V/A$\\
+Joule & J & Energia & $N\cdot m$\\
+Watt & W & Potenza elettrica & $J\cdot s$\\
+Farad & F & Capacità elettrica & $C/V$\\
+Hertz & Hz & Frequenza & $1/s$ \\
+Henry & H & Induttanza & $(V\cdot s)/A$\\
+Coulomb & C & Carica elettrica & $A\cdot s$\\
+Tesla & T & Induzione magnetica & $(V\cdot s)/m^2$\\
 \hline
 \end{tabular}
 \end{center}
@@ -171,6 +171,154 @@ $$ \sum_kP_k=\sum_kV_kI_k=0 $$
 
 
 
+
+
+
+
+
+
+\newpage
+\section{Grandezze elettriche variabili nel tempo}
+\subsection{Nel dominio del tempo}
+\subsubsection{Prime definizioni}
+Una grandezza elettrica variabile nel tempo è detta segnale. I segnali possono essere di tensione ($v(t)$) o di corrente ($i(t)$), in base a quale delle grandezze viene fatta variare. La dipendenza dal tempo è spesso omessa per alleggerire la notazione, ma i segnali vengono di solito scritti con la lettera minuscola per distinguerli dalle grandezze costanti.\\\\
+Una distinzione utile da fare è quella tra segnali continui (solitamente usati nei circuiti analogici) e campionati (solitamente usati da sistemi digitali):
+\begin{itemize}
+    \item \textit{Continuo:} il valore può cambiare in qualsiasi momento
+    \item \textit{Campionato:} il valore cambia in corrispondenza con un segnale detto di clock o temporizzazione.
+\end{itemize}
+\im{0.8}{ims/segnali}
+Una grandezza che può assumere un numero infinito di valori è detto analogico, mentre se il suo valore cambia in modo discreto è detto digitale.
+
+\subsubsection{Segnali periodici}
+Un segnale è detto periodico se si ripete dopo un tempo $T$ detto periodo:
+$$ x(t+T)=t \forall t $$
+L'inverso del periodo è la frequenza: $f=\frac{1}{T}$\\
+Si definisce la frequenza angolare come: $\omega=2\pi f$\\\\
+Il valore medio di un segnale periodico è dato da:
+$$ v_m=\frac{1}{T}\int_0^Tx(t)dt $$
+che spesso vale 0. Una grandezza più utile si ottiene calcolando il valore di una grandezza elettrica costante che trasferisce la stessa quantità di potenza. Questa grandezza è chiamata valore efficace (o "root-mean-square") ed è data da:
+$$ v_{rms} = \sqrt{\frac{1}{T}\int_0^T(x(t))^2dt}=|x(t)|_2$$
+Un'altra grandezza utile per i segnali periodici è l'ampiezza (picco picco o peak to peak), che corrisponde alla distanza tra massimo e minimo del segnale.
+
+\subsubsection{Guadagno}
+Si definisce guadagno in potenza di un circuito il rapporto tra la potenza erogata dal generatore di segnale collegato a una resistenza di carico con (b) e senza (a) il circuito (amplificatore):
+$$ G = \frac{P_{a}}{P_{b}} $$
+Solitamente il guadagno è espresso in decibel (decimi di bel), che, usando una scala logaritmica, permettono di lavorare con valori che assumono ordini di grandezza molto diversi.
+$G_{dB}=10\log(G)=10\log(\frac{P_a}{P_b})$
+Ricordando che vale $P_i=\frac{V^2_i}{R}$, possiamo esprimere il guadagno in potenza in funzione della tensione:
+$$ G = \frac{RV^2_b}{RV_a^2}=\left( \frac{V_b}{V_a} \right)^2 $$
+$$ G_{dB} = 10\log(G)=10\log\left(\frac{V_b}{V_a}\right)^2=20\log\left(\frac{V_b}{V_a}\right)  $$
+La costante davanti al logaritmo diventa 20 se si esprime il guadagno in termini di tensione (o corrente, seguendo un procedimento analogo).\\\\
+Collegando l'uscita di un circuito all'entrata di un alto si compie un collegamento detto in cascata. Il guadagno di due circuiti in cascata si può calcolare come (omessi i semplici passaggi algebrici):
+$$ G_{tot} = G_1\cdot G_2 $$
+$$ G_{dB}^{tot} = G^1_{dB}+G^2_{dB} $$
+
+\subsubsection{Risposta impulsiva}
+La risposta impulsiva $h(t)$ di un circuito (lineare e invariante nel tempo) è la sua risposta ad un segnale formato da una delta di dirac. Questa grandezza permette di studiare la risposta di un filtro ad un segnale generico $x_i(t)$ attraverso all'operazione di convolluzione:
+$$ x_o(t) = x_i(t)*h(t) $$
+Calcolare la risposta di un circuito in questo modo richiede la risoluzione di un integrale e può risultare poco pratico. Vedremo nella sezione successiva come le proprietà della trasformata di fourier permettano di semplificare il conto, passando alla risposta in frequenza.
+
+\subsection{Analisi nel dominio della frequenza}
+Spesso l'analisi di segnali nel dominio del tempo può risultare laboriosa (nel dominio del tempo le relazioni tensione-corrente di condensatori e induttanze sono euqazioni differenziali). Esistono alcuni strumenti che permettono di semplificare i problemi e i conti nel caso di circuiti complicati. Uno di questi strumenti è l'analisi di Fourier, che permette di studiare un segnale nel dominio della frequenza (dove ad esempio le relazioni tensione-corrente di induttanze e condensatori sono funzioni razionali).
+
+\subsubsection{Serie di Fourier}
+Un segnale periodico può essere scomposto in armoniche (multipli interi della frequenza fondamentale) ed espresso come serie di Fuorier (sotto ipotesi abbastanza deboli e facilmente verificate per segnali elettrici realistici):
+$$ x(t) = \frac{1}{2}a_0+\sum_{k=1}^{+\infty}(a_k\cos(2k\pi f_0t)+ b_k\sin(2k\pi f_0t)) $$
+I coefficienti della serie si possono trovare con i seguenti integrali:
+$$ a_k = \frac{T}{2}\int_{-\frac{T}{2}}^{\frac{T}{2}}x(t)\cos(2k\pi f_0t)dt $$
+$$ b_k = \frac{T}{2}\int_{-\frac{T}{2}}^{\frac{T}{2}}x(t)\sin(2k\pi f_0t)dt $$
+Lo stesso segnale può essere scomposto su una base di esponenziali complessi (usando l'identità di eulero), ottenendo una forma più compatta della serie di Fourier:
+$$ x(t) = \sum_{K=-\infty}^{\infty}c_ke^{j2k\pi f_0t} $$
+dove abbiamo usato $j$ per indicare l'unità immaginaria, per distinguerla dal simbolo usato per la corrente. I coefficienti di Fourier in questa base sono dati da:
+$$ c_k=\bar{c}_{-k}=\frac{a_k-jb_k}{2}=\frac{1}{T}\int_{\frac{T}{2}}^{\frac{T}{2}}x(t)e^{-j2k\pi f_0t}dt $$
+
+\subsubsection{Trasformata di Fourier}
+Possiamo estendere i risultati precedenti a segnali non periodici, considerandoli segnali periodici nel limite $T\rightarrow+\infty$ e $f_0\rightarrow0$. Possiamo quindi scrivere:
+$$ x(t) = \int_{+\infty}^{-\infty}X(f)e^{j2\pi ft}df $$
+La funzione $X(f)$ è detta trasformata di Fourier di $x(t)$. Invertendo la relazione precedente:
+$$ X(f)=\int_{+\infty}^{-\infty}x(t)e^{-j2\pi ft}dt $$
+L'operatore che associa a una funzione la sua trasformata di Fourier è di solito rappresentato con $\mathcal{F} $ e il suo inverso (antitrasformata di Fourier) con $\mathcal{F}^{-1}$.\\\\
+Per funzioni continue è possibile passare da funzione a trasformata e viceversa attraverso ai due operatori:
+$$ \mathcal{F}^{-1}\mathcal{F}x(t) = x(t) $$
+mentre per funzioni discontinue si avranno problemi nei punti di discontinuità (solitamente l'inversa assumerà un valore intermedio tra i limiti destro e sinistro).\\\\
+Le proprietà fondamentali della trasformata di Fourier sono le seguenti:
+\begin{itemize}
+    \item Linearità: 
+    $$\mathcal{F}\{a x(t) + b g(t)\} = a \mathcal{F}\{x(t)\} + b \mathcal{F}\{g(t)\}$$
+    con $a,b$ costanti.
+    
+    \item Traslazione nel tempo:
+    $$ \mathcal{F}\{f(t - t_0)\} = e^{-j 2 \pi f t_0} \mathcal{F}\{x(t)\} $$
+
+    \item Traslazione in frequenza:
+    $$ \mathcal{F}\{e^{j 2 \pi f_0 t} x(t)\} = F(f - f_0) $$
+
+    \item Cambio di scala:
+    $$ \mathcal{F}\{f(at)\} = \frac{1}{|a|} F\left(\frac{f}{a}\right) $$
+    con $a\neq0$ costante.
+
+    \item Moltiplicazione:
+    $$ \mathcal{F}\{x(t) \cdot g(t)\} = \mathcal{F}\{x(t)\} * \mathcal{F}\{g(t)\} $$
+    dove $*$ indica l'operazione di convolluzione.
+
+    \item Convolluzione:
+    $$ \mathcal{F}\{x(t) * g(t)\} = \mathcal{F}\{x(t)\} \cdot \mathcal{F}\{g(t)\} $$
+
+    \item Derivazione:
+    $$ \mathcal{F}\{f'(t)\} = (j 2 \pi f) X(f) $$
+
+    \item Integrazione:
+    $$ \mathcal{F}\left\{\int x(t)\right\} = \frac{1}{i 2 \pi t}X(f) $$
+
+    \item Parità:\\
+    $x(t)$ reale pari $\leftrightarrow$ $X(f)$ reale pari\\
+    $x(t)$ reale dispari $\leftrightarrow$ $X(f)$ immaginaria dispari
+
+    \item Periodicità:\\
+    $x(t)$ periodico $\leftrightarrow$ $X(f)$ campionato\\
+    $x(t)$ campionato $\leftrightarrow$ $X(f)$ periodico  
+
+\end{itemize}
+
+\subsubsection{Risposta in frequenza}
+La trasformata di Fourier della risposta impulsiva di un circuito è detta risposta in frequenza $H(f)$ e permette di calcolare facilmente la risposta di un circuito lineare ad un impulso generico (nel dominio della frequenza). Svolgendo la trasformata di Fourier della relazione trovata per la risposta impulsiva otteniamo:
+$$ X_o(f) = X_i(f)\cdot H(f) $$
+L'operazione di convolluzione è quindi stata sostituita da un prodotto.\\\\
+La risposta in frequenza in generale è un numero complesso, possiamo quindi rappresentarla in coordinate polari. In tal caso:
+$$ H(f) = |H(f)|e^{j\theta(H(f))} $$
+Applicandola ad un segnale generico si nota che il modulo agisce come una contrazione, mentre la fase agisce come uno sfasamento.\\\\
+La trasformata di Fourier di un segnale sinusoidale con frequenza $f$ è una coppia di delta di Dirac, alle frequenze $\pm f$. L'uscita di un circuito lineare a cui è applicata una sinusoide in ingresso, è anch'esso una sinusoide alla stessa frequenza. Ad un circuito lineare possiamo inolte applicare il principio di sovrapposizione degli effetti.
+Queste osservazioni, insieme al formalismo di Fourier, ci permettono di vedere qualsiasi segnale come sovrapposizione di sinusoidi a diverse frequenze, ognuna corrispondente a una coppia di $\delta$, e la risposta in frequenza come una funzione che fornisce il coefficiente (complesso) per cui moltiplicare ognuna di queste per ottenere il segnale in uscita.\\\\
+Il guadagno del circuito può essere calcolato come:
+$$ G_{dB}(f)=20\log H $$
+
+\subsubsection{Impedenza}
+Applicando la trasformata di Fourier alle relazioni tensione-corrente (e sfruttando le sue proprietà), possiamo ottenere una relazione del tipo:
+$$ V(f) = Z(f)I(f) $$
+che vale anche per condensatori e induttori.\\\\
+La grandezza $Z(f)$ è un numero complesso ed è detta impedenza. Può essere separata in parte reale e parte immaginaria:
+$$ Z=R+jX $$
+dove $R$ è la resistenza ($\geq0$) e $X$ è detta reattanza (può avere qualsiasi segno).\\\\
+L'impedenza equivalente di un circuito con bipoli in serie o in parallelo può essere calcolata usando le stesse regole viste per la resistenza.\\\\
+L'inverso dell'impedenza è detto ammettenza:
+$$Y=\frac{1}{Z}=G+jB $$
+dove $G$ è la conduttanza e $B$ è detta suscettanza.
+
+\subsubsection{Diagrammi di Bode e Nyquist}
+(...)
+
+
+
+
+
+
+
+
+
+
+
+
 \newpage
 \section{Bipoli, n-poli}
 Un circuito è formato da elementi (o componenti) circuitali connessi tra loro. Gli elementi più semplici sono i bipoli elettrici.\\\\
@@ -187,6 +335,7 @@ Un bipolo può essere descritto attraverso a una relazione tra tensione e corren
     \item forma esplicita rispetto a V: $V=h(I)$ (se esiste)
 \end{itemize}
 Se la caratteristica tensione-corrente di un bipolo in forma esplicita rispetto a I o V è una funzione lineare, allora il bipolo è detto lineare. In questo caso la rappresentazione grafica della caratteristica sarà una retta.\\\\
+Il comportamento di un bipolo in risposta ad un segnale variabile nel tempo, può essere descritto attraverso alla sua impedenza.\\\\
 Un elemento circuitale con più di 2 terminali è detto n-polo o multipolo. Il comportamento di questi elementi è più complicato rispetto ai bipoli e va studiato caso per caso.
 
 \subsection{Resistore}
@@ -198,6 +347,8 @@ $$ I=GV $$
 Un resistore dissipa una potenza pari al prodotto tra corrente e tensione:
 $$ P=VI $$
 \im{0.3}{ims/resistore}
+L'impedenza di un resistore coincide con la sua resistenza ($\Leftarrow$ la resistenza è reale, positiva e indipendente da tempo e frequenza):
+$$ Z_R=R $$
 
 \subsection{Generatore di tensione/corrente}
 Il generatore di tensione è un bipolo che mantiene una tensione costante tra i terminali.\\
@@ -283,6 +434,8 @@ $$ v=\frac{1}{C}\int i\;dt $$
 quindi la tensione è una funzione continua di t.\\\\
 Possiamo scrivere potenza istantanea $p$ ed energia immagazzinata $w$ come:
 $$ p=vi=Cv\frac{dv}{dt} \quad\Rightarrow\quad w=\frac{1}{2}Cv^2 $$
+L'impedenza di un condensatore è inversamente proporzionale alla frequenza (un condensatore è equivalente a un circuito aperto per un segnale in continua) e alla capacità. Vale:
+$$ Z_C = \frac{1}{2\pi j C} = -\frac{j}{2\pi C} $$
 
 \subsection{Induttore}
 L'induttore è costituito da un filo conduttore avvolto a spirale. All'interno dell'avvolgimento si ha un campo magnetico proporzionale alla corrente:
@@ -293,87 +446,9 @@ la corrente risulta:
 $$ i=\frac{1}{L}\int v\;dt $$
 e l'energia interna con un procedimento analogo a quello usato per il condensatore:
 $$ w=\frac{1}{2}Li^2 $$
+L'impedenza di un induttore è direttamente proporzionale alla frequenza (si comporta come circuito chiuso per un segnale in continua) e all'induttanza. In particolare vale:
+$$ Z_L=2\pi j L $$
 
-
-
-
-
-
-\newpage
-\section{Analisi nel dominio del tempo}
-Un segnale è una grandezza elettrica che varia nel tempo.\\
-Un segnale è continuo nel tempo se il suo valore può variare in qualsiasi istante, campionato se il suo valore varia in corrispondenza con un segnale di clock (o temporizzazione).
-\im{0.8}{ims/segnali}
-Un segnale è detto periodico se si ripete dopo un tempo $T$ detto periodo:
-$$ x(t+T)=t \forall t $$
-L'inverso del periodo è la frequenza: $f=\frac{1}{T}$\\
-La pulsazione o frequenza angolare si definisce come: $\omega=2\pi f$\\\\
-Il valore medio di un segnale periodico è dato da:
-$$ v_m=\frac{1}{T}\int_0^Tv(t)dt $$
-Mentre il valore efficace (o "root-mean-square") è dato da:
-$$ v_{rms} = \sqrt{\frac{1}{T}\int_0^T(v(t))^2dt}$$
-Quest'ultimo valore è importante perché è il valore corrispondente di una tensione costante che dissipa la stessa potenza in un bipolo resistivo rispetto al segnale variabile.\\\\
-Una grandezza che può assumere un numero infinito di valori è detto analogico, mentre se il suo valore cambia in modo discreto è detto digitale.
-
-\section{Analisi nel dominio della frequenza}
-\subsection{Serie di Fourier}
-Un segnale periodico può essere scomposto in armoniche (multipli interi della frequenza fondamentale) ed espresso come serie di Fuorier (sotto ipotesi abbastanza deboli e facilmente verificate per segnali elettrici realistici):
-$$ x(t) = \frac{1}{2}a_0+\sum_{k=1}^{+\infty}(a_k\cos(2k\pi f_0t)+ b_k\sin(2k\pi f_0t)) $$
-I coefficienti della serie si possono trovare con i seguenti integrali:
-$$ a_k = \frac{T}{2}\int_{-\frac{T}{2}}^{\frac{T}{2}}x(t)\cos(2k\pi f_0t)dt $$
-$$ b_k = \frac{T}{2}\int_{-\frac{T}{2}}^{\frac{T}{2}}x(t)\sin(2k\pi f_0t)dt $$
-Lo stesso segnale può essere scomposto su una base di esponenziali complessi, ottenendo una forma più compatta della serie di Fourier:
-$$ x(t) = \sum_{K=-\infty}^{\infty}c_ke^{j2k\pi f_0t} $$
-dove abbiamo usato $j$ per indicare l'unità immaginaria, per distinguerla dal simbolo usato per la corrente. I coefficienti di Fourier in questa base sono dati da:
-$$ c_k=\bar{c}_{-k}=\frac{a_k-jb_k}{2}=\frac{1}{T}\int_{\frac{T}{2}}^{\frac{T}{2}}x(t)e^{-j2k\pi f_0t}dt $$
-
-\subsection{Trasformata di Fourier}
-Possiamo estendere i risultati precedenti a segnali non periodici, considerandoli segnali periodici nel limite $T\rightarrow+\infty$ e $f_0\rightarrow0$. Possiamo scrivere quindi:
-$$ x(t) = \int_{+\infty}^{-\infty}X(f)e^{j2\pi ft}df $$
-La funzione $X(f)$ è detta trasformata di Fourier di $x(t)$. Invertendo la relazione precedente:
-$$ X(f)=\int_{+\infty}^{-\infty}x(t)e^{-j2\pi ft}dt $$
-L'operatore che associa a una funzione la sua trasformata di Fourier è di solito rappresentato con $\mathcal{F} $ e il suo inverso (antitrasformata di Fourier) con $\mathcal{F}^{-1}$.\\\\
-Per funzioni continue è possibile passare da funzione a trasformata e viceversa attraverso ai due operatori:
-$$ \mathcal{F}^{-1}\mathcal{F}x(t) = x(t) $$
-mentre per funzioni discontinue si avranno problemi nei punti di discontinuità (solitamente l'inversa assumerà un valore intermedio tra i limiti destro e sinistro).\\\\
-Le proprietà fondamentali della trasformata di Fourier sono le seguenti:
-\begin{itemize}
-    \item Linearità: 
-    $$\mathcal{F}\{a x(t) + b g(t)\} = a \mathcal{F}\{x(t)\} + b \mathcal{F}\{g(t)\}$$
-    con $a,b$ costanti.
-    
-    \item Traslazione nel tempo:
-    $$ \mathcal{F}\{f(t - t_0)\} = e^{-j 2 \pi f t_0} \mathcal{F}\{x(t)\} $$
-
-    \item Traslazione in frequenza:
-    $$ \mathcal{F}\{e^{j 2 \pi f_0 t} x(t)\} = F(f - f_0) $$
-
-    \item Cambio di scala:
-    $$ \mathcal{F}\{f(at)\} = \frac{1}{|a|} F\left(\frac{f}{a}\right) $$
-    con $a\neq0$ costante.
-
-    \item Moltiplicazione:
-    $$ \mathcal{F}\{x(t) \cdot g(t)\} = \mathcal{F}\{x(t)\} * \mathcal{F}\{g(t)\} $$
-    dove $*$ indica l'operazione di convolluzione.
-
-    \item Convolluzione:
-    $$ \mathcal{F}\{x(t) * g(t)\} = \mathcal{F}\{x(t)\} \cdot \mathcal{F}\{g(t)\} $$
-
-    \item Derivazione:
-    $$ \mathcal{F}\{f'(t)\} = (j 2 \pi f) X(f) $$
-
-    \item Integrazione:
-    $$ \mathcal{F}\{\int x(t)\} = \frac{1}{i 2 \pi t}X(f) $$
-
-    \item Parità:\\
-    $x(t)$ reale pari $\leftrightarrow$ $X(f)$ reale pari\\
-    $x(t)$ reale dispari $\leftrightarrow$ $X(f)$ immaginaria dispari
-
-
-
-
-
-\end{itemize}
 
 
 
@@ -399,6 +474,10 @@ La tensione ai capi di n generatori di tensione collegati in serie vale:
 $$ V=\sum_k^nV_k $$
 Nel caso di generatori di corrente, il collegamento è possibile solo se le loro correnti sono uguali. Altrimenti si otterrebbe una configurazione in cui la corrente entrante nel nodo è diversa da quella uscente.
 
+\subsubsection{Impedenze}
+L'impedenza equivalente per bipoli collegati in serie si ottiene come somma delle impedenze:
+$$ Z_e = \sum_k Z_k $$
+
 
 \subsection{Collegamento in parallelo}
 Due bipoli che hanno la stessa tensione ai capi sono detti in parallelo.
@@ -411,13 +490,16 @@ $$ V_1=V_2 $$
 Applicando le leggi di Kirchoff, possiamo calcolare il resistore equivalente a due resistori collegati in parallelo:
 $$ R_e= \frac{1}{\frac{1}{R_1}+\frac{1}{R_2}}=\frac{R_1R_2}{R_1+R_2}$$
 che si estende al caso di n resistori come:
-$$ R=\frac{1}{\sum_k^n\frac{1}{R_k}} $$
+$$ R=\left(\sum_k^n\frac{1}{R_k}\right)^{-1}$$
 
 \subsubsection{Generatori}
 Due generatori di tensione possono essere collegati in parallelo solamente se hanno la stessa tensione.\\\\
 Nel caso di generatori di corrente collegati in parallelo, la corrente totale è data dalla somme delle correnti:
 $$ I=I_1+I_2 $$
 
+\subsubsection{Impedenze}
+L'impedenza equivalente per bipoli collegati in parallelo si ottiene come inverso della somma degli inversi delle impedenze dei bipoli:
+$$ Z_e = \left( \sum_k \frac{1}{Z_k} \right)^{-1} $$
 
 \subsection{Stella e triangolo}
 La stella e il triangolo di resistori sono due configurazioni non semplificabili come collegamenti in serie o in parallelo. In alcuni casi può essere più semplice risolvere una configurazione piuttosto che l'altra e per questo esistono relazioni che permettono di passare da stella a triangolo e viceversa.
