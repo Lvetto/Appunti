@@ -449,8 +449,74 @@ $$ w=\frac{1}{2}Li^2 $$
 L'impedenza di un induttore è direttamente proporzionale alla frequenza (si comporta come circuito chiuso per un segnale in continua) e all'induttanza. In particolare vale:
 $$ Z_L=2\pi j L $$
 
+\subsection{Diodo a giunzione}
+\im{0.3}{"ims/diodo"}
+Il diodo a giunzione è un componente a semiconduttori, formato da una giunzione tra semiconduttore drogato p (ricco di lacune) e n (ricco di elettroni). Il diodo permette il passaggio di corrente dalla regione p (anodo) alla regione n (catodo), una volta superata la tensione di soglia ($\simeq 0.7V$ per i più comuni diodi al silicio).\\\\
+Il diodo ideale ha tensione di soglia nulla e resistenza nulla nel verso $p\rightarrow n$, mentre nel caso di diodi reali è necessario considerare la tensione di soglia (solitamente $0.7V$), una resistenza e una capacità in serie al componente. Un'altra differenza tra diodi ideali e reali si osserva nel comportamento quando vengono polarizzati inversamente. Il diodo ideale in questo caso è equivalente a un circuito aperto, mentre il diodo reale ha una tensione (tensione di breakdown) al di sopra della quale inizia a condurre (effetto Zener e breakdown a valanga).\\\\
+Il comportamento di un diodo reale (comunque con resistenza nulla, se la si vuole considerare è sufficiente aggiungerla in serie) in regione di conduzione (polarizzazione diretta) e interdizione (polarizzazione inversa sotto la tensione di breakdown) è descritto dall'equazione:
+$$ I_D = I_S\left( e^{\frac{V_D}{\eta V_T}} - 1 \right)$$
+dove $I_D,V_D$ sono la corrente e la tensione del diodo, $1\geq\eta\leq2$ è il fattore di idealità e $V_T=\frac{kT}{e}$ è detta tensione termica.\\\\
+I circuiti con i diodi possono spesso essere risolti senza usare l'equazione precedente. Il diodo polarizzato direttamente è infatti spesso approssimabile come un circuito chiuso, mentre la polarizzazione inversa è spesso approssimabile a un circuito aperto. Facendo un ipotesi sulla regione di funzionamento del diodo, è possibile risolvere le grandezze elettriche ai suoi terminali e verificare l'ipotesi fatta. In questo modo è spesso possibile risolvere con buona approssimazione i circiuti con diodi in massimo un paio di tentativi, senza dover introdurre un esponenziale nelle equazioni ottenute dalle leggi di Kirchoff. Bisogna comunque assicurarsi che la non idealità del diodo non risulti importante (basta controllare di essere comodamente entro le regioni di conduzione/interdizione).\\\\
+Se oltre alla polarizzazione diretta/inversa è applicato anche un segnale di ampiezza piccola, il comportamento del diodo può essere approssimato dalla retta tangente all'esponenziale. In questo caso la resistenza del diodo può essere approssimata come:
+$$ r_d \simeq \frac{\eta V_T}{ID} \quad \text{polarizzazione diretta} \quad r_d\rightarrow\infty \quad \text{polarizzazione inversa}$$
+Se si vogliono considerare anche le capacità del diodo nelle due regioni, esistono delle equazioni che permettono di calcolarle partendo dalle sue caratteristiche:
+$$ \text{[da aggiungere]} $$
+Il diodo, per piccoli segnali, è approssimabile come una resistenza in parallelo ad un condensatore.
+Il modello presentato sopra vale solo per segnali piccoli, cioè che non si discostano di molto dal punto di funzionamento in continua e che non fanno passare il componente da una regione di funzionamento a un'altra.
 
 
+\subsubsection{Diodo Zener}
+\im{0.25}{"ims/zener"}
+I diodi Zener sono diodi a giunzione con tensione di breakdown nota. Un diodo Zener è approssimabile a un circuito aperto fino alla sua tensione di breakdown, come un circuito chiuso al di sopra. La relazione tensione corrente reale è comunque esponenziale, ma per la maggior parti delle applicazioni pratiche non importa.\\\\
+I diodi Zener sono spesso usati per ottenere tensioni di riferimento con valori precisi o per limitare la tensione in una sezione del circuito.
+
+\subsection{Transistor bipolare a giunzione}
+\im{0.8}{"ims/bjt"}
+Un transistor bipolare a giunzione è un componente ai semiconduttori formato da due giunzioni p-n (pnp) o n-p (npn) a breve distanza. Le due regioni drogate allo stesso modo sono chiamate collettore ed emettitore, mentre la regione con drogaggio opposto è detta base. Questo componente permette di controllare le grandezze elettriche tra collettore ed emettitore attraverso un segnale (di corrente) fornito alla base.\\\\
+Avendo 2 giunzioni, ognuna può essere polarizzata in un verso o nell'altro e in totale sono presenti 4 regioni di funzionamento:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+    \hline
+    Polarizzazione E-B & Polarizzazione C-B & Regione di Funzionamento & Funzione\\
+    \hline
+    Diretta & Diretta & Saturazione  & $\simeq$ circuito chiuso tra E e C\\
+    \hline
+    Diretta & Inversa & Regione attiva & $\simeq$ amplificatore di corrente tra B e E \\
+    \hline
+    Inversa & Inversa & Interdizione & $\simeq$ circuito aperto tra E e C\\
+    \hline
+    Inversa & Diretta & Regione attiva inversa & $\simeq$ regione attiva (con guadagno ridotto)\\
+    \hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Saturazione e interdizione}
+Nella regione di saturazione e interdizione il transistor opera come un interruttore. In saturazione l'interruttore è chiuso, mentre in interdizione è aperto. Queste regioni sono utili nell'elaborazione di segnali digitali, perché permettono di uasre un segnale sulla base per controllare il segnale tra i terminali C ed E. Può inoltre essere usato per realizzare porte logiche.
+
+\subsubsection{Regione attiva}
+In regione attiva il transistor opera come un amplificatore di corrente, in cui la corrente alla base e all'emettitore sono legate dalla relazione:
+$$ I_c = \frac{\alpha}{1-\alpha}I_b = \beta I_b $$
+dove $\alpha$ è l'efficienza e $\beta$ il guadagno del transistor.\\\\
+Si può notare che vale:
+$$ \beta = \frac{\alpha}{1-\alpha} \simeq \frac{1}{1-\alpha} $$
+Per la regione attiva inversa valgono relazioni simili:
+$$ I_e = \beta_r I_b $$
+con $\beta_r << \beta$.
+
+\subsubsection{Modello di Ebers e Moll}
+Il modello di Ebers e Moll descrive il comportamento del transistor in tutte le regioni di funzionamento. Per un transistor pnp:
+\im{0.8}{"ims/bjt-equiv"}
+dove il pedice $_r$ (reverse) si riferisce alle grandezze in regione attiva inversa e $_f$ (forward) diretta.\\\\
+I diodi descrivono le due giunzioni, mentre i generatori controllati l'effetto transistor (amplificazione).
+Per un transistor npn il verso dei generatori e dei diodi va invertito.\\\\
+Un bjt in regione attiva diretta per piccoli segnali può essere modellato come:
+\im{0.5}{"ims/bjt-equiv2"}
+dove $r_\pi=\frac{V_t}{I_b}$, $C_\pi=\frac{\tau}{r_\pi}$, $C_\mu=C_j$, $r_\mu\rightarrow\infty$. 
+\\Per frequenze basse le capacità possono essere trascurate ed è sufficiente considerare la resistenza $r\pi$ e il guadagno $\beta$
+
+\subsubsection{Effetto Early}
+(...)
 
 \newpage
 \section{Configurazioni circuitali}
@@ -551,8 +617,44 @@ Sotto queste ipotesi, un circuito può essere risolto come segue:
 \end{itemize}
 Per poter applicare questo procedimento è necessario che \textbf{tutti} i componenti siano lineari, le grandezze elettriche da calcolare siano lineari (ad es: la potenza non è una grandezza che dipende linearmente dalle altre) e che siano solamente in generatori indipendenti a venir rimossi.
 
+\subsection{Circuiti con amplificatori operazionali}
+Un amplificatore operazionale retroazionato negativamente può essere usato per costruire diversi circuiti (amplificatori, integratori, derivatori, ...). In generale questi tipi di circuiti possono essere divisi in invertenti e non e può risultare utile conoscerne la forma e la soluzione generale.
 
+\subsubsection{Circuiti invertenti}
+\im{0.5}{"ims/amp-inv"}
+Il generico circuito invertente con amplificatore operazionale ha questa forma e può essere risolto conoscendo i valori delle due impedenze $Z_1,Z_2$.\\\\
+Il guadagno per il circuito invertente generico vale:
+$$ A = \frac{v_{out}}{v_{in}} = -\frac{Z_2}{Z_1} $$
+Inserendo resistenze al posto delle $Z_i$ si ottiene un amplificatore invertente, inserendo resistenze e condensatori si ottengono integratori e derivatori invertenti.
 
+\subsubsection{Circuiti non invertenti}
+\im{0.5}{"ims/amp-ninv"}
+Il generico circuito non invertente è leggermente più complicato, ma il suo guadagno si ricava sostanzialmente allo stesso modo:
+$$ A = \frac{v_{out}}{v_{in}} = +\frac{Z_2}{Z_1} $$
+Anche in questo caso inserendo resistori si ottengono amplificatori (a guadagno finito) e inserendo resistenze e condensatori si ottengono derivatori e integratori.
+
+\subsection{Filtri RC}
+L'impedenza di un condensatore varia in modo inversamente proporzionale (in modulo) alla frequenza. Questa proprietà può essere sfruttata per costruire circuiti con una frequenza di taglio (alta o bassa), cioè che permettono il passaggio di segnali al di sotto a al di sopra di una certa frequenza, attenuando (al limite a 0) gli altri. Gli esempi più semplici di questo tipo di circuito sono il circuito RC passa-basso e passa-alto.
+
+\subsubsection{RC passa-basso}
+\im{0.35}{"ims/RC1"}
+La risposta in frequenza di questo circuito è:
+$$H(f) = \frac{1}{1 + j2\pi f RC}$$
+da cui si nota che per frequenze basse $H_{db}\rightarrow0$ e $\angle H\rightarrow0$, mentre per frequenze alte $H_{db}\rightarrow-\infty$ e $\angle H \rightarrow-\frac{\pi}{2}$.\\\\
+Il circuito lascia quindi (circa) inalterati segnali a basse frequenze e attenua segnali a frequenza alta.\\\\
+I diagrammi di bode del circuito sono:
+\im{0.8}{"ims/RC2"}
+($\tau = RC$)
+
+\subsubsection{RC passa-alto}
+\im{0.35}{"ims/CR1"}
+La risposta in frequenza di questo circuito è:
+$$H(f) = \frac{j2\pi f RC}{1 + j2\pi f RC}$$
+da cui si nota che per frequenze basse $H_{db}\rightarrow-\infty$ e $\angle H\rightarrow\frac{\pi}{2}$, mentre per frequenze alte $H_{db}\rightarrow0$ e $\angle H \rightarrow0$.\\\\
+Il comportamento del circuito è quindi il contrario del precedente.\\\\
+I diagrammi di bode del circuito sono:
+\im{0.8}{"ims/CR2"}
+($\tau = RC$)
 
 
 
